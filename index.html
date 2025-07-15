@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yunee's Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+  @keyframes bounce-text {
+    0%, 100% {
+      transform: translateY(5px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  .animate-bounce-text {
+    animation: bounce-text 1.2s ease-in-out infinite;
+  }
+    </style>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -80,7 +94,11 @@
                         <div>Image</div>
                     </div>
                 </div>
-                <div class="mt-4 text-center text-xs text-gray-600 opacity-50">
+                <p class="text-xs text-gray-100 text-center mb-1 animate-bounce-text">
+  I rewrote the source code like
+                </p>
+                
+                <div class="mt-4 text-center text-xs text-gray-400 opacity-50">
                     Your IP: <span id="ip-address">Loading...</span>
                 </div>
             </div>
