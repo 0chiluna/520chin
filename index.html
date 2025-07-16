@@ -73,7 +73,18 @@
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
     }
-
+    
+  .profile-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/autumn-anime-girl-playing-with-cat-thumb-728x410.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: -1;
+    }
+    
     @media (max-width: 640px) {
       .profile-box {
         width: 90%;
