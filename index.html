@@ -18,6 +18,25 @@
   .animate-bounce-text {
     animation: bounce-text 1.2s ease-in-out infinite;
   }
+    <style>
+  .fancy-input {
+    position: relative;
+    z-index: 1;
+    padding-left: 2.5rem !important; /* đảm bảo text không đè lên vệt màu */
+  }
+
+  .fancy-input::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 16px;
+    height: 90%;
+    background: linear-gradient(135deg, #00ffff, #ff00ff, #ffea00);
+    transform: skewY(-25deg);
+    border-radius: 6px;
+    z-index: -1;
+  }    
     </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -68,6 +87,9 @@
                         <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Pinterest.</span>
                     </div>
                 </div>
+            </div>
+            <div class="mt-6 relative">
+  <input type="text" placeholder="Say something..." class="fancy-input w-full py-2 px-3 rounded-md bg-white bg-opacity-70 text-black text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
             </div>
             
             <div class="mt-8 flex space-x-4">
