@@ -47,7 +47,7 @@
                     <h1 class="text-2xl font-bold text-black">Yune</h1>
                     <p class="text-sm text-black mt-1">Sui no kaze</p>
                     <div class="flex space-x-2 mt-2">
-                        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Creative</span>
+                        <span class="text-xs bg-blue-300 text-blue-800 px-2 py-1 rounded-full">Creative</span>
                         <span class="text-xs bg-cyan-100 text-cyan-800 px-2 py-1 rounded-full">Artist</span>
                     </div>
                 </div>
