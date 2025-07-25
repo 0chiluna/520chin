@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon-32x32.png">
-  <meta name="viewport" content="width=1024">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1024" />
   <title>Yunee's Profile</title>
+  <link rel="icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon-32x32.png" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     @keyframes bounce-text {
@@ -22,6 +22,7 @@
       z-index: 1;
       padding-left: 2.5rem !important;
     }
+
     .fancy-input::before {
       content: "";
       position: absolute;
@@ -36,7 +37,7 @@
     }
 
     .bg-image-input {
-      background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
+      background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/autumn-anime-girl-playing-with-cat-thumb-728x410.jpg');
       background-size: cover;
       background-position: center;
       color: white;
@@ -48,16 +49,6 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    body {
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     .bg-video {
       position: fixed;
       top: 0;
@@ -66,26 +57,28 @@
       min-height: 100vh;
       object-fit: cover;
       z-index: -10;
-      opacity: 0.8;
+      opacity: 0.25;
       pointer-events: none;
     }
 
-    .profile-box {
-      position: relative;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+    .fade-enter {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .fade-exit-active {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.4s ease;
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: all 0.4s ease;
     }
 
-    .profile-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.9;
-      z-index: -1;
-      border-radius: 0.75rem;
+    .profile-box {
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     @media (max-width: 650px) {
@@ -95,88 +88,89 @@
     }
   </style>
 </head>
-<body>
-
-  <!-- VIDEO BACKGROUND -->
+<body class="relative text-white">
+  <!-- Video nền -->
   <video autoplay muted loop playsinline class="bg-video">
-    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
+    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4" />
   </video>
 
-  <!-- MAIN CONTENT -->
+  <!-- Mũi tên đổi profile -->
+  <button onclick="toggleProfile()" class="absolute top-4 left-4 z-10 bg-white bg-opacity-20 rounded-full p-2">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+
   <div class="container mx-auto px-4 flex justify-center">
-    <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-8 w-96 max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
-      
-      <!-- PROFILE -->
+    <!-- Profile Yunee -->
+    <div id="profileYunee" class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-8 w-96 max-w-full transition-all duration-300 mx-auto">
       <div class="flex items-start space-x-4 mb-6">
         <div class="relative">
           <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-300 to-cyan-400 overflow-hidden shadow-md">
-            <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/a7f008e66e123ebe6f570abec3fc944e.jpg" alt="Yune's Avatar" class="w-full h-full object-cover">
+            <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/54ef5a24da91b7d4079d7b8ea5237844.jpg" class="w-full h-full object-cover" />
           </div>
         </div>
         <div class="flex-1">
-          <h1 class="text-2xl font-bold text-black-300">Yuneeッ</h1>
-          <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
+          <h1 class="text-2xl font-bold text-black">.Yuneeッ</h1>
+          <p class="text-sm font-semibold bg-gradient-to-r from-black to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
           <div class="flex space-x-2 mt-2">
-            <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
-            <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
+            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">builder.</span>
+            <span class="text-xs bg-cyan-100 text-cyan-800 px-2 py-1 rounded-full">Unknown.</span>
+            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Pinterest.</span>
           </div>
         </div>
       </div>
 
-      <!-- BUTTONS -->
       <div class="mt-8 flex space-x-4">
-        <a href="https://pin.it/7tbwbFBI7" class="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 text-white py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+        <a href="https://pin.it/7tbwbFBI7" class="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 text-white py-2 px-4 rounded-lg shadow hover:shadow-lg flex items-center justify-center">
           <i class="fab fa-pinterest mr-2"></i> Pinterest
         </a>
-        <a href="https://discord.gg/tms474bz" class="flex-1 bg-gradient-to-r from-[#F0FFF0] to-[#FFFACD] text-black py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+        <a href="https://discord.gg/tms474bz" class="flex-1 bg-gradient-to-r from-[#F0FFF0] to-[#FFFACD] text-black py-2 px-4 rounded-lg shadow hover:shadow-lg flex items-center justify-center">
           <i class="fab fa-discord mr-2"></i> Discord
         </a>
       </div>
 
-      <!-- STATS + INPUT -->
       <div class="mt-6 pt-4 border-t border-gray-200">
         <div class="flex justify-between text-sm text-black">
           <div class="text-center">
-            <div class="font-bold text-white">60+</div>
-            <div>Followers</div>
+            <div class="font-bold">56+</div><div>Followers</div>
           </div>
           <div class="text-center">
-            <div class="font-bold text-white">1.8m</div>
-            <div>Viewers</div>
+            <div class="font-bold">1.7m</div><div>Viewers</div>
           </div>
           <div class="text-center">
-            <div class="font-bold text-white">300+</div>
-            <div>Image</div>
+            <div class="font-bold">300+</div><div>Image</div>
           </div>
         </div>
 
-        <!-- INPUT BOX -->
+        <!-- Input chat -->
         <div class="mt-6 relative">
-          <input id="chatInput" type="text" placeholder="Say something..."
-            class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+          <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400" />
           <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
             <i class="fas fa-paper-plane"></i>
           </button>
         </div>
 
         <!-- IP -->
-        <div class="mt-4 text-center text-xs text-white-300 opacity-50">
+        <div class="mt-4 text-center text-xs text-white opacity-50">
           Your IP: <span id="ip-address">Loading...</span>
         </div>
       </div>
 
-      <!-- TEXT BOUNCE -->
+      <!-- Text đáy -->
       <div class="w-full flex justify-center mt-4">
         <div class="max-w-md w-full text-center">
-          <p class="text-xs text-white animate-bounce-text">
-            I had to go crazy fixing this source code.
-          </p>
+          <p class="text-xs text-white-400 animate-bounce-text">I had to go crazy fixing this source code.</p>
         </div>
       </div>
     </div>
+
+    <!-- Profile Server -->
+    <div id="profileServer" class="profile-box bg-white bg-opacity-80 rounded-xl shadow-xl p-8 w-96 max-w-full transition-all duration-300 mx-auto hidden">
+      <h2 class="text-xl font-bold text-center text-black mb-4">Server Profile</h2>
+      <p class="text-sm text-black text-center">This is the server info placeholder.</p>
+      <p class="text-xs text-center mt-4 text-gray-500">✨ More coming soon ✨</p>
+    </div>
   </div>
 
-  <!-- SCRIPT -->
   <script>
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
@@ -185,12 +179,10 @@
       })
       .catch(() => {
         document.getElementById('ip-address').textContent = 'Unknown';
-
       });
 
     const input = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
-
     function sendMessage() {
       const message = input.value.trim();
       if (message) {
@@ -198,13 +190,42 @@
         input.value = '';
       }
     }
-
     sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') sendMessage();
     });
+
+    let showingYunee = true;
+    const yunee = document.getElementById('profileYunee');
+    const server = document.getElementById('profileServer');
+    const btn = document.querySelector('button i');
+
+    function toggleProfile() {
+      if (showingYunee) {
+        yunee.classList.add('fade-exit-active');
+        setTimeout(() => {
+          yunee.classList.add('hidden');
+          yunee.classList.remove('fade-exit-active');
+          server.classList.remove('hidden');
+          server.classList.add('fade-enter-active');
+          setTimeout(() => server.classList.remove('fade-enter-active'), 400);
+        }, 300);
+        btn.classList.remove('fa-chevron-left');
+        btn.classList.add('fa-chevron-right');
+      } else {
+        server.classList.add('fade-exit-active');
+        setTimeout(() => {
+          server.classList.add('hidden');
+          server.classList.remove('fade-exit-active');
+          yunee.classList.remove('hidden');
+          yunee.classList.add('fade-enter-active');
+          setTimeout(() => yunee.classList.remove('fade-enter-active'), 400);
+        }, 300);
+        btn.classList.remove('fa-chevron-right');
+        btn.classList.add('fa-chevron-left');
+      }
+      showingYunee = !showingYunee;
+    }
   </script>
 </body>
 </html>
