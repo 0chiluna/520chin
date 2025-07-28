@@ -7,7 +7,6 @@
   <title>Yunee's Profile</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     @keyframes bounce-text {
       0%, 100% { transform: translateY(1px); }
@@ -106,8 +105,8 @@
   </video>
 
   <!-- MAIN CONTENT -->
-  <div class="container mx-auto px-4 flex justify-center">
-      <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 w-[550px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
+  <div class="container mx-auto px-4 flex flex-col items-center justify-center">
+    <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-8 w-[26rem] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
       
       <!-- PROFILE -->
       <div class="flex items-start space-x-4 mb-6">
@@ -167,15 +166,14 @@
           Your IP: <span id="ip-address">Loading...</span>
         </div>
       </div>
-
-      <!-- TEXT BOUNCE -->
-      <div class="w-full flex justify-center mt-4">
-        <div class="max-w-md w-full text-center">
-          <p class="text-xs text-white animate-bounce-text">
-            I had to go crazy fixing this source code.
-          </p>
-        </div>
+      <div class="text-xs italic text-gray-600 mt-1 text-center">
+  I went crazy after editing this source
       </div>
+    </div>
+
+    <!-- LYRIC BOX -->
+    <div id="lyric-box" class="mt-4 text-white text-sm text-center animate-bounce-text transition-opacity duration-500">
+      "Nhắm chặt mắt ,khép đôi mi"
     </div>
   </div>
 
@@ -188,7 +186,6 @@
       })
       .catch(() => {
         document.getElementById('ip-address').textContent = 'Unknown';
-
       });
 
     const input = document.getElementById('chatInput');
@@ -208,6 +205,67 @@
         sendMessage();
       }
     });
+
+    // Typing lyric effect
+    const lyrics = [
+    "Nhắm chặt mắt ,khép đôi mi",
+      "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
+      "Tim quặng đau, có ai hay",
+      "Đêm lại xuống, chỉ riêng mỗi em nơi này",
+      "Yêu làm chi để giờ đau thế này?",
+      "Ngồi nhìn mưa lắc rắc rơi bên hiên nhà",
+      "Cô ta đến và mang anh đi mất",
+      "Tim tôi đau đớn và dần như quên hết",
+      "Có chăng tình yêu chỉ toàn là nỗi đau",
+      "Đến nhanh rồi đi để lại những u sầu",
+      "Mưa rơi xuống bên hiên nhà",
+      "Tay muốn níu anh thôi mà",
+      "Và giờ Anh có đang nghĩ về em, về em?",
+      "Con tim anh rất đau",
+      "Dù mình có cố gắng như thế nào rồi cũng lạc mất nhau",
+      "Em hãy tìm ai ở bên cạnh cho em luôn thấy vui",
+      "Vì anh đã có ai rồi",
+      "Tình cũ hãy quên đi, cố giữ cũng chả có ai cần",
+      "Tim anh không thiết chi, thôi nên em cứ đi",
+      "Yêu nhau chỉ khiến ta càng đau",
+      "Anh nói yêu em... Anh yêu thể xác",
+      "Sao muốn chia tay... Anh yêu người khác",
+      "No love, no sad and no pain",
+      "Trong cơn phê đó, anh không mong em thứ tha",
+      "Em hãy để anh bước đi, vì anh đã yêu người thứ 3"
+    ];
+
+    const lyricBox = document.getElementById('lyric-box');
+    let lyricIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let speed = 80;
+
+    function typeLyrics() {
+      const currentLyric = lyrics[lyricIndex];
+      const visibleText = isDeleting
+        ? currentLyric.substring(0, charIndex--)
+        : currentLyric.substring(0, charIndex++);
+
+      lyricBox.textContent = `"${visibleText}"`;
+
+      if (!isDeleting && charIndex === currentLyric.length + 1) {
+        isDeleting = true;
+        speed = 40;
+        setTimeout(typeLyrics, 1600);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        lyricIndex = (lyricIndex + 1) % lyrics.length;
+        speed = 80;
+        setTimeout(typeLyrics, 500);
+      } else {
+        setTimeout(typeLyrics, speed);
+      }
+    }
+
+    typeLyrics();
   </script>
+</body>
+    </html>
 </body>
 </html>
