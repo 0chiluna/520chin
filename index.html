@@ -95,6 +95,26 @@
         width: 97%;
       }
     }
+
+    /* Lyrics scroll effect */
+    #lyric-box {
+      height: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #lyric-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      animation: scroll-lyrics linear infinite;
+    }
+
+    @keyframes scroll-lyrics {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
   </style>
 </head>
 <body>
@@ -167,13 +187,13 @@
         </div>
       </div>
       <div class="text-xs italic text-white mt-1 text-center">
-  I went crazy after editing this source
+        I went crazy after editing this source
       </div>
     </div>
 
-    <!-- LYRIC BOX -->
-    <div id="lyric-box" class="mt-4 text-black text-sm text-center animate-bounce-text transition-opacity duration-500">
-      "Nhắm chặt mắt ,khép đôi mi"
+    <!-- LYRIC BOX CUỘN -->
+    <div id="lyric-box" class="mt-4 text-black text-sm text-center overflow-hidden h-6 relative w-full max-w-[500px] mx-auto">
+      <div id="lyric-inner" class="absolute w-full"></div>
     </div>
   </div>
 
@@ -206,9 +226,9 @@
       }
     });
 
-    // Typing lyric effect
+    // Lyrics scroll effect
     const lyrics = [
-    "Nhắm chặt mắt ,khép đôi mi",
+      "Nhắm chặt mắt ,khép đôi mi",
       "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
       "Tim quặng đau, có ai hay",
       "Đêm lại xuống, chỉ riêng mỗi em nơi này",
@@ -235,37 +255,19 @@
       "Em hãy để anh bước đi, vì anh đã yêu người thứ 3"
     ];
 
-    const lyricBox = document.getElementById('lyric-box');
-    let lyricIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let speed = 80;
+    const lyricInner = document.getElementById('lyric-inner');
+    lyrics.forEach((line) => {
+      const div = document.createElement('div');
+      div.textContent = line;
+      div.style.height = '1.5rem';
+      div.style.lineHeight = '1.5rem';
+      lyricInner.appendChild(div);
+    });
 
-    function typeLyrics() {
-      const currentLyric = lyrics[lyricIndex];
-      const visibleText = isDeleting
-        ? currentLyric.substring(0, charIndex--)
-        : currentLyric.substring(0, charIndex++);
-
-      lyricBox.textContent = `"${visibleText}"`;
-
-      if (!isDeleting && charIndex === currentLyric.length + 1) {
-        isDeleting = true;
-        speed = 40;
-        setTimeout(typeLyrics, 1600);
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        lyricIndex = (lyricIndex + 1) % lyrics.length;
-        speed = 80;
-        setTimeout(typeLyrics, 500);
-      } else {
-        setTimeout(typeLyrics, speed);
-      }
-    }
-
-    typeLyrics();
+    const totalLines = lyrics.length;
+    const durationPerLine = 2; // seconds
+    const totalDuration = totalLines * durationPerLine;
+    lyricInner.style.animationDuration = `${totalDuration}s`;
   </script>
-</body>
-    </html>
 </body>
 </html>
