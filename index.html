@@ -78,7 +78,8 @@
       -webkit-backdrop-filter: blur(2px);
       user-select: none;
       touch-action: none;
-      transition: all 0.2s ease-in-out;
+      transition: box-shadow 0.3s ease;
+      animation: rainbow-shadow 4s linear infinite;
     }
 
     .profile-box::before {
@@ -111,6 +112,13 @@
 
     #lyric-box.fade-in {
       opacity: 1;
+    }
+    @keyframes rainbow-shadow {
+  0%   { box-shadow: 0 0 25px 8px #ff0000; }  /* đỏ */
+  25%  { box-shadow: 0 0 25px 8px #00ff00; }  /* xanh lá */
+  50%  { box-shadow: 0 0 25px 8px #0000ff; }  /* xanh dương */
+  75%  { box-shadow: 0 0 25px 8px #ff00ff; }  /* tím hồng */
+  100% { box-shadow: 0 0 25px 8px #ff0000; }  /* đỏ lại */
     }
   </style>
 </head>
