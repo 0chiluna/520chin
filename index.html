@@ -12,14 +12,17 @@
       0%, 100% { transform: translateY(1px); }
       50% { transform: translateY(-1px); }
     }
+
     .animate-bounce-text {
       animation: bounce-text 1.5s ease-in-out infinite;
     }
+
     .fancy-input {
       position: relative;
       z-index: 1;
       padding-left: 2.5rem !important;
     }
+
     .fancy-input::before {
       content: "";
       position: absolute;
@@ -32,6 +35,7 @@
       border-radius: 6px;
       z-index: -1;
     }
+
     .bg-image-input {
       background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
       background-size: cover;
@@ -41,7 +45,11 @@
       background-color: rgba(0, 0, 0, 0.4);
       border: none;
     }
-    .bg-image-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+    .bg-image-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
     body {
       margin: 0;
       padding: 20px;
@@ -51,6 +59,7 @@
       align-items: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     .bg-video {
       position: fixed;
       top: 0;
@@ -62,14 +71,16 @@
       opacity: 0.8;
       pointer-events: none;
     }
+
     .profile-box {
       position: relative;
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       user-select: none;
       touch-action: none;
-      transition: box-shadow 0.3s ease;
+      transition: all 0.2s ease-in-out;
     }
+
     .profile-box::before {
       content: "";
       position: absolute;
@@ -81,16 +92,27 @@
       z-index: -1;
       border-radius: 0.75rem;
     }
+
     @media (max-width: 650px) {
-      .profile-box { width: 97%; }
+      .profile-box {
+        width: 97%;
+      }
     }
+
+    /* FADE LYRICS STYLES */
     #lyric-box {
       transition: opacity 0.5s ease-in-out;
       opacity: 1;
       height: 1.5rem;
     }
-    #lyric-box.fade-out { opacity: 0; }
-    #lyric-box.fade-in  { opacity: 1; }
+
+    #lyric-box.fade-out {
+      opacity: 0;
+    }
+
+    #lyric-box.fade-in {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -174,22 +196,36 @@
     </div>
   </div>
 
-  <!-- SCRIPT SECTION -->
+  <!-- SCRIPT -->
   <script>
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
-      .then(data => { document.getElementById('ip-address').textContent = data.ip; })
-      .catch(() => { document.getElementById('ip-address').textContent = 'Unknown'; });
+      .then(data => {
+        document.getElementById('ip-address').textContent = data.ip;
+      })
+      .catch(() => {
+        document.getElementById('ip-address').textContent = 'Unknown';
+      });
 
     const input = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
+
     function sendMessage() {
       const message = input.value.trim();
-      if (message) { console.log("Sent:", message); input.value = ''; }
+      if (message) {
+        console.log("Sent:", message);
+        input.value = '';
+      }
     }
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // LYRICS FADE EFFECT
     const lyrics = [
       "Nhắm chặt mắt ,khép đôi mi",
       "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
@@ -202,50 +238,25 @@
       "Có chăng tình yêu chỉ toàn là nỗi đau",
       "Đến nhanh rồi đi để lại những u sầu"
     ];
+
     const lyricBox = document.getElementById('lyric-box');
     let index = 0;
+
     function showLyric() {
       lyricBox.classList.remove('fade-in');
       lyricBox.classList.add('fade-out');
+
       setTimeout(() => {
         lyricBox.textContent = lyrics[index];
         lyricBox.classList.remove('fade-out');
         lyricBox.classList.add('fade-in');
         index = (index + 1) % lyrics.length;
       }, 500);
+
       setTimeout(showLyric, 3500);
     }
+
     window.addEventListener('load', showLyric);
   </script>
-
-  <!-- SHADOW DYNAMIC SCRIPT -->
-  <script>
-    function getAverageColorFromImageUrl(url, callback) {
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.src = url;
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        const data = ctx.getImageData(0, 0, img.width, img.height).data;
-        let r=0,g=0,b=0,count=0;
-        for(let i=0;i<data.length;i+=4){
-          r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++;
-        }
-        r=Math.floor(r/count); g=Math.floor(g/count); b=Math.floor(b/count);
-        callback(`rgb(${r}, ${g}, ${b})`);
-      };
-    }
-    window.addEventListener('load', () => {
-      const profileBox = document.querySelector('.profile-box');
-      const bgImageUrl = 'https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png';
-      getAverageColorFromImageUrl(bgImageUrl, avgColor => {
-        profileBox.style.boxShadow = `0 0 25px 6px ${avgColor}`;
-      });
-    });
-  </script>
 </body>
-</html>
+  </html>
