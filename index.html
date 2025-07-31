@@ -193,7 +193,7 @@
         I went crazy after editing this source
       </div>
     </div>
-
+     <div id="quote-box" class="text-xs italic mb-2"></div>
     <!-- LYRIC BOX FADE -->
     <div id="lyric-box" class="mt-4 text-black text-sm text-center h-6 relative w-full max-w-[500px] mx-auto">
       ...
@@ -270,6 +270,19 @@
 
     window.addEventListener('load', showLyric);
 
+    // Quotes
+    const quotes = [
+      "「Even the darkest night will end and the sun will rise.」",
+      "「Create with passion or not at all.」",
+      "「Code is poetry.」",
+      "「Believe you can and you're halfway there.」"
+      "「Chẳng có gì là mãi mãi cả.」
+      "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」
+    ];
+    const qb = document.getElementById('quote-box');
+    setInterval(()=>{ qb.textContent = quotes[Math.floor(Math.random()*quotes.length)]; },8000);
+    qb.textContent = quotes[Math.floor(Math.random()*quotes.length)];
+                           
     // REAL-TIME CLOCK
     function updateRealTimeClock() {
       const now = new Date();
