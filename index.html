@@ -123,6 +123,23 @@
   opacity: 0;
   pointer-events: none;
 }
+   @keyframes light-glow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.glow-text {
+  background-image: linear-gradient(120deg, #ffffff, #ffeecc, #ffffff);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: light-glow 4s ease-in-out infinite;
+}
     
   </style>
 </head>
@@ -153,10 +170,10 @@
   <div class="relative w-full h-full rounded-full overflow-hidden">
     <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/a7f008e66e123ebe6f570abec3fc944e.jpg" alt="Yune's Avatar" class="w-full h-full object-cover rounded-full">
   </div>
-          </div>
+          </dih1
         </div>
         <div class="flex-1">
-          <h1 class="text-2xl font-bold text-black-300">Yuneeッ</h1>
+          <h1 class="text-2xl font-bold glow-text drop-shadow">Yuneeッ</h1>
           <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
           <div class="flex space-x-2 mt-2">
             <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
