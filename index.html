@@ -12,17 +12,12 @@
       0%, 100% { transform: translateY(1px); }
       50% { transform: translateY(-1px); }
     }
-
-    .animate-bounce-text {
-      animation: bounce-text 1.5s ease-in-out infinite;
-    }
-
+    .animate-bounce-text { animation: bounce-text 1.5s ease-in-out infinite; }
     .fancy-input {
       position: relative;
       z-index: 1;
       padding-left: 2.5rem !important;
     }
-
     .fancy-input::before {
       content: "";
       position: absolute;
@@ -35,7 +30,6 @@
       border-radius: 6px;
       z-index: -1;
     }
-
     .bg-image-input {
       background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
       background-size: cover;
@@ -45,11 +39,9 @@
       background-color: rgba(0, 0, 0, 0.4);
       border: none;
     }
-
     .bg-image-input::placeholder {
       color: rgba(255, 255, 255, 0.6);
     }
-
     body {
       margin: 0;
       padding: 20px;
@@ -59,7 +51,6 @@
       align-items: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .bg-video {
       position: fixed;
       top: 0;
@@ -71,7 +62,6 @@
       opacity: 0.8;
       pointer-events: none;
     }
-
     .profile-box {
       position: relative;
       backdrop-filter: blur(2px);
@@ -79,9 +69,8 @@
       user-select: none;
       touch-action: none;
       transition: box-shadow 0.3s ease;
-      box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5); /* neon cyan */
+      box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5);
     }
-
     .profile-box::before {
       content: "";
       position: absolute;
@@ -94,57 +83,42 @@
       border-radius: 0.75rem;
       transition: background-image 0.5s ease-in-out;
     }
-
     @media (max-width: 650px) {
       .profile-box {
         width: 97%;
       }
     }
-
     #lyric-box {
       transition: opacity 0.5s ease-in-out;
       opacity: 1;
       height: 1.5rem;
     }
-
-    #lyric-box.fade-out {
-      opacity: 0;
-    }
-
-    #lyric-box.fade-in {
-      opacity: 1;
-    }
+    #lyric-box.fade-out { opacity: 0; }
+    #lyric-box.fade-in { opacity: 1; }
     #coffee-loader {
-  opacity: 1;
-  pointer-events: all;
-}
-
-#coffee-loader.hide {
-  opacity: 0;
-  pointer-events: none;
-}
-   @keyframes light-glow {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.glow-text {
-  background-image: linear-gradient(120deg, #ffffff, #ffeecc, #ffffff);
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: light-glow 4s ease-in-out infinite;
-}
-    
+      opacity: 1;
+      pointer-events: all;
+    }
+    #coffee-loader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    @keyframes light-glow {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .glow-text {
+      background-image: linear-gradient(120deg, #ffffff, #ffeecc, #ffffff);
+      background-size: 300% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: light-glow 4s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
-  <!-- COFFEE LOADING SCREEN -->
+
 <div id="coffee-loader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md text-white text-center transition-opacity duration-500">
   <video autoplay muted loop playsinline class="w-24 h-24 mb-4 rounded-lg shadow-lg">
     <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/Coffee%20love.webm" type="video/webm">
@@ -153,220 +127,194 @@
   <p class="text-sm animate-pulse">Đang pha một ly cà phê...</p>
 </div>
 
-  <!-- VIDEO BACKGROUND -->
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
-  </video>
+<video autoplay muted loop playsinline class="bg-video">
+  <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
+</video>
 
-  <!-- MAIN CONTENT -->
-  <div class="container mx-auto px-4 flex flex-col items-center justify-center">
-    <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[700] w-[800px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
+<div class="container mx-auto px-4 flex flex-col items-center justify-center">
+  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[700] w-[800px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
 
-      <!-- PROFILE -->
-      <div class="flex items-start space-x-4 mb-6">
-        <div class="relative">
-          <div class="relative w-20 h-20">
-  <div class="absolute inset-0 rounded-full bg-[conic-gradient(white_0_50%,white_50%_100%)] p-[2px]"></div>
-  <div class="relative w-full h-full rounded-full overflow-hidden">
-    <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/a7f008e66e123ebe6f570abec3fc944e.jpg" alt="Yune's Avatar" class="w-full h-full object-cover rounded-full">
-  </div>
-          </dih1
-        </div>
-        <div class="flex-1">
-          <h1 class="text-2xl font-bold glow-text drop-shadow">Yuneeッ</h1>
-          <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
-          <div class="flex space-x-2 mt-2">
-            <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
-            <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
+    <div class="flex items-start space-x-4 mb-6">
+      <div class="relative">
+        <div class="relative w-20 h-20">
+          <div class="absolute inset-0 rounded-full bg-[conic-gradient(white_0_50%,white_50%_100%)] p-[2px]"></div>
+          <div class="relative w-full h-full rounded-full overflow-hidden">
+            <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/a7f008e66e123ebe6f570abec3fc944e.jpg" alt="Yune's Avatar" class="w-full h-full object-cover rounded-full">
           </div>
         </div>
       </div>
-
-      <!-- BUTTONS -->
-      <div class="mt-8 flex space-x-4">
-        <a href="https://pin.it/7tbwbFBI7" class="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 text-white py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-          <i class="fab fa-pinterest mr-2"></i> Pinterest
-        </a>
-        <a href="https://discord.gg/tms474bz" class="flex-1 bg-gradient-to-r from-[#F0FFF0] to-[#FFFACD] text-black py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-          <i class="fab fa-discord mr-2"></i> Discord
-        </a>
-      </div>
-
-      <!-- STATS + INPUT -->
-      <div class="mt-6 pt-4 border-t border-gray-200">
-        <div class="flex justify-between text-sm text-black">
-          <div class="text-center">
-            <div class="font-bold text-white">60+</div>
-            <div>Followers</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-white">1.8m</div>
-            <div>Viewers</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-white">300+</div>
-            <div>Image</div>
-          </div>
-        </div>
-
-        <!-- INPUT BOX -->
-        <div class="mt-6 relative">
-          <input id="chatInput" type="text" placeholder="Say something..."
-            class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
-          <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
-
-        <!-- IP -->
-        <div class="mt-4 text-center text-xs text-white-300 opacity-50">
-          Your IP: <span id="ip-address">Loading...</span>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold glow-text drop-shadow">Yuneeッ</h1>
+        <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
+        <div class="flex space-x-2 mt-2">
+          <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
+          <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
         </div>
       </div>
-
-      <div class="text-xs italic text-white mt-1 text-center drop-shadow">
-        I went crazy after editing this source
-      </div>
-      <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
-    </div>
-    
-     
-    <!-- LYRIC BOX FADE -->
-    <div id="lyric-box" class="mt-4 text-black text-sm text-center h-6 relative w-full max-w-[500px] mx-auto">
-      ...
     </div>
 
-    <!-- Spacer div -->
-    <div class="h-6"></div>
-
-    <!-- REAL-TIME CLOCK -->
-    <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow" style="text-shadow: 0 0 4px rgba(255,255,255,0.7);"></div>
-      
+    <div class="mt-8 flex space-x-4">
+      <a href="https://pin.it/7tbwbFBI7" class="flex-1 bg-gradient-to-r from-pink-400 to-purple-500 text-white py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+        <i class="fab fa-pinterest mr-2"></i> Pinterest
+      </a>
+      <a href="https://discord.gg/tms474bz" class="flex-1 bg-gradient-to-r from-[#F0FFF0] to-[#FFFACD] text-black py-2 px-4 rounded-lg shadow hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+        <i class="fab fa-discord mr-2"></i> Discord
+      </a>
     </div>
+
+    <div class="mt-6 pt-4 border-t border-gray-200">
+      <div class="flex justify-between text-sm text-black">
+        <div class="text-center">
+          <div class="font-bold text-white">60+</div>
+          <div>Followers</div>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-white">1.8m</div>
+          <div>Viewers</div>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-white">300+</div>
+          <div>Image</div>
+        </div>
+      </div>
+
+      <div class="mt-6 relative">
+        <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+        <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 text-center text-xs text-white-300 opacity-50">
+        Your IP: <span id="ip-address">Loading...</span>
+      </div>
+    </div>
+
+    <div class="text-xs italic text-white mt-1 text-center drop-shadow">
+      I went crazy after editing this source
+    </div>
+    <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
   </div>
 
-  <!-- SCRIPT -->
-  <script>
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('ip-address').textContent = data.ip;
-      })
-      .catch(() => {
-        document.getElementById('ip-address').textContent = 'Unknown';
-      });
+  <div id="lyric-box" class="mt-4 text-black text-sm text-center h-6 relative w-full max-w-[500px] mx-auto">
+    ...
+  </div>
 
-    const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
+  <div class="h-6"></div>
+  <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow" style="text-shadow: 0 0 4px rgba(255,255,255,0.7);"></div>
+</div>
 
-    function sendMessage() {
-      const message = input.value.trim();
-      if (message) {
-        console.log("Sent:", message);
-        input.value = '';
-      }
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
+<script>
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('ip-address').textContent = data.ip;
+    })
+    .catch(() => {
+      document.getElementById('ip-address').textContent = 'Unknown';
     });
 
-    // LYRICS FADE EFFECT
-    const lyrics = [
-      "Nhắm chặt mắt ,khép đôi mi",
-      "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
-      "Tim quặng đau, có ai hay",
-      "Đêm lại xuống, chỉ riêng mỗi em nơi này",
-      "Yêu làm chi để giờ đau thế này?",
-      "Ngồi nhìn mưa lắc rắc rơi bên hiên nhà",
-      "Cô ta đến và mang anh đi mất",
-      "Tim tôi đau đớn và dần như quên hết",
-      "Có chăng tình yêu chỉ toàn là nỗi đau",
-      "Đến nhanh rồi đi để lại những u sầu"
-    ];
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
 
-    const lyricBox = document.getElementById('lyric-box');
-    let index = 0;
-
-    function showLyric() {
-      lyricBox.classList.remove('fade-in');
-      lyricBox.classList.add('fade-out');
-
-      setTimeout(() => {
-        lyricBox.textContent = lyrics[index];
-        lyricBox.classList.remove('fade-out');
-        lyricBox.classList.add('fade-in');
-        index = (index + 1) % lyrics.length;
-      }, 500);
-
-      setTimeout(showLyric, 3500);
+  function sendMessage() {
+    const message = input.value.trim();
+    if (message) {
+      console.log("Sent:", message);
+      input.value = '';
     }
+  }
 
-    window.addEventListener('load', showLyric);
-
-                           
-    // REAL-TIME CLOCK
-    function updateRealTimeClock() {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
-      const hour = String(now.getHours()).padStart(2, '0');
-      const minute = String(now.getMinutes()).padStart(2, '0');
-      const second = String(now.getSeconds()).padStart(2, '0');
-
-      const dateTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
-      document.getElementById('realtime-clock').textContent = dateTime;
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      sendMessage();
     }
+  });
 
-    setInterval(updateRealTimeClock, 1000);
-    updateRealTimeClock();
-// quotes 
-    const quotes = [
-  "「Even the darkest night will end and the sun will rise.」",
-  "「Create with passion or not at all.」",
-  "「Code is poetry.」",
-  "「Believe you can and you're halfway there.」",
-  "「Chẳng có gì là mãi mãi cả.」",
-  "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
-  "「Không sợ đi chậm, chỉ sợ đứng yên.」",
-  "「Simplicity is the ultimate sophistication.」",
-  "「You are not your job, you are not how much money you have.」",
-  "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
-  "「The quieter you become, the more you are able to hear.」",
-  "「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」",
-  "「Focus on progress, not perfection.」",
-  "「Chiến thắng lớn nhất là chiến thắng chính mình.」",
-  "「Don't adapt to the energy in the room. Influence the energy in the room.」",
-  "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
-];
-    const qb = document.getElementById('quote-box');
+  const lyrics = [
+    "Nhắm chặt mắt ,khép đôi mi",
+    "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
+    "Tim quặng đau, có ai hay",
+    "Đêm lại xuống, chỉ riêng mỗi em nơi này",
+    "Yêu làm chi để giờ đau thế này?",
+    "Ngồi nhìn mưa lắc rắc rơi bên hiên nhà",
+    "Cô ta đến và mang anh đi mất",
+    "Tim tôi đau đớn và dần như quên hết",
+    "Có chăng tình yêu chỉ toàn là nỗi đau",
+    "Đến nhanh rồi đi để lại những u sầu"
+  ];
 
-// Hàm đổi quote có hiệu ứng fade
-function changeQuote() {
-  qb.classList.add('fade-out'); // fade out
+  const lyricBox = document.getElementById('lyric-box');
+  let index = 0;
 
-  setTimeout(() => {
-    qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-    qb.classList.remove('fade-out'); // fade in sau khi đổi nội dung
-  }, 500); // thời gian khớp với transition
-}
+  function showLyric() {
+    lyricBox.classList.remove('fade-in');
+    lyricBox.classList.add('fade-out');
+    setTimeout(() => {
+      lyricBox.textContent = lyrics[index];
+      lyricBox.classList.remove('fade-out');
+      lyricBox.classList.add('fade-in');
+      index = (index + 1) % lyrics.length;
+    }, 500);
+    setTimeout(showLyric, 3500);
+  }
 
-// Khởi tạo
-qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-setInterval(changeQuote, 8000);
-    // ===== COFFEE LOADER =====
-window.addEventListener('load', () => {
-  const loader = document.getElementById('coffee-loader');
-  setTimeout(() => {
-    loader.classList.add('hide');
-  }, 6500);
-});
-    
-  </script>
+  window.addEventListener('load', showLyric);
+
+  function updateRealTimeClock() {
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const second = String(now.getSeconds()).padStart(2, '0');
+    const dateTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+    document.getElementById('realtime-clock').textContent = dateTime;
+  }
+
+  setInterval(updateRealTimeClock, 1000);
+  updateRealTimeClock();
+
+  const quotes = [
+    "「Even the darkest night will end and the sun will rise.」",
+    "「Create with passion or not at all.」",
+    "「Code is poetry.」",
+    "「Believe you can and you're halfway there.」",
+    "「Chẳng có gì là mãi mãi cả.」",
+    "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
+    "「Không sợ đi chậm, chỉ sợ đứng yên.」",
+    "「Simplicity is the ultimate sophistication.」",
+    "「You are not your job, you are not how much money you have.」",
+    "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
+    "「The quieter you become, the more you are able to hear.」",
+    "「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」",
+    "「Focus on progress, not perfection.」",
+    "「Chiến thắng lớn nhất là chiến thắng chính mình.」",
+    "「Don't adapt to the energy in the room. Influence the energy in the room.」",
+    "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
+  ];
+
+  const qb = document.getElementById('quote-box');
+  function changeQuote() {
+    qb.classList.add('fade-out');
+    setTimeout(() => {
+      qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+      qb.classList.remove('fade-out');
+    }, 500);
+  }
+
+  qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+  setInterval(changeQuote, 8000);
+
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('coffee-loader');
+    setTimeout(() => {
+      loader.classList.add('hide');
+    }, 6500);
+  });
+</script>
+
 </body>
-      </html>
-      
+</html>
