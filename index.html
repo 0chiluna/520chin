@@ -324,34 +324,7 @@ function changeQuote() {
 // Khởi tạo
 qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 setInterval(changeQuote, 8000);
-    // ========== PROFILE BACKGROUND RANDOMIZER ==========
-const profileBackgrounds = [
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png",
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-forest-night.jpg",
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-sunset-vibe.jpg",
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/yunee_sky_glow.png"
-];
-
-// Lấy lần trước từ localStorage
-const lastBg = localStorage.getItem('lastProfileBg');
-
-// Chọn ngẫu nhiên ảnh không trùng với lần trước
-let newBg;
-do {
-  newBg = profileBackgrounds[Math.floor(Math.random() * profileBackgrounds.length)];
-} while (profileBackgrounds.length > 1 && newBg === lastBg);
-
-// Lưu lại ảnh mới vào localStorage
-localStorage.setItem('lastProfileBg', newBg);
-
-// Tạo thẻ style cho background-image của ::before
-const styleTag = document.createElement('style');
-styleTag.textContent = `
-  .profile-box::before {
-    background-image: url('${newBg}');
-  }
-`;
-document.head.appendChild(styleTag);
+    
   </script>
 </body>
       </html>
