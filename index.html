@@ -88,13 +88,6 @@
         width: 97%;
       }
     }
-    #lyric-box {
-      transition: opacity 0.5s ease-in-out;
-      opacity: 1;
-      height: 1.5rem;
-    }
-    #lyric-box.fade-out { opacity: 0; }
-    #lyric-box.fade-in { opacity: 1; }
     #coffee-loader {
       opacity: 1;
       pointer-events: all;
@@ -192,10 +185,6 @@
     <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
   </div>
 
-  <div id="lyric-box" class="mt-4 text-black text-sm text-center h-6 relative w-full max-w-[500px] mx-auto">
-    ...
-  </div>
-
   <div class="h-6"></div>
   <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow" style="text-shadow: 0 0 4px rgba(255,255,255,0.7);"></div>
 </div>
@@ -227,36 +216,6 @@
       sendMessage();
     }
   });
-
-  const lyrics = [
-    "Nhắm chặt mắt ,khép đôi mi",
-    "Đôi môi hờ hững , nước mắt em sắp rơi rồi",
-    "Tim quặng đau, có ai hay",
-    "Đêm lại xuống, chỉ riêng mỗi em nơi này",
-    "Yêu làm chi để giờ đau thế này?",
-    "Ngồi nhìn mưa lắc rắc rơi bên hiên nhà",
-    "Cô ta đến và mang anh đi mất",
-    "Tim tôi đau đớn và dần như quên hết",
-    "Có chăng tình yêu chỉ toàn là nỗi đau",
-    "Đến nhanh rồi đi để lại những u sầu"
-  ];
-
-  const lyricBox = document.getElementById('lyric-box');
-  let index = 0;
-
-  function showLyric() {
-    lyricBox.classList.remove('fade-in');
-    lyricBox.classList.add('fade-out');
-    setTimeout(() => {
-      lyricBox.textContent = lyrics[index];
-      lyricBox.classList.remove('fade-out');
-      lyricBox.classList.add('fade-in');
-      index = (index + 1) % lyrics.length;
-    }, 500);
-    setTimeout(showLyric, 3500);
-  }
-
-  window.addEventListener('load', showLyric);
 
   function updateRealTimeClock() {
     const now = new Date();
@@ -311,6 +270,7 @@
     }, 6500);
   });
 </script>
+
 <!-- Cookie Consent -->
 <style>
 #cookie-consent{position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif}
