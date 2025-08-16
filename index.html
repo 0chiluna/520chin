@@ -224,7 +224,7 @@
 </div>
 
 <script>
-  // --- Hiển thị IP ---
+// --- Hiển thị IP ---
 fetch('https://api.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {
@@ -234,48 +234,23 @@ fetch('https://api.ipify.org?format=json')
     document.getElementById('ip-address').textContent = 'Unknown';
   });
 
-// --- Khai báo ---
+// --- Input gửi tin nhắn (chỉ log ra console thôi) ---
 const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
-const profileBox = document.querySelector(".profile-box");
 
-const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
-
-// --- Load từ localStorage ---
-const savedBg = localStorage.getItem("profileBoxBg");
-if (savedBg) {
-  profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
-} else {
-  profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
-}
-
-  // Chuẩn hoá lệnh: lowercase + loại bỏ khoảng trắng thừa
-  const command = input.trim().toLowerCase().replace(/\s+/g, " ");
-
-  if (command === "clean") {
-    // Xoá sạch localStorage
-    localStorage.clear();
-    profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
-    console.log("Đã xoá toàn bộ dữ liệu localStorage");
-    alert("Cache đã được xoá sạch!");
-    return;
-  }
-
-// --- Gửi tin nhắn ---
 function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
-  changeProfileBg(message); // xử lý luôn
+  console.log("User said:", message);
   input.value = "";
 }
 
-// --- Event listener ---
 sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-// --- Đồng hồ ---
+// --- Đồng hồ real-time ---
 function updateRealTimeClock() {
   const now = new Date();
   const day = String(now.getDate()).padStart(2, '0');
@@ -311,11 +286,7 @@ const quotes = [
 ];
 const qb = document.getElementById('quote-box');
 function changeQuote() {
-  qb.classList.add('fade-out');
-  setTimeout(() => {
-    qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-    qb.classList.remove('fade-out');
-  }, 500);
+  qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 }
 qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 setInterval(changeQuote, 8000);
@@ -327,7 +298,6 @@ overlay.addEventListener('click', () => {
   overlay.style.display = 'none';
   music.play();
 });
-
 </script>
 
 <!-- Cookie Consent -->
