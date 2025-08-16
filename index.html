@@ -88,14 +88,6 @@
         width: 97%;
       }
     }
-    #coffee-loader {
-      opacity: 1;
-      pointer-events: all;
-    }
-    #coffee-loader.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
     @keyframes light-glow {
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
@@ -328,25 +320,7 @@
     console.log('Cookie declined');
   };
 })();
-<!-- End Cookie Consent -->
-  window.addEventListener('load', () => {
-    const music = document.getElementById('bg-music');
-
-    // Tăng âm lượng từ từ để nghe mượt
-    let volume = 0;
-    music.volume = 0;
-    music.muted = false; // Bỏ mute ngay để tránh delay
-
-    const fadeIn = setInterval(() => {
-      if (volume < 1) {
-        volume += 0.05; // tăng mỗi 50ms
-        music.volume = volume;
-      } else {
-        clearInterval(fadeIn);
-      }
-    },
- 50);
-  });
+//<!-- End Cookie Consent -->
 const overlay = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
 
