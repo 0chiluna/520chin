@@ -72,17 +72,17 @@
       box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5);
     }
     .profile-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.9;
-      z-index: -1;
-      border-radius: 0.75rem;
-      transition: background-image 0.5s ease-in-out;
-    }
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png'));
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  z-index: -1;
+  border-radius: 0.75rem;
+  transition: background-image 0.5s ease-in-out;
+}
     @media (max-width: 650px) {
       .profile-box {
         width: 97%;
@@ -214,23 +214,46 @@
       document.getElementById('ip-address').textContent = 'Unknown';
     });
 
-  const input = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendBtn');
+  const input = document.getElementById("chatInput");
+const sendBtn = document.getElementById("sendBtn");
+const profileBox = document.querySelector(".profile-box");
 
-  function sendMessage() {
-    const message = input.value.trim();
-    if (message) {
-      console.log("Sent:", message);
-      input.value = '';
-    }
+// Load từ localStorage nếu có
+const savedBg = localStorage.getItem("profileBoxBg");
+if (savedBg && savedBg !== "default") {
+  profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
+} else {
+  profileBox.style.setProperty("--profile-bg", "url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png')");
+}
+
+// Hàm đổi nền
+function changeProfileBg(url) {
+  if (url === "nope bg profile-box") {
+    localStorage.setItem("profileBoxBg", "default");
+    profileBox.style.setProperty("--profile-bg", "url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png')");
+    console.log("Reset về background mặc định");
+  } else {
+    localStorage.setItem("profileBoxBg", url);
+    profileBox.style.setProperty("--profile-bg", `url('${url}')`);
+    console.log("Background đổi thành:", url);
   }
+}
 
-  sendBtn.addEventListener('click', sendMessage);
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      sendMessage();
-    }
-  });
+// Gửi tin nhắn
+function sendMessage() {
+  const message = input.value.trim();
+  if (!message) return;
+
+  changeProfileBg(message); // xử lý luôn
+  input.value = "";
+}
+
+// Event listener
+sendBtn.addEventListener("click", sendMessage);
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
 
   function updateRealTimeClock() {
     const now = new Date();
