@@ -249,20 +249,10 @@ if (savedBg) {
   profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
 }
 
-// --- Hàm đổi nền ---
-function changeProfileBg(input) {
   // Chuẩn hoá lệnh: lowercase + loại bỏ khoảng trắng thừa
   const command = input.trim().toLowerCase().replace(/\s+/g, " ");
 
-  if (command === "nope bg profile-box") {
-    // Reset về background mặc định
-    localStorage.setItem("profileBoxBg", defaultUrl);
-    profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
-    console.log("Reset về background mặc định");
-    return;
-  }
-
-  if (command === "clean chace") {
+  if (command === "clean") {
     // Xoá sạch localStorage
     localStorage.clear();
     profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
@@ -270,27 +260,6 @@ function changeProfileBg(input) {
     alert("Cache đã được xoá sạch!");
     return;
   }
-
-  // Nếu không phải lệnh đặc biệt → kiểm tra URL
-  if (isValidUrl(input)) {
-    localStorage.setItem("profileBoxBg", input);
-    profileBox.style.setProperty("--profile-bg", `url('${input}')`);
-    console.log("Background đổi thành:", input);
-  } else {
-    alert("❌ URL không hợp lệ! Hãy nhập một link ảnh hợp lệ (http/https).");
-    console.warn("URL không hợp lệ:", input);
-  }
-}
-
-// --- Hàm kiểm tra URL hợp lệ ---
-function isValidUrl(str) {
-  try {
-    let url = new URL(str);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch (e) {
-    return false;
-  }
-}
 
 // --- Gửi tin nhắn ---
 function sendMessage() {
