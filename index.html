@@ -218,10 +218,14 @@
 const sendBtn = document.getElementById("sendBtn");
 const profileBox = document.querySelector(".profile-box");
 
+const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
+
+// Load từ localStorage nếu có
+const savedBg = localStorage.getItem("profileBoxBg") || defaultUrl;
+profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
+
 // Hàm đổi nền
 function changeProfileBg(url) {
-  const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
-
   if (url === "nope bg profile-box") {
     localStorage.setItem("profileBoxBg", defaultUrl);
     profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
@@ -233,20 +237,12 @@ function changeProfileBg(url) {
   }
 }
 
-// Load từ localStorage nếu có
-const savedBg = localStorage.getItem("profileBoxBg");
-if (savedBg) {
-  profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
-} else {
-  profileBox.style.setProperty("--profile-bg", "url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png')");
-}
-
 // Gửi tin nhắn
 function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  changeProfileBg(message); // xử lý luôn
+  changeProfileBg(message);
   input.value = "";
 }
 
@@ -255,7 +251,6 @@ sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
-
 
   function updateRealTimeClock() {
     const now = new Date();
