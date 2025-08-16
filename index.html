@@ -118,13 +118,32 @@
     z-index: 1000;
     text-align: center;
 }
+/* Hiệu ứng chữ sáng tối */
+.overlay-text {
+  animation: glowText 2s ease-in-out infinite;
+}
 
+@keyframes glowText {
+  0% {
+    opacity: 0.4;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+  }
+  100% {
+    opacity: 0.4;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+      }
+    
   </style>
 </head>
 <body>
 <!-- Overlay -->
 <div class="overlay" id="overlay">
-    Click to continue 
+    <span class="overlay-text">Click to continue</span>
 </div>
 
 <!-- Nhạc -->
