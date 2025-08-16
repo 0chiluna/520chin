@@ -205,32 +205,32 @@
 </div>
 
 <script>
-  fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('ip-address').textContent = data.ip;
-    })
-    .catch(() => {
-      document.getElementById('ip-address').textContent = 'Unknown';
-    });
+  // --- Hiển thị IP ---
+fetch('https://api.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('ip-address').textContent = data.ip;
+  })
+  .catch(() => {
+    document.getElementById('ip-address').textContent = 'Unknown';
+  });
 
-  const input = document.getElementById("chatInput");
+// --- Khai báo ---
+const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 const profileBox = document.querySelector(".profile-box");
 
 const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
 
-// Load từ localStorage nếu có
+// --- Load từ localStorage ---
 const savedBg = localStorage.getItem("profileBoxBg");
-const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
-
 if (savedBg) {
   profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
 } else {
   profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
 }
 
-// Hàm đổi nền
+// --- Hàm đổi nền ---
 function changeProfileBg(input) {
   // Chuẩn hoá lệnh: lowercase + loại bỏ khoảng trắng thừa
   const command = input.trim().toLowerCase().replace(/\s+/g, " ");
@@ -263,7 +263,7 @@ function changeProfileBg(input) {
   }
 }
 
-// Hàm kiểm tra URL hợp lệ
+// --- Hàm kiểm tra URL hợp lệ ---
 function isValidUrl(str) {
   try {
     let url = new URL(str);
@@ -273,64 +273,73 @@ function isValidUrl(str) {
   }
 }
 
-// Event listener
+// --- Gửi tin nhắn ---
+function sendMessage() {
+  const message = input.value.trim();
+  if (!message) return;
+  changeProfileBg(message); // xử lý luôn
+  input.value = "";
+}
+
+// --- Event listener ---
 sendBtn.addEventListener("click", sendMessage);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-  function updateRealTimeClock() {
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const hour = String(now.getHours()).padStart(2, '0');
-    const minute = String(now.getMinutes()).padStart(2, '0');
-    const second = String(now.getSeconds()).padStart(2, '0');
-    const dateTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
-    document.getElementById('realtime-clock').textContent = dateTime;
-  }
+// --- Đồng hồ ---
+function updateRealTimeClock() {
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const hour = String(now.getHours()).padStart(2, '0');
+  const minute = String(now.getMinutes()).padStart(2, '0');
+  const second = String(now.getSeconds()).padStart(2, '0');
+  const dateTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+  document.getElementById('realtime-clock').textContent = dateTime;
+}
+setInterval(updateRealTimeClock, 1000);
+updateRealTimeClock();
 
-  setInterval(updateRealTimeClock, 1000);
-  updateRealTimeClock();
+// --- Quotes ---
+const quotes = [
+  "「Even the darkest night will end and the sun will rise.」",
+  "「Create with passion or not at all.」",
+  "「Code is poetry.」",
+  "「Believe you can and you're halfway there.」",
+  "「Chẳng có gì là mãi mãi cả.」",
+  "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
+  "「Không sợ đi chậm, chỉ sợ đứng yên.」",
+  "「Simplicity is the ultimate sophistication.」",
+  "「You are not your job, you are not how much money you have.」",
+  "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
+  "「The quieter you become, the more you are able to hear.」",
+  "「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」",
+  "「Focus on progress, not perfection.」",
+  "「Chiến thắng lớn nhất là chiến thắng chính mình.」",
+  "「Don't adapt to the energy in the room. Influence the energy in the room.」",
+  "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
+];
+const qb = document.getElementById('quote-box');
+function changeQuote() {
+  qb.classList.add('fade-out');
+  setTimeout(() => {
+    qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    qb.classList.remove('fade-out');
+  }, 500);
+}
+qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+setInterval(changeQuote, 8000);
 
-  const quotes = [
-    "「Even the darkest night will end and the sun will rise.」",
-    "「Create with passion or not at all.」",
-    "「Code is poetry.」",
-    "「Believe you can and you're halfway there.」",
-    "「Chẳng có gì là mãi mãi cả.」",
-    "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
-    "「Không sợ đi chậm, chỉ sợ đứng yên.」",
-    "「Simplicity is the ultimate sophistication.」",
-    "「You are not your job, you are not how much money you have.」",
-    "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
-    "「The quieter you become, the more you are able to hear.」",
-    "「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」",
-    "「Focus on progress, not perfection.」",
-    "「Chiến thắng lớn nhất là chiến thắng chính mình.」",
-    "「Don't adapt to the energy in the room. Influence the energy in the room.」",
-    "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
-  ];
+// --- Overlay để play nhạc ---
+const overlay = document.getElementById('overlay');
+const music = document.getElementById('bgMusic');
+overlay.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  music.play();
+});
 
-  const qb = document.getElementById('quote-box');
-  function changeQuote() {
-    qb.classList.add('fade-out');
-    setTimeout(() => {
-      qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-      qb.classList.remove('fade-out');
-    }, 500);
-  }
-
-  qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-  setInterval(changeQuote, 8000);
-
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('coffee-loader');
-    setTimeout(() => {
-      loader.classList.add('hide');
-    }, 6500);
-  });
 </script>
 
 <!-- Cookie Consent -->
