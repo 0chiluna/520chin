@@ -221,29 +221,56 @@ const profileBox = document.querySelector(".profile-box");
 const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
 
 // Load từ localStorage nếu có
-const savedBg = localStorage.getItem("profileBoxBg") || defaultUrl;
-profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
+const savedBg = localStorage.getItem("profileBoxBg");
+const defaultUrl = "https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png";
+
+if (savedBg) {
+  profileBox.style.setProperty("--profile-bg", `url('${savedBg}')`);
+} else {
+  profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
+}
 
 // Hàm đổi nền
-function changeProfileBg(url) {
-  if (url === "nope bg profile-box") {
+function changeProfileBg(input) {
+  // Chuẩn hoá lệnh: lowercase + loại bỏ khoảng trắng thừa
+  const command = input.trim().toLowerCase().replace(/\s+/g, " ");
+
+  if (command === "nope bg profile-box") {
+    // Reset về background mặc định
     localStorage.setItem("profileBoxBg", defaultUrl);
     profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
     console.log("Reset về background mặc định");
+    return;
+  }
+
+  if (command === "clean chace") {
+    // Xoá sạch localStorage
+    localStorage.clear();
+    profileBox.style.setProperty("--profile-bg", `url('${defaultUrl}')`);
+    console.log("Đã xoá toàn bộ dữ liệu localStorage");
+    alert("Cache đã được xoá sạch!");
+    return;
+  }
+
+  // Nếu không phải lệnh đặc biệt → kiểm tra URL
+  if (isValidUrl(input)) {
+    localStorage.setItem("profileBoxBg", input);
+    profileBox.style.setProperty("--profile-bg", `url('${input}')`);
+    console.log("Background đổi thành:", input);
   } else {
-    localStorage.setItem("profileBoxBg", url);
-    profileBox.style.setProperty("--profile-bg", `url('${url}')`);
-    console.log("Background đổi thành:", url);
+    alert("❌ URL không hợp lệ! Hãy nhập một link ảnh hợp lệ (http/https).");
+    console.warn("URL không hợp lệ:", input);
   }
 }
 
-// Gửi tin nhắn
-function sendMessage() {
-  const message = input.value.trim();
-  if (!message) return;
-
-  changeProfileBg(message);
-  input.value = "";
+// Hàm kiểm tra URL hợp lệ
+function isValidUrl(str) {
+  try {
+    let url = new URL(str);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch (e) {
+    return false;
+  }
 }
 
 // Event listener
