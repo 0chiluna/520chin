@@ -147,7 +147,7 @@
 </div>
 
 <!-- Nhạc -->
-<audio id="bgMusic" hidden></audio>
+<audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3"></audio>
 
 <video autoplay muted loop playsinline class="bg-video">
   <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
@@ -334,32 +334,14 @@ overlay.addEventListener('click', () => {
 })();
 // End Cookie Consent
 
-const playlist = [
-  {
-    title: "Normal No More - TYSM",
-    url: "https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3"
-  },
-];
-
 const audio = document.getElementById("bgMusic");
 const overlay = document.getElementById("overlay");
-
-// Hàm phát bài random
-function playRandomSong() {
-  const randomSong = playlist[Math.floor(Math.random() * playlist.length)];
-  audio.src = randomSong.url;
-  audio.play();
-  console.log("🎵 Đang phát:", randomSong.title);
-}
 
 // Khi user click overlay → ẩn overlay và phát nhạc random
 overlay.addEventListener("click", () => {
   overlay.style.display = "none";
   playRandomSong();
 });
-
-// Khi bài kết thúc → phát random bài khác
-audio.addEventListener("ended", playRandomSong);
 
 </script>
 </body>
