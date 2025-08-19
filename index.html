@@ -155,11 +155,16 @@
   opacity: 0;
 }
 
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 #quote-box {
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 2s;
-  opacity: 0;
-      }
+  animation: fadeInOut 8s ease-in-out infinite;
+}
                         
   </style>
 </head>
