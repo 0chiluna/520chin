@@ -137,7 +137,30 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   }
       }
-    
+    /* Fade effect */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-box {
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+#quote-box {
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 2s;
+  opacity: 0;
+      }
+                        
   </style>
 </head>
 <body>
@@ -147,7 +170,7 @@
 </div>
 
 <!-- Nhạc -->
-<audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3"></audio>
+<audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop></audio>
 
 <video autoplay muted loop playsinline class="bg-video">
   <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
@@ -334,13 +357,13 @@ overlay.addEventListener('click', () => {
 })();
 // End Cookie Consent
 
-const audio = document.getElementById("bgMusic");
-const overlay = document.getElementById("overlay");
+// Overlay để play nhạc
+const overlayEl = document.getElementById('overlay');
+const music = document.getElementById('bgMusic');
 
-// Khi user click overlay → ẩn overlay và phát nhạc random
-overlay.addEventListener("click", () => {
-  overlay.style.display = "none";
-  playRandomSong();
+overlayEl.addEventListener('click', () => {
+  overlayEl.style.display = 'none';
+  music.play();
 });
 
 </script>
