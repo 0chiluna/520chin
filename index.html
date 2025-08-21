@@ -333,12 +333,38 @@ setInterval(changeQuote, 8000);
 
 <!-- Cookie Consent -->
 <style>
-#cookie-consent{position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif}
-#cookie-consent.show{transform:translateY(0);opacity:1}
-#cookie-consent p{margin:0;font-size:14px;color:#333;flex:1}
-#cookie-consent button{margin-left:10px;padding:8px 14px;border:0;border-radius:6px;cursor:pointer;font-size:14px}
-#cookie-consent .accept{background:#38bdf8;color:#fff}
-#cookie-consent .decline{background:#eee;color:#333}
+#cookie-consent {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1.25rem;
+  max-width: 980px;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: .4s;
+  z-index: 9999;
+  font-family: sans-serif;
+}
+#cookie-consent.show {transform: translateY(0);opacity: 1}
+#cookie-consent p {margin:0;font-size:14px;color:#333;flex:1}
+#cookie-consent button {
+  margin-left:10px;
+  padding:8px 14px;
+  border:0;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px
+}
+#cookie-consent .accept {background:#38bdf8;color:#fff}
+#cookie-consent .decline {background:#eee;color:#333}
 </style>
 
 <div id="cookie-consent" hidden>
