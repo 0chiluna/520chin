@@ -171,13 +171,13 @@
 <body>
 <!-- Overlay -->
 <div class="overlay" id="overlay">
-    <span class="overlay-text">Click to continue</span>
+  <span class="overlay-text">Click to continue</span>
 </div>
 
 <!-- Nhạc -->
 <audio id="player1"></audio>
 <audio id="player2"></audio>
-
+  
 <video autoplay muted loop playsinline class="bg-video">
   <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
 </video>
@@ -368,28 +368,35 @@ setInterval(changeQuote, 8000);
 })();
 // End Cookie Consent
 
+<!-- Overlay -->
+<div class="overlay" id="overlay">
+  <span class="overlay-text">Click to continue</span>
+</div>
+
+<!-- Nhạc -->
+<audio id="player1"></audio>
+<audio id="player2"></audio>
+
+<script>
 const overlayEl = document.getElementById('overlay');
 const players = [document.getElementById('player1'), document.getElementById('player2')];
 
-//  Playlist
+// Playlist
 const playlist = [
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok.mp3",
+  "https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3",
   "https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3"
 ];
 
 let currentTrack = 0;
-let active = 0; // Player đang phát
+let active = 0;
 
 function playTrack(index) {
   const player = players[active];
   player.src = playlist[index];
   player.currentTime = 0;
   player.volume = 1;
-
-  //  Bắt buộc return Promise để tránh lỗi autoplay
   player.play().catch(err => console.log("Play error:", err));
 
-  // Khi gần hết nhạc thì crossfade
   player.ontimeupdate = () => {
     if (player.duration && player.currentTime >= player.duration - 5) {
       player.ontimeupdate = null;
@@ -414,12 +421,11 @@ function crossfade() {
     step++;
     oldPlayer.volume = Math.max(1 - step / 20, 0);
     newPlayer.volume = Math.min(step / 20, 1);
-
     if (step >= 20) {
       clearInterval(fade);
       oldPlayer.pause();
     }
-  }, 200); // 200ms * 20 = 4s crossfade
+  }, 200);
 
   newPlayer.ontimeupdate = () => {
     if (newPlayer.duration && newPlayer.currentTime >= newPlayer.duration - 5) {
@@ -429,7 +435,7 @@ function crossfade() {
   };
 }
 
-//  Bắt đầu khi user click overlay
+//  Chỉ giữ đoạn này thôi
 overlayEl.addEventListener('click', () => {
   overlayEl.style.display = 'none';
   playTrack(currentTrack);
