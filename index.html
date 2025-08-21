@@ -171,6 +171,9 @@
     }
     #cookie-consent .accept {background:#38bdf8;color:#fff}
     #cookie-consent .decline {background:#eee;color:#333}
+  #live-wallpaper-btn {
+  background: rgba(255,255,255,0.1);
+                  }
   </style>
 </head>
 <body>
@@ -188,7 +191,7 @@
 
 <!-- Profile Container -->
 <div class="container mx-auto px-4 flex flex-col items-center justify-center">
-  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[700px] w-[900px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
+  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[600px] w-[800px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
 
     <div class="flex items-start space-x-4 mb-6">
       <div class="relative">
@@ -264,6 +267,13 @@
       I went crazy after editing this source
     </div>
     <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
+  <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
+  <button id="live-wallpaper-btn" 
+    class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
+    <i class="fas fa-play-circle"></i> Live Wallpaper
+  </button>
+  </div>
+    
   </div>
 
   <div class="h-6"></div>
@@ -361,6 +371,30 @@ overlayEl.addEventListener('click', () => {
   overlayEl.style.display = 'none';
   music.play();
 });
+  const videoEl = document.querySelector(".bg-video");
+const liveBtn = document.getElementById("live-wallpaper-btn");
+
+// Chỉ hiện trên Mobile
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+  let isPlaying = false;
+  videoEl.pause();
+
+  liveBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      videoEl.pause();
+      liveBtn.innerHTML = '<i class="fas fa-play-circle"></i> Live Wallpaper';
+      isPlaying = false;
+    } else {
+      videoEl.play();
+      liveBtn.innerHTML = '<i class="fas fa-pause-circle"></i> Live Wallpaper';
+      isPlaying = true;
+    }
+  });
+} else {
+  // Nếu là PC thì ẩn nút đi
+  document.getElementById("live-wallpaper-wrapper").style.display = "none";
+  }
+  
 </script>
 </body>
   </html>
