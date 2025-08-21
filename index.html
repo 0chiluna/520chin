@@ -72,17 +72,17 @@
       box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5);
     }
     .profile-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png'));
-  background-size: cover;
-  background-position: center;
-  opacity: 0.9;
-  z-index: -1;
-  border-radius: 0.75rem;
-  transition: background-image 0.5s ease-in-out;
-}
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/taoanhdep_nang_cap_anh_70224.png'));
+      background-size: cover;
+      background-position: center;
+      opacity: 0.9;
+      z-index: -1;
+      border-radius: 0.75rem;
+      transition: background-image 0.5s ease-in-out;
+    }
     @media (max-width: 650px) {
       .profile-box {
         width: 97%;
@@ -100,87 +100,93 @@
       color: transparent;
       animation: light-glow 4s ease-in-out infinite;
     }
-/* Overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000;
-    text-align: center;
-}
-/* Hiệu ứng chữ sáng tối */
-.overlay-text {
-  animation: glowText 2s ease-in-out infinite;
-}
-
-@keyframes glowText {
-  0% {
-    opacity: 0.4;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    opacity: 1;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-  }
-  100% {
-    opacity: 0.4;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-  }
-      }
-    /* Fade effect */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.profile-box {
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 0.5s;
-  opacity: 0;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-#quote-box {
-  animation: fadeInOut 8s ease-in-out infinite;
-}
-                        
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+      text-align: center;
+    }
+    .overlay-text {
+      animation: glowText 2s ease-in-out infinite;
+    }
+    @keyframes glowText {
+      0% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
+      50% {opacity: 1;text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);}
+      100% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0;transform: translateY(20px);}
+      to {opacity: 1;transform: translateY(0);}
+    }
+    .profile-box {animation: fadeInUp 1.5s ease forwards;animation-delay: 0.5s;opacity: 0;}
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    #quote-box {animation: fadeInOut 8s ease-in-out infinite;}
+    /* Cookie Consent */
+    #cookie-consent {
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1.25rem;
+      max-width: 980px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: .4s;
+      z-index: 9999;
+      font-family: sans-serif;
+    }
+    #cookie-consent.show {transform: translateY(0);opacity: 1}
+    #cookie-consent p {margin:0;font-size:14px;color:#333;flex:1}
+    #cookie-consent button {
+      margin-left:10px;
+      padding:8px 14px;
+      border:0;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:14px
+    }
+    #cookie-consent .accept {background:#38bdf8;color:#fff}
+    #cookie-consent .decline {background:#eee;color:#333}
   </style>
 </head>
 <body>
 <!-- Overlay -->
 <div class="overlay" id="overlay">
-    <span class="overlay-text">Click to continue</span>
+  <span class="overlay-text">Click to continue</span>
 </div>
 
 <!-- Nhạc -->
 <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop></audio>
 
-  <video autoplay muted loop playsinline class="bg-video">
+<video autoplay muted loop playsinline class="bg-video">
   <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
 </video>
 
+<!-- Profile Container -->
 <div class="container mx-auto px-4 flex flex-col items-center justify-center">
   <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[700] w-[800px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
 
@@ -262,7 +268,16 @@
 
   <div class="h-6"></div>
   <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow" style="text-shadow: 0 0 4px rgba(255,255,255,0.7);"></div>
+  </div>
+<!-- Cookie Consent -->
+<div id="cookie-consent" hidden>
+  <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
+  <div>
+    <button class="decline">Từ chối</button>
+    <button class="accept">Đồng ý</button>
+  </div>
 </div>
+
 <script>
 // --- Hiển thị IP ---
 fetch('https://api.ipify.org?format=json')
@@ -274,23 +289,19 @@ fetch('https://api.ipify.org?format=json')
     document.getElementById('ip-address').textContent = 'Unknown';
   });
 
-// --- Input gửi tin nhắn (chỉ log ra console thôi) ---
+// --- Input gửi tin nhắn ---
 const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
-
 function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
   console.log("User said:", message);
   input.value = "";
 }
-
 sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
+input.addEventListener("keydown", (e) => {if (e.key === "Enter") sendMessage();});
 
-// --- Đồng hồ real-time ---
+// --- Đồng hồ ---
 function updateRealTimeClock() {
   const now = new Date();
   const day = String(now.getDate()).padStart(2, '0');
@@ -299,8 +310,7 @@ function updateRealTimeClock() {
   const hour = String(now.getHours()).padStart(2, '0');
   const minute = String(now.getMinutes()).padStart(2, '0');
   const second = String(now.getSeconds()).padStart(2, '0');
-  const dateTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
-  document.getElementById('realtime-clock').textContent = dateTime;
+  document.getElementById('realtime-clock').textContent = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
 }
 setInterval(updateRealTimeClock, 1000);
 updateRealTimeClock();
@@ -325,57 +335,11 @@ const quotes = [
   "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
 ];
 const qb = document.getElementById('quote-box');
-function changeQuote() {
-  qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-}
+function changeQuote() { qb.textContent = quotes[Math.floor(Math.random() * quotes.length)]; }
 qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 setInterval(changeQuote, 8000);
 
-<!-- Cookie Consent -->
-<style>
-#cookie-consent {
-  position: fixed;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1.25rem;
-  max-width: 980px;
-  margin: auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.12);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  transform: translateY(120%);
-  opacity: 0;
-  transition: .4s;
-  z-index: 9999;
-  font-family: sans-serif;
-}
-#cookie-consent.show {transform: translateY(0);opacity: 1}
-#cookie-consent p {margin:0;font-size:14px;color:#333;flex:1}
-#cookie-consent button {
-  margin-left:10px;
-  padding:8px 14px;
-  border:0;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:14px
-}
-#cookie-consent .accept {background:#38bdf8;color:#fff}
-#cookie-consent .decline {background:#eee;color:#333}
-</style>
-
-<div id="cookie-consent" hidden>
-  <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
-  <div>
-    <button class="decline">Từ chối</button>
-    <button class="accept">Đồng ý</button>
-  </div>
-</div>
-
-<script>
+// --- Cookie Consent ---
 (function(){
   const el=document.getElementById('cookie-consent');
   const accepted=localStorage.getItem('cookie_consent');
@@ -383,25 +347,21 @@ setInterval(changeQuote, 8000);
   el.querySelector('.accept').onclick=function(){
     localStorage.setItem('cookie_consent','accepted');
     el.classList.remove('show');setTimeout(()=>el.hidden=true,400);
-    console.log('Cookie accepted');
   };
   el.querySelector('.decline').onclick=function(){
     localStorage.setItem('cookie_consent','declined');
     el.classList.remove('show');setTimeout(()=>el.hidden=true,400);
-    console.log('Cookie declined');
   };
 })();
-// End Cookie Consent
 
-/// Overlay để play nhạc
+// --- Overlay để play nhạc ---
 const overlayEl = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
-
 overlayEl.addEventListener('click', () => {
   overlayEl.style.display = 'none';
   music.play();
 });
-
 </script>
 </body>
-</html>
+  </html>
+  
