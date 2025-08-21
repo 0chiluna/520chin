@@ -332,15 +332,6 @@ function changeQuote() {
 qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 setInterval(changeQuote, 8000);
 
-// --- Overlay để play nhạc ---
-const overlay = document.getElementById('overlay');
-const music = document.getElementById('bgMusic');
-overlay.addEventListener('click', () => {
-  overlay.style.display = 'none';
-  music.play();
-});
-</script>
-
 <!-- Cookie Consent -->
 <style>
 #cookie-consent{position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif}
@@ -380,22 +371,25 @@ overlay.addEventListener('click', () => {
 const overlayEl = document.getElementById('overlay');
 const players = [document.getElementById('player1'), document.getElementById('player2')];
 
+//  Playlist
 const playlist = [
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20.mp3",
-  "https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3",
+  "https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok.mp3",
+  "https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3"
 ];
 
 let currentTrack = 0;
-let active = 0; // player đang phát
+let active = 0; // Player đang phát
 
 function playTrack(index) {
   const player = players[active];
   player.src = playlist[index];
   player.currentTime = 0;
   player.volume = 1;
-  player.play();
 
-  // Khi gần hết nhạc thì chuẩn bị crossfade
+  //  Bắt buộc return Promise để tránh lỗi autoplay
+  player.play().catch(err => console.log("Play error:", err));
+
+  // Khi gần hết nhạc thì crossfade
   player.ontimeupdate = () => {
     if (player.duration && player.currentTime >= player.duration - 5) {
       player.ontimeupdate = null;
@@ -406,14 +400,14 @@ function playTrack(index) {
 
 function crossfade() {
   const oldPlayer = players[active];
-  active = 1 - active; // đổi sang player kia
+  active = 1 - active;
   const newPlayer = players[active];
 
   currentTrack = (currentTrack + 1) % playlist.length;
   newPlayer.src = playlist[currentTrack];
   newPlayer.currentTime = 0;
   newPlayer.volume = 0;
-  newPlayer.play();
+  newPlayer.play().catch(err => console.log("Play error:", err));
 
   let step = 0;
   const fade = setInterval(() => {
@@ -425,7 +419,7 @@ function crossfade() {
       clearInterval(fade);
       oldPlayer.pause();
     }
-  }, 200); // 200ms * 20 = 4s
+  }, 200); // 200ms * 20 = 4s crossfade
 
   newPlayer.ontimeupdate = () => {
     if (newPlayer.duration && newPlayer.currentTime >= newPlayer.duration - 5) {
@@ -435,12 +429,12 @@ function crossfade() {
   };
 }
 
-// Overlay click để play
+//  Bắt đầu khi user click overlay
 overlayEl.addEventListener('click', () => {
   overlayEl.style.display = 'none';
   playTrack(currentTrack);
 });
-
+  
 </script>
 </body>
 </html>
