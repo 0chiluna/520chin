@@ -174,24 +174,6 @@
   #live-wallpaper-btn {
   background: rgba(255,255,255,0.1);
       
-/* Ripple container */
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  transform: scale(0);
-  animation: ripple-animation 0.8s linear;
-  pointer-events: none; /* không ảnh hưởng đến click thật */
-  z-index: 9999;
-}
-
-/* Animation gợn nước */
-@keyframes ripple-animation {
-  to {
-    transform: scale(6);
-    opacity: 0;
-  }
-}
   </style>
 </head>
 <body>
@@ -415,32 +397,6 @@ if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
   // Nếu là PC thì ẩn nút đi
   document.getElementById("live-wallpaper-wrapper").style.display = "none";
   }
-  
-// Thêm ripple khi click / chạm
-document.addEventListener("click", function(e) {
-  createRipple(e.clientX, e.clientY);
-});
-
-document.addEventListener("touchstart", function(e) {
-  let touch = e.touches[0];
-  createRipple(touch.clientX, touch.clientY);
-});
-
-function createRipple(x, y) {
-  const ripple = document.createElement("div");
-  ripple.className = "ripple";
-  document.body.appendChild(ripple);
-
-  // Đặt vị trí ripple
-  ripple.style.left = (x - 50) + "px";
-  ripple.style.top = (y - 50) + "px";
-  ripple.style.width = ripple.style.height = "100px";
-
-  // Xóa sau khi animation xong
-  setTimeout(() => {
-    ripple.remove();
-  }, 800);
-}
   
 </script>
 </body>
