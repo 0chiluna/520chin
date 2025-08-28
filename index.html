@@ -415,6 +415,11 @@ overlayEl.addEventListener('click', () => {
   music.play();                        // Play nhạc
   profileBox.classList.add("show");    // Hiện profile box (fade in)
   document.querySelectorAll(".counter").forEach(animateCounter); // Chạy stats
+
+  // Khởi tạo visualizer sau khi nhạc play
+  setupAudioVisualizer();
+  if (audioCtx && audioCtx.state === "suspended") {
+    await audioCtx.resume();
 });
 
 // --- Live Wallpaper (chỉ mobile) ---
