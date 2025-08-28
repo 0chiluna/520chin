@@ -8,11 +8,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* Bouncing text */
     @keyframes bounce-text {
       0%, 100% { transform: translateY(1px); }
       50% { transform: translateY(-1px); }
     }
     .animate-bounce-text { animation: bounce-text 1.5s ease-in-out infinite; }
+
+    /* Fancy input */
     .fancy-input {
       position: relative;
       z-index: 1;
@@ -30,6 +33,8 @@
       border-radius: 6px;
       z-index: -1;
     }
+
+    /* Input background */
     .bg-image-input {
       background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
       background-size: cover;
@@ -39,9 +44,9 @@
       background-color: rgba(0, 0, 0, 0.4);
       border: none;
     }
-    .bg-image-input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
+    .bg-image-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+    /* Background video */
     body {
       margin: 0;
       padding: 20px;
@@ -62,14 +67,22 @@
       opacity: 0.8;
       pointer-events: none;
     }
+
+    /* Profile Box */
     .profile-box {
       position: relative;
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       user-select: none;
       touch-action: none;
-      transition: box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease, opacity 1.2s ease, transform 1.2s ease;
       box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .profile-box.show {
+      opacity: 1;
+      transform: translateY(0);
     }
     .profile-box::before {
       content: "";
@@ -84,10 +97,10 @@
       transition: background-image 0.5s ease-in-out;
     }
     @media (max-width: 650px) {
-      .profile-box {
-        width: 97%;
-      }
+      .profile-box { width: 97%; }
     }
+
+    /* Glow text */
     @keyframes light-glow {
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
@@ -100,13 +113,11 @@
       color: transparent;
       animation: light-glow 4s ease-in-out infinite;
     }
+
     /* Overlay */
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
       display: flex;
@@ -118,19 +129,14 @@
       z-index: 1000;
       text-align: center;
     }
-    .overlay-text {
-      animation: glowText 2s ease-in-out infinite;
-    }
+    .overlay-text { animation: glowText 2s ease-in-out infinite; }
     @keyframes glowText {
       0% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
       50% {opacity: 1;text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);}
       100% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
     }
-    @keyframes fadeInUp {
-      from {opacity: 0;transform: translateY(20px);}
-      to {opacity: 1;transform: translateY(0);}
-    }
-    .profile-box {animation: fadeInUp 1.5s ease forwards;animation-delay: 0.5s;opacity: 0;}
+
+    /* Quotes fade */
     @keyframes fadeInOut {
       0% { opacity: 0; }
       20% { opacity: 1; }
@@ -138,6 +144,7 @@
       100% { opacity: 0; }
     }
     #quote-box {animation: fadeInOut 8s ease-in-out infinite;}
+
     /* Cookie Consent */
     #cookie-consent {
       position: fixed;
@@ -171,9 +178,27 @@
     }
     #cookie-consent .accept {background:#38bdf8;color:#fff}
     #cookie-consent .decline {background:#eee;color:#333}
-  #live-wallpaper-btn {
-  background: rgba(255,255,255,0.1);
-      
+
+    /* Live wallpaper btn */
+    #live-wallpaper-btn {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Shadow cho text button */
+    .btn-text-shadow { text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
+    /* Viền Avatar Neon Gradient */
+    .border-anim {
+     border-radius: 9999px;
+     background: conic-gradient(#FFFFF0, #FFFACD, #F0FFFF, #FFFFF0);
+     animation: spin-gradient 6s linear infinite;
+    }
+
+/* Quay vòng */
+@keyframes spin-gradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+    
   </style>
 </head>
 <body>
@@ -192,16 +217,16 @@
 
 <!-- Profile Container -->
 <div class="container mx-auto px-4 flex flex-col items-center justify-center">
-  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 p-24 min-h-[600px] w-[900px] max-w-full transition-all duration-300 hover:shadow-xl hover:bg-opacity-90 mx-auto">
+  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
 
     <div class="flex items-start space-x-4 mb-6">
-      <div class="relative">
-        <div class="relative w-20 h-20">
-          <div class="absolute inset-0 rounded-full bg-[conic-gradient(white_0_50%,white_50%_100%)] p-[2px]"></div>
-          <div class="relative w-full h-full rounded-full overflow-hidden">
-            <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/6b6f4e0dd007f98333735ce6199eb786.jpg" alt="Yune's Avatar" class="w-full h-full object-cover rounded-full">
-          </div>
-        </div>
+      <div class="relative w-20 h-20 avatar-border">
+  <div class="absolute inset-0 rounded-full p-[2px] border-anim"></div>
+  <div class="relative w-full h-full rounded-full overflow-hidden">
+    <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/6b6f4e0dd007f98333735ce6199eb786.jpg" 
+         alt="Avatar" 
+         class="w-full h-full object-cover rounded-full">
+       </div>
       </div>
       <div class="flex-1">
         <h1 class="text-2xl font-bold glow-text drop-shadow">Mỳ Cụtッ</h1>
@@ -214,27 +239,26 @@
     </div>
 
    <div class="mt-8 flex space-x-4">
-  <!-- Nút Pinterest -->
-  <a href="https://pin.it/7tbwbFBI7" 
-     class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-    <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
-    <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
-    <span class="relative flex items-center justify-center text-white font-semibold">
-      <i class="fab fa-pinterest mr-2"></i> Pinterest
-    </span>
-  </a>
+    <!-- Nút Pinterest -->
+    <a href="https://pin.it/7tbwbFBI7" 
+       class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
+      <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
+      <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+      <span class="relative flex items-center justify-center text-white font-semibold btn-text-shadow">
+        <i class="fab fa-pinterest mr-2"></i> Pinterest
+      </span>
+    </a>
 
-  <!-- Nút Discord -->
-  <a href="https://discord.gg/tms474bz" 
-     class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-    <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
-    <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
-    <span class="relative flex items-center justify-center text-black font-semibold">
-      <i class="fab fa-discord mr-2"></i> Discord
-    </span>
-  </a>
-</div>
-
+    <!-- Nút Discord -->
+    <a href="https://discord.gg/tms474bz" 
+       class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
+      <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
+      <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+      <span class="relative flex items-center justify-center text-black font-semibold btn-text-shadow">
+        <i class="fab fa-discord mr-2"></i> Discord
+      </span>
+    </a>
+  </div>
 
     <div class="mt-6 pt-4 border-t border-gray-200">
         <p class="text-left text-black font-medium mb-2">Hello, I'm just a newbie. So please understand UwU</p>
@@ -261,7 +285,7 @@
         </button>
       </div>
 
-      <div class="mt-4 text-center text-xs text-white-300 opacity-50">
+      <div class="mt-4 text-center text-xs text-white opacity-50">
         Your IP: <span id="ip-address">Loading...</span>
       </div>
     </div>
@@ -270,18 +294,17 @@
       I went crazy after editing this source
     </div>
     <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
-  <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
-  <button id="live-wallpaper-btn" 
-    class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
-    <i class="fas fa-play-circle"></i> Live Wallpaper
-  </button>
-  </div>
-    
+    <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
+      <button id="live-wallpaper-btn" 
+        class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
+        <i class="fas fa-play-circle"></i> Live Wallpaper
+      </button>
+    </div>
   </div>
 
-  <div class="h-6"></div>
-  <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow" style="text-shadow: 0 0 4px rgba(255,255,255,0.7);"></div>
-  </div>
+  <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow"></div>
+</div>
+
 <!-- Cookie Consent -->
 <div id="cookie-consent" hidden>
   <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
@@ -294,15 +317,11 @@
 <script>
 // --- Hiển thị IP ---
 fetch('https://api.ipify.org?format=json')
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('ip-address').textContent = data.ip;
-  })
-  .catch(() => {
-    document.getElementById('ip-address').textContent = 'Unknown';
-  });
+  .then(res => res.json())
+  .then(data => document.getElementById('ip-address').textContent = data.ip)
+  .catch(() => document.getElementById('ip-address').textContent = 'Unknown');
 
-// --- Input gửi tin nhắn ---
+// --- Gửi tin nhắn ---
 const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 function sendMessage() {
@@ -312,21 +331,16 @@ function sendMessage() {
   input.value = "";
 }
 sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", (e) => {if (e.key === "Enter") sendMessage();});
+input.addEventListener("keydown", e => e.key === "Enter" && sendMessage());
 
 // --- Đồng hồ ---
 function updateRealTimeClock() {
   const now = new Date();
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
-  const hour = String(now.getHours()).padStart(2, '0');
-  const minute = String(now.getMinutes()).padStart(2, '0');
-  const second = String(now.getSeconds()).padStart(2, '0');
-  document.getElementById('realtime-clock').textContent = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+  const format = n => String(n).padStart(2,"0");
+  document.getElementById('realtime-clock').textContent =
+    `${format(now.getDate())}/${format(now.getMonth()+1)}/${now.getFullYear()} ${format(now.getHours())}:${format(now.getMinutes())}:${format(now.getSeconds())}`;
 }
-setInterval(updateRealTimeClock, 1000);
-updateRealTimeClock();
+setInterval(updateRealTimeClock, 1000); updateRealTimeClock();
 
 // --- Quotes ---
 const quotes = [
@@ -348,57 +362,46 @@ const quotes = [
   "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
 ];
 const qb = document.getElementById('quote-box');
-function changeQuote() { qb.textContent = quotes[Math.floor(Math.random() * quotes.length)]; }
-qb.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-setInterval(changeQuote, 8000);
+function changeQuote(){ qb.textContent = quotes[Math.floor(Math.random()*quotes.length)]; }
+changeQuote(); setInterval(changeQuote,8000);
 
 // --- Cookie Consent ---
 (function(){
   const el=document.getElementById('cookie-consent');
-  const accepted=localStorage.getItem('cookie_consent');
-  if(!accepted){el.hidden=false;requestAnimationFrame(()=>el.classList.add('show'))}
+  if(!localStorage.getItem('cookie_consent')){
+    el.hidden=false; requestAnimationFrame(()=>el.classList.add('show'))
+  }
   el.querySelector('.accept').onclick=function(){
     localStorage.setItem('cookie_consent','accepted');
-    el.classList.remove('show');setTimeout(()=>el.hidden=true,400);
+    el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
   };
   el.querySelector('.decline').onclick=function(){
     localStorage.setItem('cookie_consent','declined');
-    el.classList.remove('show');setTimeout(()=>el.hidden=true,400);
+    el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
   };
 })();
 
-// --- Overlay để play nhạc ---
-const overlayEl = document.getElementById('overlay');
-const music = document.getElementById('bgMusic');
-overlayEl.addEventListener('click', () => {
-  overlayEl.style.display = 'none';
+// --- Overlay play nhạc + show profile ---
+const overlayEl=document.getElementById('overlay');
+const music=document.getElementById('bgMusic');
+const profileBox=document.querySelector('.profile-box');
+overlayEl.addEventListener('click',()=>{
+  overlayEl.style.display="none";
   music.play();
+  profileBox.classList.add("show"); // Fade in sau khi overlay biến mất
 });
-  const videoEl = document.querySelector(".bg-video");
-const liveBtn = document.getElementById("live-wallpaper-btn");
 
-// Chỉ hiện trên Mobile
+// --- Live Wallpaper (chỉ mobile) ---
+const videoEl=document.querySelector(".bg-video");
+const liveBtn=document.getElementById("live-wallpaper-btn");
 if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-  let isPlaying = false;
-  videoEl.pause();
-
-  liveBtn.addEventListener("click", () => {
-    if (isPlaying) {
-      videoEl.pause();
-      liveBtn.innerHTML = '<i class="fas fa-play-circle"></i> Live Wallpaper';
-      isPlaying = false;
-    } else {
-      videoEl.play();
-      liveBtn.innerHTML = '<i class="fas fa-pause-circle"></i> Live Wallpaper';
-      isPlaying = true;
-    }
+  let isPlaying=false; videoEl.pause();
+  liveBtn.addEventListener("click",()=>{
+    isPlaying ? (videoEl.pause(),liveBtn.innerHTML='<i class="fas fa-play-circle"></i> Live Wallpaper')
+              : (videoEl.play(),liveBtn.innerHTML='<i class="fas fa-pause-circle"></i> Live Wallpaper');
+    isPlaying=!isPlaying;
   });
-} else {
-  // Nếu là PC thì ẩn nút đi
-  document.getElementById("live-wallpaper-wrapper").style.display = "none";
-  }
-  
+} else document.getElementById("live-wallpaper-wrapper").style.display="none";
 </script>
 </body>
-  </html>
-  
+</html>
