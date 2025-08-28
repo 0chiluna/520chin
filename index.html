@@ -410,17 +410,19 @@ function animateCounter(el) {
   requestAnimationFrame(update);
 }
 
-overlayEl.addEventListener('click', () => {
-  overlayEl.style.display = 'none';    // Ẩn overlay
-  music.play();                        // Play nhạc
-  profileBox.classList.add("show");    // Hiện profile box (fade in)
-  document.querySelectorAll(".counter").forEach(animateCounter); // Chạy stats
+overlayEl.addEventListener('click', async () => {
+  overlayEl.style.display = 'none';    
+  await music.play();                        // Play nhạc
+  profileBox.classList.add("show");    
+  document.querySelectorAll(".counter").forEach(animateCounter);
 
   // Khởi tạo visualizer sau khi nhạc play
   setupAudioVisualizer();
   if (audioCtx && audioCtx.state === "suspended") {
     await audioCtx.resume();
+  }
 });
+
 
 // --- Live Wallpaper (chỉ mobile) ---
 const videoEl=document.querySelector(".bg-video");
