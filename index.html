@@ -87,11 +87,6 @@
     .border-anim{border-radius:9999px;background:conic-gradient(#FFFFF0,#FFFACD,#F0FFFF,#FFFFF0);animation:spin-gradient 6s linear infinite}
     @keyframes spin-gradient{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-    /* Visualizer (giữ nguyên canvas nhưng ép style ở cạnh phải) */
-    #visualizer{
-      position:absolute;top:0;right:-70px;width:60px;height:100%;
-      pointer-events:none; /* không chặn hover/click */
-    }
   </style>
 </head>
 <body>
@@ -185,7 +180,7 @@
       <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
       <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
         <button id="live-wallpaper-btn" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
-          <i class="fas fa-play-circle"></i> Live Wallpaper
+          <i class="fas fa-play-circle"></i> On Live 
         </button>
       </div>
     </div>
@@ -317,74 +312,6 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
   document.getElementById("live-wallpaper-wrapper").style.display="none";
 }
 
-/* ---------- Visualizer (.-–—) cạnh phải ---------- */
-const canvas = document.getElementById("visualizer");
-const ctx = canvas.getContext("2d");
-let audioCtx, analyser, source, dataArray;
-
-function fitCanvasToBox(){
-  // Khớp chiều cao canvas với profile-box (kể cả khi nội dung giãn)
-  const h = profileBox.offsetHeight;
-  canvas.height = h; // nội bộ vẽ
-  // CSS đã đặt height:100% rồi
-}
-new ResizeObserver(fitCanvasToBox).observe(profileBox);
-fitCanvasToBox();
-
-function setupAudioVisualizer(){
-  if(audioCtx) return; // tránh tạo lại
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 128;
-  analyser.smoothingTimeConstant = 0.85;
-  source = audioCtx.createMediaElementSource(music);
-  source.connect(analyser);
-  analyser.connect(audioCtx.destination);
-
-  dataArray = new Uint8Array(analyser.frequencyBinCount);
-  drawVisualizer();
-
-  // Nếu AudioContext đang suspended (Safari), resume khi có play
-  music.addEventListener("play", () => {
-    if(audioCtx.state === "suspended") audioCtx.resume();
-  });
-}
-
-function drawVisualizer(){
-  requestAnimationFrame(drawVisualizer);
-  if(!analyser) return;
-
-  analyser.getByteFrequencyData(dataArray);
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  const symbols = [".","-","–","—"];
-  const rows = 28;
-  const rowH = canvas.height / rows;
-
-  ctx.textAlign = "right";
-  ctx.textBaseline = "middle";
-
-  for(let i=0;i<rows;i++){
-    const v = dataArray[i] || 0;
-    const idx = Math.min(symbols.length-1, Math.floor(v/256 * symbols.length));
-    const sym = symbols[idx];
-
-    // Gradient ngang: FFFFF0 -> FFFACD -> F0FFFF
-    const g = ctx.createLinearGradient(0,0,canvas.width,0);
-    g.addColorStop(0,"#FFFFF0"); g.addColorStop(.5,"#FFFACD"); g.addColorStop(1,"#F0FFFF");
-    ctx.fillStyle = g;
-
-    // Kích thước phông & độ đậm thay đổi theo biên độ để trông "ngang"
-    const size = 12 + (v/255)*10;          // 12px -> 22px
-    ctx.font = `bold ${size}px monospace`;
-
-    // Dịch sang trái 1 chút theo v để tạo cảm giác "độ dài" ngang
-    const x = canvas.width - Math.max(6, v/6);
-    const y = i*rowH + rowH/2;
-
-    ctx.fillText(sym, x, y);
-  }
-}
 </script>
 </body>
 </html>
