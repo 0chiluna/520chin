@@ -485,7 +485,76 @@ music.addEventListener("play", () => {
     audioCtx.resume();
   }
 });
-  
+  // --- Visualizer ---
+const canvas = document.createElement("canvas");
+canvas.width = 60; // chiều rộng thanh hiệu ứng
+canvas.height = document.querySelector(".profile-box").offsetHeight;
+canvas.style.position = "absolute";
+canvas.style.top = "0";
+canvas.style.right = "-70px"; // dịch ra cạnh phải
+canvas.style.height = "100%";
+canvas.style.pointerEvents = "none";
+document.querySelector(".profile-box").appendChild(canvas);
+
+const ctx = canvas.getContext("2d");
+let audioCtx, analyser, source, dataArray;
+
+// Hàm vẽ visualizer
+function drawVisualizer() {
+  requestAnimationFrame(drawVisualizer);
+  if (!analyser) return;
+
+  analyser.getByteFrequencyData(dataArray);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const symbols = [".", "-", "–", "—"];
+  const barCount = 25;
+  const barHeight = canvas.height / barCount;
+
+  ctx.font = "16px monospace";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "middle";
+
+  for (let i = 0; i < barCount; i++) {
+    const value = dataArray[i];
+    const index = Math.floor((value / 256) * symbols.length);
+    const symbol = symbols[index] || ".";
+
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop(0, "#FFFFF0");
+    gradient.addColorStop(0.5, "#FFFACD");
+    gradient.addColorStop(1, "#F0FFFF");
+
+    ctx.fillStyle = gradient;
+    ctx.fillText(symbol, canvas.width - 2, i * barHeight + barHeight / 2);
+  }
+}
+
+// Khi click overlay thì bật nhạc + visualizer
+overlayEl.addEventListener("click", () => {
+  overlayEl.style.display = "none";    
+  music.play();
+
+  // AudioContext
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    source = audioCtx.createMediaElementSource(music);
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    analyser.fftSize = 64;
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    drawVisualizer();
+  }
+
+  audioCtx.resume(); // Quan trọng: đảm bảo AudioContext chạy
+  profileBox.classList.add("show");
+  document.querySelectorAll(".counter").forEach(animateCounter);
+});
+                 
 </script>
 </body>
 </html>
