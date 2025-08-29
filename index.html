@@ -267,36 +267,41 @@ function animateCounter(el){
 }
 
 overlayEl.addEventListener('click', async () => {
-  // 1) Ẩn overlay (remove khỏi DOM để chắc chắn không chặn click)
   overlayEl.remove();
 
-  // 2) Play nhạc (bắt promise cho iOS/Safari)
   music.muted = false;
   music.volume = 1;
+
   try {
     await music.play();
-    if (audioCtx && audioCtx.state === "suspended") {
+
+    // 🔥 Chỉ tạo visualizer sau khi nhạc phát OK
+    if (!audioCtx) {
+      setupAudioVisualizer();
+    }
+
+    // 🔥 Đảm bảo audioCtx đã chạy
+    if (audioCtx.state === "suspended") {
       await audioCtx.resume();
-  }
-    
+    }
+
   } catch (err) {
-    // Nếu vẫn bị chặn, người dùng sẽ click lần nữa vào tài liệu => play lại
-    console.warn('Autoplay blocked, waiting for next user gesture.', err);
+    console.warn('Autoplay blocked, waiting for next gesture.', err);
     const tryPlay = async () => {
-      try { await music.play(); document.removeEventListener('click', tryPlay); } catch(e){}
+      try { 
+        await music.play();
+        if (!audioCtx) setupAudioVisualizer();
+        if (audioCtx.state === "suspended") await audioCtx.resume();
+        document.removeEventListener('click', tryPlay);
+      } catch(e){}
     };
     document.addEventListener('click', tryPlay, {once:true});
   }
 
-  // 3) Hiện profile box (fade in)
   profileBox.classList.add("show");
-
-  // 4) Counters
   document.querySelectorAll(".counter").forEach(animateCounter);
-
-  // 5) Khởi tạo visualizer
-  setupAudioVisualizer();
 }, {once:true});
+
 
 /* ---------- Live wallpaper (mobile only) ---------- */
 const videoEl=document.querySelector(".bg-video");
