@@ -244,33 +244,44 @@ changeQuote(); setInterval(changeQuote,8000);
   };
 })();
 
-/* ---------- Overlay -> play music -> show box -> counters -> visualizer ---------- */
+/* ---------- Overlay -> play music -> show box -> counters ---------- */
 const overlayEl = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
 const profileBox = document.querySelector('.profile-box');
 
-function animateCounter(el){
-  const target=+el.getAttribute("data-target");
-  let current=0; const duration=1500; const t0=performance.now();
-  function step(t){
-    const p=Math.min((t-t0)/duration,1);
-    current=Math.floor(p*target);
-    el.textContent=current.toLocaleString();
-    if(p<1) requestAnimationFrame(step);
+function animateCounter(el) {
+  const target = +el.getAttribute("data-target");
+  let current = 0;
+  const duration = 1500;
+  const t0 = performance.now();
+
+  function step(t) {
+    const p = Math.min((t - t0) / duration, 1);
+    current = Math.floor(p * target);
+    el.textContent = current.toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
 overlayEl.addEventListener('click', async () => {
+  // Ẩn overlay
   overlayEl.remove();
 
-    document.addEventListener('click', tryPlay, {once:true});
+  // Thử phát nhạc (có thể bị chặn nếu không click user)
+  try {
+    await music.play();
+  } catch (err) {
+    console.log("⚠️ Trình duyệt chặn autoplay, cần click thêm:", err);
   }
 
+  // Hiện profile box
   profileBox.classList.add("show");
-  document.querySelectorAll(".counter").forEach(animateCounter);
-}, {once:true});
 
+  // Chạy counter
+  document.querySelectorAll(".counter").forEach(animateCounter);
+}, { once: true });
+  
 
 /* ---------- Live wallpaper (mobile only) ---------- */
 const videoEl=document.querySelector(".bg-video");
