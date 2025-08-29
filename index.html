@@ -275,6 +275,10 @@ overlayEl.addEventListener('click', async () => {
   music.volume = 1;
   try {
     await music.play();
+    if (audioCtx && audioCtx.state === "suspended") {
+      await audioCtx.resume();
+  }
+    
   } catch (err) {
     // Nếu vẫn bị chặn, người dùng sẽ click lần nữa vào tài liệu => play lại
     console.warn('Autoplay blocked, waiting for next user gesture.', err);
