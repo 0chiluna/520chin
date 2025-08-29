@@ -264,20 +264,6 @@ function animateCounter(el){
 overlayEl.addEventListener('click', async () => {
   overlayEl.remove();
 
-  music.muted = false;
-  music.volume = 1;
-
-  try {
-    await music.play();
-
-  } catch (err) {
-    console.warn('Autoplay blocked, waiting for next gesture.', err);
-    const tryPlay = async () => {
-      try { 
-        await music.play();
-        document.removeEventListener('click', tryPlay);
-      } catch(e){}
-    };
     document.addEventListener('click', tryPlay, {once:true});
   }
 
