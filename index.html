@@ -270,23 +270,11 @@ overlayEl.addEventListener('click', async () => {
   try {
     await music.play();
 
-    // 🔥 Chỉ tạo visualizer sau khi nhạc phát OK
-    if (!audioCtx) {
-      setupAudioVisualizer();
-    }
-
-    // 🔥 Đảm bảo audioCtx đã chạy
-    if (audioCtx.state === "suspended") {
-      await audioCtx.resume();
-    }
-
   } catch (err) {
     console.warn('Autoplay blocked, waiting for next gesture.', err);
     const tryPlay = async () => {
       try { 
         await music.play();
-        if (!audioCtx) setupAudioVisualizer();
-        if (audioCtx.state === "suspended") await audioCtx.resume();
         document.removeEventListener('click', tryPlay);
       } catch(e){}
     };
