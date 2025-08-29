@@ -9,552 +9,373 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Bouncing text */
-    @keyframes bounce-text {
-      0%, 100% { transform: translateY(1px); }
-      50% { transform: translateY(-1px); }
-    }
-    .animate-bounce-text { animation: bounce-text 1.5s ease-in-out infinite; }
+    @keyframes bounce-text { 0%,100%{transform:translateY(1px)} 50%{transform:translateY(-1px)} }
+    .animate-bounce-text{animation:bounce-text 1.5s ease-in-out infinite}
 
     /* Fancy input */
-    .fancy-input {
-      position: relative;
-      z-index: 1;
-      padding-left: 2.5rem !important;
-    }
-    .fancy-input::before {
-      content: "";
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 16px;
-      height: 90%;
-      background: linear-gradient(135deg, #00ffff, #ff00ff, #ffea00);
-      transform: skewY(-25deg);
-      border-radius: 6px;
-      z-index: -1;
+    .fancy-input{position:relative;z-index:1;padding-left:2.5rem!important}
+    .fancy-input::before{
+      content:"";position:absolute;top:6px;left:6px;width:16px;height:90%;
+      background:linear-gradient(135deg,#00ffff,#ff00ff,#ffea00);
+      transform:skewY(-25deg);border-radius:6px;z-index:-1
     }
 
-    /* Input background */
-    .bg-image-input {
-      background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      background-blend-mode: overlay;
-      background-color: rgba(0, 0, 0, 0.4);
-      border: none;
+    /* Input bg */
+    .bg-image-input{
+      background-image:url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
+      background-size:cover;background-position:center;color:white;
+      background-blend-mode:overlay;background-color:rgba(0,0,0,.4);border:none
     }
-    .bg-image-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+    .bg-image-input::placeholder{color:rgba(255,255,255,.6)}
 
-    /* Background video */
-    body {
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100vw;
-      min-height: 100vh;
-      object-fit: cover;
-      z-index: -10;
-      opacity: 0.8;
-      pointer-events: none;
-    }
+    /* Layout + bg video */
+    body{margin:0;padding:20px;min-height:100vh;display:flex;justify-content:center;align-items:center;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    .bg-video{position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;object-fit:cover;z-index:-10;opacity:.8;pointer-events:none}
 
     /* Profile Box */
-    .profile-box {
-      position: relative;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      user-select: none;
-      touch-action: none;
-      transition: box-shadow 0.3s ease, opacity 1.2s ease, transform 1.2s ease;
-      box-shadow: 0 0 25px 8px rgba(255, 248, 220, 0.5);
-      opacity: 0;
-      transform: translateY(20px);
+    .profile-box{
+      position:relative;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+      user-select:none;touch-action:none;transition:box-shadow .3s ease,opacity 1.2s ease,transform 1.2s ease;
+      box-shadow:0 0 25px 8px rgba(255,248,220,.5);opacity:0;transform:translateY(20px)
     }
-    .profile-box.show {
-      opacity: 1;
-      transform: translateY(0);
+    .profile-box.show{opacity:1;transform:translateY(0)}
+    .profile-box::before{
+      content:"";position:absolute;inset:0;
+      background-image:var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/3978c829958894fa9223a880603d7c01.jpg'));
+      background-size:cover;background-position:center;opacity:.9;z-index:-1;border-radius:.75rem;transition:background-image .5s ease-in-out
     }
-    .profile-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/3978c829958894fa9223a880603d7c01.jpg'));
-      background-size: cover;
-      background-position: center;
-      opacity: 0.9;
-      z-index: -1;
-      border-radius: 0.75rem;
-      transition: background-image 0.5s ease-in-out;
-    }
-    @media (max-width: 650px) {
-      .profile-box { width: 97%; }
-    }
+    @media (max-width:650px){.profile-box{width:97%}}
 
     /* Glow text */
-    @keyframes light-glow {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    .glow-text {
-      background-image: linear-gradient(120deg, #ffffff, #ffeecc, #ffffff);
-      background-size: 300% 100%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: light-glow 4s ease-in-out infinite;
+    @keyframes light-glow{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    .glow-text{
+      background-image:linear-gradient(120deg,#fff,#ffeecc,#fff);
+      background-size:300% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:light-glow 4s ease-in-out infinite
     }
 
     /* Overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 1000;
-      text-align: center;
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+      display:flex;justify-content:center;align-items:center;color:white;font-size:24px;cursor:pointer;z-index:1000;text-align:center
     }
-    .overlay-text { animation: glowText 2s ease-in-out infinite; }
-    @keyframes glowText {
-      0% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
-      50% {opacity: 1;text-shadow: 0 0 20px rgba(255, 255, 255, 0.9);}
-      100% {opacity: 0.4;text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);}
-    }
+    .overlay-text{animation:glowText 2s ease-in-out infinite}
+    @keyframes glowText{0%{opacity:.4;text-shadow:0 0 5px rgba(255,255,255,.3)}50%{opacity:1;text-shadow:0 0 20px rgba(255,255,255,.9)}100%{opacity:.4;text-shadow:0 0 5px rgba(255,255,255,.3)}}
 
     /* Quotes fade */
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      20% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-    #quote-box {animation: fadeInOut 8s ease-in-out infinite;}
+    @keyframes fadeInOut{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
+    #quote-box{animation:fadeInOut 8s ease-in-out infinite}
 
     /* Cookie Consent */
-    #cookie-consent {
-      position: fixed;
-      left: 1rem;
-      right: 1rem;
-      bottom: 1.25rem;
-      max-width: 980px;
-      margin: auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.12);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      transform: translateY(120%);
-      opacity: 0;
-      transition: .4s;
-      z-index: 9999;
-      font-family: sans-serif;
+    #cookie-consent{
+      position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;
+      box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;
+      padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif
     }
-    #cookie-consent.show {transform: translateY(0);opacity: 1}
-    #cookie-consent p {margin:0;font-size:14px;color:#333;flex:1}
-    #cookie-consent button {
-      margin-left:10px;
-      padding:8px 14px;
-      border:0;
-      border-radius:6px;
-      cursor:pointer;
-      font-size:14px
-    }
-    #cookie-consent .accept {background:#38bdf8;color:#fff}
-    #cookie-consent .decline {background:#eee;color:#333}
+    #cookie-consent.show{transform:translateY(0);opacity:1}
+    #cookie-consent p{margin:0;font-size:14px;color:#333;flex:1}
+    #cookie-consent button{margin-left:10px;padding:8px 14px;border:0;border-radius:6px;cursor:pointer;font-size:14px}
+    #cookie-consent .accept{background:#38bdf8;color:#fff}
+    #cookie-consent .decline{background:#eee;color:#333}
 
     /* Live wallpaper btn */
-    #live-wallpaper-btn {
-      background: rgba(255,255,255,0.1);
-    }
+    #live-wallpaper-btn{background:rgba(255,255,255,.1)}
 
-    /* Shadow cho text button */
-    .btn-text-shadow { text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
-    /* Viền Avatar Neon Gradient */
-    .border-anim {
-     border-radius: 9999px;
-     background: conic-gradient(#FFFFF0, #FFFACD, #F0FFFF, #FFFFF0);
-     animation: spin-gradient 6s linear infinite;
-    }
+    /* Button text shadow */
+    .btn-text-shadow{text-shadow:0 2px 6px rgba(0,0,0,.6)}
 
-/* Quay vòng */
-@keyframes spin-gradient {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-    
+    /* Avatar neon border */
+    .border-anim{border-radius:9999px;background:conic-gradient(#FFFFF0,#FFFACD,#F0FFFF,#FFFFF0);animation:spin-gradient 6s linear infinite}
+    @keyframes spin-gradient{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+    /* Visualizer (giữ nguyên canvas nhưng ép style ở cạnh phải) */
+    #visualizer{
+      position:absolute;top:0;right:-70px;width:60px;height:100%;
+      pointer-events:none; /* không chặn hover/click */
+    }
   </style>
 </head>
 <body>
-  
-<!-- Overlay -->
-<div class="overlay" id="overlay">
-  <span class="overlay-text">Click to continue</span>
-</div>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay">
+    <span class="overlay-text">Click to continue</span>
+  </div>
 
-<!-- Nhạc -->
-<audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3" loop></audio>
-  
-<video autoplay muted loop playsinline class="bg-video">
-  <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
-</video>
+  <!-- Nhạc -->
+  <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3" loop></audio>
 
-<!-- Profile Container -->
-<div class="container mx-auto px-4 flex flex-col items-center justify-center">
-  <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
+  </video>
 
-    <canvas id="visualizer" width="60" height="600" 
-            class="absolute top-0 right-0 h-full"></canvas>
-    
-    <div class="flex items-start space-x-4 mb-6">
-      <div class="relative w-20 h-20 avatar-border">
-  <div class="absolute inset-0 rounded-full p-[2px] border-anim"></div>
-  <div class="relative w-full h-full rounded-full overflow-hidden">
-    <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/6b6f4e0dd007f98333735ce6199eb786.jpg" 
-         alt="Avatar" 
-         class="w-full h-full object-cover rounded-full">
-       </div>
-      </div>
-      <div class="flex-1">
-        <h1 class="text-2xl font-bold glow-text drop-shadow">Mỳ Cụtッ</h1>
-        <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
-        <div class="flex space-x-2 mt-2">
-          <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
-          <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
+  <!-- Profile Container -->
+  <div class="container mx-auto px-4 flex flex-col items-center justify-center">
+    <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
+      <!-- Visualizer giữ nguyên trong box -->
+      <canvas id="visualizer" width="60" height="600" class="absolute top-0 right-0 h-full"></canvas>
+
+      <!-- Avatar + Info (GIỮ NGUYÊN) -->
+      <div class="flex items-start space-x-4 mb-6">
+        <div class="relative w-20 h-20 avatar-border">
+          <div class="absolute inset-0 rounded-full p-[2px] border-anim"></div>
+          <div class="relative w-full h-full rounded-full overflow-hidden">
+            <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/6b6f4e0dd007f98333735ce6199eb786.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
+          </div>
+        </div>
+        <div class="flex-1">
+          <h1 class="text-2xl font-bold glow-text drop-shadow">Mỳ Cụtッ</h1>
+          <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
+          <div class="flex space-x-2 mt-2">
+            <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
+            <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
+          </div>
         </div>
       </div>
-    </div>
 
-   <div class="mt-8 flex space-x-4">
-    <!-- Nút Pinterest -->
-    <a href="https://pin.it/7tbwbFBI7" 
-       class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-      <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
-      <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
-      <span class="relative flex items-center justify-center text-white font-semibold btn-text-shadow">
-        <i class="fab fa-pinterest mr-2"></i> Pinterest
-      </span>
-    </a>
+      <!-- Buttons (GIỮ NGUYÊN) -->
+      <div class="mt-8 flex space-x-4">
+        <a href="https://pin.it/7tbwbFBI7" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
+          <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
+          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+          <span class="relative flex items-center justify-center text-white font-semibold btn-text-shadow">
+            <i class="fab fa-pinterest mr-2"></i> Pinterest
+          </span>
+        </a>
 
-    <!-- Nút Discord -->
-    <a href="https://discord.gg/tms474bz" 
-       class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-      <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
-      <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
-      <span class="relative flex items-center justify-center text-black font-semibold btn-text-shadow">
-        <i class="fab fa-discord mr-2"></i> Discord
-      </span>
-    </a>
-  </div>
+        <a href="https://discord.gg/tms474bz" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
+          <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
+          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+          <span class="relative flex items-center justify-center text-black font-semibold btn-text-shadow">
+            <i class="fab fa-discord mr-2"></i> Discord
+          </span>
+        </a>
+      </div>
 
-    <div class="mt-6 pt-4 border-t border-gray-200">
+      <!-- Stats + Input + IP (GIỮ NGUYÊN) -->
+      <div class="mt-6 pt-4 border-t border-gray-200">
         <p class="text-left text-black font-medium mb-2">Hello, I'm just a newbie. So please understand UwU</p>
-      
-      <div class="flex justify-between text-sm text-black">
-  <div class="text-center">
-    <div class="font-bold text-white">
-      <span class="counter" data-target="80">0</span>+
-    </div>
-    <div>Followers</div>
-  </div>
-  <div class="text-center">
-    <div class="font-bold text-white">
-      <span class="counter" data-target="2000000">0</span>
-    </div>
-    <div>Viewers</div>
-  </div>
-  <div class="text-center">
-    <div class="font-bold text-white">
-      <span class="counter" data-target="400">0</span>+
-    </div>
-    <div>Image</div>
-  </div>
-</div>
 
-      <div class="mt-6 relative">
-        <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
-        <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
-          <i class="fas fa-paper-plane"></i>
+        <div class="flex justify-between text-sm text-black">
+          <div class="text-center">
+            <div class="font-bold text-white"><span class="counter" data-target="80">0</span>+</div>
+            <div>Followers</div>
+          </div>
+          <div class="text-center">
+            <div class="font-bold text-white"><span class="counter" data-target="2000000">0</span></div>
+            <div>Viewers</div>
+          </div>
+          <div class="text-center">
+            <div class="font-bold text-white"><span class="counter" data-target="400">0</span>+</div>
+            <div>Image</div>
+          </div>
+        </div>
+
+        <div class="mt-6 relative">
+          <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
+          <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+
+        <div class="mt-4 text-center text-xs text-white opacity-50">
+          Your IP: <span id="ip-address">Loading...</span>
+        </div>
+      </div>
+
+      <div class="text-xs italic text-white mt-1 text-center drop-shadow">I went crazy after editing this source</div>
+      <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
+      <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
+        <button id="live-wallpaper-btn" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
+          <i class="fas fa-play-circle"></i> Live Wallpaper
         </button>
       </div>
-
-      <div class="mt-4 text-center text-xs text-white opacity-50">
-        Your IP: <span id="ip-address">Loading...</span>
-      </div>
     </div>
 
-    <div class="text-xs italic text-white mt-1 text-center drop-shadow">
-      I went crazy after editing this source
-    </div>
-    <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
-    <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
-      <button id="live-wallpaper-btn" 
-        class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
-        <i class="fas fa-play-circle"></i> Live Wallpaper
-      </button>
-    </div>
+    <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow"></div>
   </div>
 
-  <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow"></div>
-</div>
-
-<!-- Cookie Consent -->
-<div id="cookie-consent" hidden>
-  <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
-  <div>
-    <button class="decline">Từ chối</button>
-    <button class="accept">Đồng ý</button>
+  <!-- Cookie Consent -->
+  <div id="cookie-consent" hidden>
+    <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
+    <div>
+      <button class="decline">Từ chối</button>
+      <button class="accept">Đồng ý</button>
+    </div>
   </div>
-</div>
 
 <script>
-// --- Hiển thị IP ---
+/* ---------- IP ---------- */
 fetch('https://api.ipify.org?format=json')
-  .then(res => res.json())
-  .then(data => document.getElementById('ip-address').textContent = data.ip)
-  .catch(() => document.getElementById('ip-address').textContent = 'Unknown');
+  .then(r=>r.json())
+  .then(d=>document.getElementById('ip-address').textContent=d.ip)
+  .catch(()=>document.getElementById('ip-address').textContent='Unknown');
 
-// --- Gửi tin nhắn ---
+/* ---------- Chat ---------- */
 const input = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
-function sendMessage() {
-  const message = input.value.trim();
-  if (!message) return;
-  console.log("User said:", message);
+function sendMessage(){
+  const msg = input.value.trim();
+  if(!msg) return;
+  console.log("User said:", msg);
   input.value = "";
 }
 sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", e => e.key === "Enter" && sendMessage());
+input.addEventListener("keydown", e => e.key==="Enter" && sendMessage());
 
-// --- Đồng hồ ---
-function updateRealTimeClock() {
-  const now = new Date();
-  const format = n => String(n).padStart(2,"0");
+/* ---------- Clock ---------- */
+function updateRealTimeClock(){
+  const n=new Date(),pad=n=>String(n).padStart(2,"0");
   document.getElementById('realtime-clock').textContent =
-    `${format(now.getDate())}/${format(now.getMonth()+1)}/${now.getFullYear()} ${format(now.getHours())}:${format(now.getMinutes())}:${format(now.getSeconds())}`;
+    `${pad(n.getDate())}/${pad(n.getMonth()+1)}/${n.getFullYear()} ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
 }
-setInterval(updateRealTimeClock, 1000); updateRealTimeClock();
+setInterval(updateRealTimeClock,1000); updateRealTimeClock();
 
-// --- Quotes ---
-const quotes = [
-  "「Even the darkest night will end and the sun will rise.」",
-  "「Create with passion or not at all.」",
-  "「Code is poetry.」",
-  "「Believe you can and you're halfway there.」",
-  "「Chẳng có gì là mãi mãi cả.」",
-  "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
-  "「Không sợ đi chậm, chỉ sợ đứng yên.」",
-  "「Simplicity is the ultimate sophistication.」",
-  "「You are not your job, you are not how much money you have.」",
-  "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
-  "「The quieter you become, the more you are able to hear.」",
-  "「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」",
-  "「Focus on progress, not perfection.」",
-  "「Chiến thắng lớn nhất là chiến thắng chính mình.」",
-  "「Don't adapt to the energy in the room. Influence the energy in the room.」",
-  "「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"
-];
-const qb = document.getElementById('quote-box');
-function changeQuote(){ qb.textContent = quotes[Math.floor(Math.random()*quotes.length)]; }
+/* ---------- Quotes ---------- */
+const quotes=[ "「Even the darkest night will end and the sun will rise.」","「Create with passion or not at all.」","「Code is poetry.」","「Believe you can and you're halfway there.」","「Chẳng có gì là mãi mãi cả.」","「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」","「Không sợ đi chậm, chỉ sợ đứng yên.」","「Simplicity is the ultimate sophistication.」","「You are not your job, you are not how much money you have.」","「Đừng cố gắng nổi bật — hãy cố gắng có ích.」","「The quieter you become, the more you are able to hear.」","「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」","「Focus on progress, not perfection.」","「Chiến thắng lớn nhất là chiến thắng chính mình.」","「Don't adapt to the energy in the room. Influence the energy in the room.」","「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」" ];
+const qb=document.getElementById('quote-box');
+function changeQuote(){ qb.textContent = quotes[Math.floor(Math.random()*quotes.length)] }
 changeQuote(); setInterval(changeQuote,8000);
 
-// --- Cookie Consent ---
+/* ---------- Cookie consent ---------- */
 (function(){
   const el=document.getElementById('cookie-consent');
   if(!localStorage.getItem('cookie_consent')){
-    el.hidden=false; requestAnimationFrame(()=>el.classList.add('show'))
+    el.hidden=false; requestAnimationFrame(()=>el.classList.add('show'));
   }
   el.querySelector('.accept').onclick=function(){
-    localStorage.setItem('cookie_consent','accepted');
-    el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
+    localStorage.setItem('cookie_consent','accepted'); el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
   };
   el.querySelector('.decline').onclick=function(){
-    localStorage.setItem('cookie_consent','declined');
-    el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
+    localStorage.setItem('cookie_consent','declined'); el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
   };
 })();
 
-// --- Overlay để play nhạc + show profile + chạy stats ---
+/* ---------- Overlay -> play music -> show box -> counters -> visualizer ---------- */
 const overlayEl = document.getElementById('overlay');
 const music = document.getElementById('bgMusic');
 const profileBox = document.querySelector('.profile-box');
 
-function animateCounter(el) {
-  const target = +el.getAttribute("data-target");
-  let current = 0;
-  const duration = 1500; // 1.5s
-  const startTime = performance.now();
-
-  function update(now) {
-    const progress = Math.min((now - startTime) / duration, 1);
-    current = Math.floor(progress * target);
-    el.textContent = current.toLocaleString();
-    if (progress < 1) requestAnimationFrame(update);
+function animateCounter(el){
+  const target=+el.getAttribute("data-target");
+  let current=0; const duration=1500; const t0=performance.now();
+  function step(t){
+    const p=Math.min((t-t0)/duration,1);
+    current=Math.floor(p*target);
+    el.textContent=current.toLocaleString();
+    if(p<1) requestAnimationFrame(step);
   }
-  requestAnimationFrame(update);
+  requestAnimationFrame(step);
 }
 
 overlayEl.addEventListener('click', async () => {
-  overlayEl.style.display = 'none';    
-  await music.play();                        // Play nhạc
-  profileBox.classList.add("show");    
+  // 1) Ẩn overlay (remove khỏi DOM để chắc chắn không chặn click)
+  overlayEl.remove();
+
+  // 2) Play nhạc (bắt promise cho iOS/Safari)
+  music.muted = false;
+  music.volume = 1;
+  try {
+    await music.play();
+  } catch (err) {
+    // Nếu vẫn bị chặn, người dùng sẽ click lần nữa vào tài liệu => play lại
+    console.warn('Autoplay blocked, waiting for next user gesture.', err);
+    const tryPlay = async () => {
+      try { await music.play(); document.removeEventListener('click', tryPlay); } catch(e){}
+    };
+    document.addEventListener('click', tryPlay, {once:true});
+  }
+
+  // 3) Hiện profile box (fade in)
+  profileBox.classList.add("show");
+
+  // 4) Counters
   document.querySelectorAll(".counter").forEach(animateCounter);
 
-  // Khởi tạo visualizer sau khi nhạc play
+  // 5) Khởi tạo visualizer
   setupAudioVisualizer();
-  if (audioCtx && audioCtx.state === "suspended") {
-    await audioCtx.resume();
-  }
-});
+}, {once:true});
 
-
-// --- Live Wallpaper (chỉ mobile) ---
+/* ---------- Live wallpaper (mobile only) ---------- */
 const videoEl=document.querySelector(".bg-video");
 const liveBtn=document.getElementById("live-wallpaper-btn");
-if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
   let isPlaying=false; videoEl.pause();
   liveBtn.addEventListener("click",()=>{
-    isPlaying ? (videoEl.pause(),liveBtn.innerHTML='<i class="fas fa-play-circle"></i> On Live')
-              : (videoEl.play(),liveBtn.innerHTML='<i class="fas fa-pause-circle"></i> Off Live');
+    if(isPlaying){ videoEl.pause(); liveBtn.innerHTML='<i class="fas fa-play-circle"></i> Live Wallpaper'; }
+    else{ videoEl.play(); liveBtn.innerHTML='<i class="fas fa-pause-circle"></i> Live Wallpaper'; }
     isPlaying=!isPlaying;
   });
-} else document.getElementById("live-wallpaper-wrapper").style.display="none";
-  // --- Visualizer cạnh phải ---
+}else{
+  document.getElementById("live-wallpaper-wrapper").style.display="none";
+}
+
+/* ---------- Visualizer (.-–—) cạnh phải ---------- */
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
 let audioCtx, analyser, source, dataArray;
 
-function setupAudioVisualizer() {
-  if (audioCtx) return;
+function fitCanvasToBox(){
+  // Khớp chiều cao canvas với profile-box (kể cả khi nội dung giãn)
+  const h = profileBox.offsetHeight;
+  canvas.height = h; // nội bộ vẽ
+  // CSS đã đặt height:100% rồi
+}
+new ResizeObserver(fitCanvasToBox).observe(profileBox);
+fitCanvasToBox();
+
+function setupAudioVisualizer(){
+  if(audioCtx) return; // tránh tạo lại
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 128;
+  analyser.smoothingTimeConstant = 0.85;
   source = audioCtx.createMediaElementSource(music);
   source.connect(analyser);
   analyser.connect(audioCtx.destination);
 
-  analyser.fftSize = 128; 
   dataArray = new Uint8Array(analyser.frequencyBinCount);
-
   drawVisualizer();
+
+  // Nếu AudioContext đang suspended (Safari), resume khi có play
+  music.addEventListener("play", () => {
+    if(audioCtx.state === "suspended") audioCtx.resume();
+  });
 }
 
-function drawVisualizer() {
+function drawVisualizer(){
   requestAnimationFrame(drawVisualizer);
-  analyser.getByteFrequencyData(dataArray);
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const barCount = 25; // số dòng
-  const barHeight = canvas.height / barCount;
-
-  for (let i = 0; i < barCount; i++) {
-    const value = dataArray[i] / 2;
-    const barWidth = Math.max(4, value / 6);
-
-    // Gradient FFFFF0 -> FFFACD -> F0FFFF
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    gradient.addColorStop(0, "#FFFFF0");
-    gradient.addColorStop(0.5, "#FFFACD");
-    gradient.addColorStop(1, "#F0FFFF");
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(canvas.width - barWidth, i * barHeight + 2, barWidth, barHeight - 4);
-  }
-}
-
-// Khi nhạc play thì setup visualizer
-music.addEventListener("play", () => {
-  setupAudioVisualizer();
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
-});
-  // --- Visualizer ---
-const canvas = document.createElement("canvas");
-canvas.width = 60; // chiều rộng thanh hiệu ứng
-canvas.height = document.querySelector(".profile-box").offsetHeight;
-canvas.style.position = "absolute";
-canvas.style.top = "0";
-canvas.style.right = "-70px"; // dịch ra cạnh phải
-canvas.style.height = "100%";
-canvas.style.pointerEvents = "none";
-document.querySelector(".profile-box").appendChild(canvas);
-
-const ctx = canvas.getContext("2d");
-let audioCtx, analyser, source, dataArray;
-
-// Hàm vẽ visualizer
-function drawVisualizer() {
-  requestAnimationFrame(drawVisualizer);
-  if (!analyser) return;
+  if(!analyser) return;
 
   analyser.getByteFrequencyData(dataArray);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  const symbols = [".", "-", "–", "—"];
-  const barCount = 25;
-  const barHeight = canvas.height / barCount;
+  const symbols = [".","-","–","—"];
+  const rows = 28;
+  const rowH = canvas.height / rows;
 
-  ctx.font = "16px monospace";
   ctx.textAlign = "right";
   ctx.textBaseline = "middle";
 
-  for (let i = 0; i < barCount; i++) {
-    const value = dataArray[i];
-    const index = Math.floor((value / 256) * symbols.length);
-    const symbol = symbols[index] || ".";
+  for(let i=0;i<rows;i++){
+    const v = dataArray[i] || 0;
+    const idx = Math.min(symbols.length-1, Math.floor(v/256 * symbols.length));
+    const sym = symbols[idx];
 
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    gradient.addColorStop(0, "#FFFFF0");
-    gradient.addColorStop(0.5, "#FFFACD");
-    gradient.addColorStop(1, "#F0FFFF");
+    // Gradient ngang: FFFFF0 -> FFFACD -> F0FFFF
+    const g = ctx.createLinearGradient(0,0,canvas.width,0);
+    g.addColorStop(0,"#FFFFF0"); g.addColorStop(.5,"#FFFACD"); g.addColorStop(1,"#F0FFFF");
+    ctx.fillStyle = g;
 
-    ctx.fillStyle = gradient;
-    ctx.fillText(symbol, canvas.width - 2, i * barHeight + barHeight / 2);
+    // Kích thước phông & độ đậm thay đổi theo biên độ để trông "ngang"
+    const size = 12 + (v/255)*10;          // 12px -> 22px
+    ctx.font = `bold ${size}px monospace`;
+
+    // Dịch sang trái 1 chút theo v để tạo cảm giác "độ dài" ngang
+    const x = canvas.width - Math.max(6, v/6);
+    const y = i*rowH + rowH/2;
+
+    ctx.fillText(sym, x, y);
   }
 }
-
-// Khi click overlay thì bật nhạc + visualizer
-overlayEl.addEventListener("click", () => {
-  overlayEl.style.display = "none";    
-  music.play();
-
-  // AudioContext
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    source = audioCtx.createMediaElementSource(music);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
-    analyser.fftSize = 64;
-    const bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
-
-    drawVisualizer();
-  }
-
-  audioCtx.resume(); // Quan trọng: đảm bảo AudioContext chạy
-  profileBox.classList.add("show");
-  document.querySelectorAll(".counter").forEach(animateCounter);
-});
-                 
 </script>
 </body>
 </html>
