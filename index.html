@@ -309,7 +309,7 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
   const lunar = lc.solarToLunar(today.getFullYear(), today.getMonth()+1, today.getDate());
   const { lunarDay, lunarMonth } = lunar;
 
-  // Danh sách sự kiện hằng năm (URL trực tiếp)
+  // Danh sách sự kiện hằng năm
   const eventBg = {
     newyear: "https://example.com/bg_newyear.png",
     valentines: "https://example.com/bg_valentine.jpg",
@@ -359,26 +359,25 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
     liveBtn.style.display="none"; // Ẩn nút Live
 
     if(file.endsWith(".mp4") || file.endsWith(".webm")){
-      // 👉 Đổi sang video background
+      // 👉 Hiện video
       document.body.style.backgroundImage="none";
       videoEl.style.display="block";
       videoEl.src = eventBg[event];
       videoEl.load();
       videoEl.play().catch(err => console.warn("⚠️ Autoplay blocked:", err));
     } else {
-      // 👉 Đổi sang ảnh background
-      videoEl.style.display="none";
+      // 👉 Hiện ảnh
+      videoEl.pause();
+      videoEl.style.display="none";  // Ẩn video để ảnh hiện ra
       document.body.style.backgroundImage = `url("${eventBg[event]}")`;
       document.body.style.backgroundSize="cover";
       document.body.style.backgroundPosition="center";
     }
   } else {
-    // 👉 Ngày thường: giữ nguyên video mặc định (HTML đã có sẵn src)
+    // 👉 Ngày thường: giữ video mặc định
     videoEl.style.display="block";
   }
 })();
-
-
   
 </script>
 </body>
