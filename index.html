@@ -298,39 +298,39 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
 }else{
   document.getElementById("live-wallpaper-wrapper").style.display="none";
 }
-/* ---------- Special Events Background ---------- */
+
 (function(){
   const videoEl = document.querySelector(".bg-video");
   const liveBtn = document.getElementById("live-wallpaper-btn");
 
+  // ✅ Lấy ngày theo múi giờ Việt Nam
   const today = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
   const lc = window['lunarCalendar'];
   const lunar = lc.solarToLunar(today.getFullYear(), today.getMonth()+1, today.getDate());
   const { lunarDay, lunarMonth } = lunar;
 
-  // Danh sách sự kiện hằng năm - dùng link trực tiếp
+  // Danh sách sự kiện hằng năm (URL trực tiếp)
   const eventBg = {
-    newyear: "https://example.com/bg_newyear.png",        
-    valentines: "https://example.com/bg_valentine.jpg",   
-    womensday: "https://example.com/bg_womensday.png",    
-    hungking: "https://example.com/bg_hungking.jpg",      
+    newyear: "https://example.com/bg_newyear.png",
+    valentines: "https://example.com/bg_valentine.jpg",
+    womensday: "https://example.com/bg_womensday.png",
+    hungking: "https://example.com/bg_hungking.jpg",
     liberation: "https://example.com/bg_reunification.mp4",
-    laborday: "https://example.com/bg_laborday.png",      
-    childrens: "https://example.com/bg_childrens.png",    
-    tet: "https://example.com/bg_tet.mp4",                
-    valentine2: "https://example.com/bg_valentine2.jpg",  
-    vuLan: "https://example.com/bg_vulan.jpg",            
+    laborday: "https://example.com/bg_laborday.png",
+    childrens: "https://example.com/bg_childrens.png",
+    tet: "https://example.com/bg_tet.mp4",
+    valentine2: "https://example.com/bg_valentine2.jpg",
+    vuLan: "https://example.com/bg_vulan.jpg",
     independence: "https://s3.tebi.io/ely.bucket.s0.io.biti/347b0389089dbde71b8cf929ed954746.jpg",
-    trungthu: "https://example.com/bg_trungthu.gif",      
-    teachers: "https://example.com/bg_teacher.png",       
-    christmas: "https://example.com/bg_christmas.mp4",    
-    womenVN: "https://example.com/bg_womenVN.png"         
+    trungthu: "https://example.com/bg_trungthu.gif",
+    teachers: "https://example.com/bg_teacher.png",
+    christmas: "https://example.com/bg_christmas.mp4",
+    womenVN: "https://example.com/bg_womenVN.png"
   };
 
   // Hàm xác định sự kiện hôm nay
   function getTodayEvent(){
     const md = `${today.getDate()}-${today.getMonth()+1}`;
-    // Dương lịch cố định
     if(md==="1-1") return "newyear";
     if(md==="14-2") return "valentines";
     if(md==="8-3") return "womensday";
@@ -342,7 +342,6 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
     if(md==="20-11") return "teachers";
     if(md==="24-12" || md==="25-12") return "christmas";
 
-    // Âm lịch
     if(lunarMonth===1 && lunarDay>=1 && lunarDay<=5) return "tet";
     if(lunarMonth===3 && lunarDay===10) return "hungking";
     if(lunarMonth===7 && lunarDay===7) return "valentine2";
@@ -353,27 +352,32 @@ if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
   }
 
   const event = getTodayEvent();
+  console.log("📅 Today:", today.toLocaleDateString("vi-VN"), "| Event:", event);
+
   if(event){
     const file = eventBg[event].toLowerCase();
-    // Ẩn nút Live
-    liveBtn.style.display="none";
+    liveBtn.style.display="none"; // Ẩn nút Live
 
     if(file.endsWith(".mp4") || file.endsWith(".webm")){
-      // 👉 Video background
+      // 👉 Đổi sang video background
       document.body.style.backgroundImage="none";
       videoEl.style.display="block";
-      videoEl.querySelector("source").src = eventBg[event];
+      videoEl.src = eventBg[event];
       videoEl.load();
-      videoEl.play();
-    }else{
-      // 👉 Ảnh background
+      videoEl.play().catch(err => console.warn("⚠️ Autoplay blocked:", err));
+    } else {
+      // 👉 Đổi sang ảnh background
       videoEl.style.display="none";
       document.body.style.backgroundImage = `url("${eventBg[event]}")`;
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize="cover";
+      document.body.style.backgroundPosition="center";
     }
+  } else {
+    // 👉 Ngày thường: giữ nguyên video mặc định (HTML đã có sẵn src)
+    videoEl.style.display="block";
   }
 })();
+
 
   
 </script>
