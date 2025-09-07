@@ -8,109 +8,49 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Bouncing text */
     @keyframes bounce-text { 0%,100%{transform:translateY(1px)} 50%{transform:translateY(-1px)} }
     .animate-bounce-text{animation:bounce-text 1.5s ease-in-out infinite}
-
-    /* Fancy input */
     .fancy-input{position:relative;z-index:1;padding-left:2.5rem!important}
-    .fancy-input::before{
-      content:"";position:absolute;top:6px;left:6px;width:16px;height:90%;
-      background:linear-gradient(135deg,#00ffff,#ff00ff,#ffea00);
-      transform:skewY(-25deg);border-radius:6px;z-index:-1
-    }
-
-    /* Input bg */
-    .bg-image-input{
-      background-image:url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
-      background-size:cover;background-position:center;color:white;
-      background-blend-mode:overlay;background-color:rgba(0,0,0,.4);border:none
-    }
+    .fancy-input::before{content:"";position:absolute;top:6px;left:6px;width:16px;height:90%;background:linear-gradient(135deg,#00ffff,#ff00ff,#ffea00);transform:skewY(-25deg);border-radius:6px;z-index:-1}
+    .bg-image-input{background-image:url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');background-size:cover;background-position:center;color:white;background-blend-mode:overlay;background-color:rgba(0,0,0,.4);border:none}
     .bg-image-input::placeholder{color:rgba(255,255,255,.6)}
-
-    /* Layout + bg video */
     body{margin:0;padding:20px;min-height:100vh;display:flex;justify-content:center;align-items:center;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
     .bg-video{position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;object-fit:cover;z-index:-10;opacity:.8;pointer-events:none}
-
-    /* Profile Box */
-    .profile-box{
-      position:relative;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
-      user-select:none;touch-action:none;transition:box-shadow .3s ease,opacity 1.2s ease,transform 1.2s ease;
-      box-shadow:0 0 25px 8px rgba(255,248,220,.5);opacity:0;transform:translateY(20px)
-    }
+    .profile-box{position:relative;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);user-select:none;touch-action:none;transition:box-shadow .3s ease,opacity 1.2s ease,transform 1.2s ease;box-shadow:0 0 25px 8px rgba(255,248,220,.5);opacity:0;transform:translateY(20px)}
     .profile-box.show{opacity:1;transform:translateY(0)}
-    .profile-box::before{
-      content:"";position:absolute;inset:0;
-      background-image:var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/3978c829958894fa9223a880603d7c01.jpg'));
-      background-size:cover;background-position:center;opacity:.9;z-index:-1;border-radius:.75rem;transition:background-image .5s ease-in-out
-    }
+    .profile-box::before{content:"";position:absolute;inset:0;background-image:var(--profile-bg, url('https://s3.tebi.io/ely.bucket.s0.io.biti/3978c829958894fa9223a880603d7c01.jpg'));background-size:cover;background-position:center;opacity:.9;z-index:-1;border-radius:.75rem;transition:background-image .5s ease-in-out}
     @media (max-width:650px){.profile-box{width:97%}}
-
-    /* Glow text */
     @keyframes light-glow{0%{background-position:-200% 0}100%{background-position:200% 0}}
-    .glow-text{
-      background-image:linear-gradient(120deg,#fff,#ffeecc,#fff);
-      background-size:300% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:light-glow 4s ease-in-out infinite
-    }
-
-    /* Overlay */
-    .overlay{
-      position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
-      display:flex;justify-content:center;align-items:center;color:white;font-size:24px;cursor:pointer;z-index:1000;text-align:center
-    }
+    .glow-text{background-image:linear-gradient(120deg,#fff,#ffeecc,#fff);background-size:300% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:light-glow 4s ease-in-out infinite}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:center;color:white;font-size:24px;cursor:pointer;z-index:1000;text-align:center}
     .overlay-text{animation:glowText 2s ease-in-out infinite}
     @keyframes glowText{0%{opacity:.4;text-shadow:0 0 5px rgba(255,255,255,.3)}50%{opacity:1;text-shadow:0 0 20px rgba(255,255,255,.9)}100%{opacity:.4;text-shadow:0 0 5px rgba(255,255,255,.3)}}
-
-    /* Quotes fade */
     @keyframes fadeInOut{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
     #quote-box{animation:fadeInOut 8s ease-in-out infinite}
-
-    /* Cookie Consent */
-    #cookie-consent{
-      position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;
-      box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;
-      padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif
-    }
+    #cookie-consent{position:fixed;left:1rem;right:1rem;bottom:1.25rem;max-width:980px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;justify-content:space-between;align-items:center;padding:16px;transform:translateY(120%);opacity:0;transition:.4s;z-index:9999;font-family:sans-serif}
     #cookie-consent.show{transform:translateY(0);opacity:1}
     #cookie-consent p{margin:0;font-size:14px;color:#333;flex:1}
     #cookie-consent button{margin-left:10px;padding:8px 14px;border:0;border-radius:6px;cursor:pointer;font-size:14px}
     #cookie-consent .accept{background:#38bdf8;color:#fff}
     #cookie-consent .decline{background:#eee;color:#333}
-
-    /* Live wallpaper btn */
     #live-wallpaper-btn{background:rgba(255,255,255,.1)}
-
-    /* Button text shadow */
     .btn-text-shadow{text-shadow:0 2px 6px rgba(0,0,0,.6)}
-
-    /* Avatar neon border */
     .border-anim{border-radius:9999px;background:conic-gradient(#FFFFF0,#FFFACD,#F0FFFF,#FFFFF0);animation:spin-gradient 6s linear infinite}
     @keyframes spin-gradient{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-
   </style>
 </head>
 <body>
-  <!-- Overlay -->
   <div class="overlay" id="overlay">
     <span class="overlay-text">Click to continue</span>
   </div>
-
-  <!-- Nhạc -->
   <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop></audio>
-
-  <script src="https://unpkg.com/lunar-calendar/dist/index.umd.js"></script>
-  
   <video autoplay muted loop playsinline class="bg-video">
     <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
   </video>
 
-  <!-- Profile Container -->
   <div class="container mx-auto px-4 flex flex-col items-center justify-center">
     <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
-      <!-- Visualizer giữ nguyên trong box -->
       <canvas id="visualizer" width="60" height="600" class="absolute top-0 right-0 h-full"></canvas>
-
-      <!-- Avatar + Info (GIỮ NGUYÊN) -->
       <div class="flex items-start space-x-4 mb-6">
         <div class="relative w-20 h-20 avatar-border">
           <div class="absolute inset-0 rounded-full p-[2px] border-anim"></div>
@@ -127,8 +67,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Buttons (GIỮ NGUYÊN) -->
       <div class="mt-8 flex space-x-4">
         <a href="https://pin.it/7tbwbFBI7" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
           <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
@@ -137,7 +75,6 @@
             <i class="fab fa-pinterest mr-2"></i> Pinterest
           </span>
         </a>
-
         <a href="https://discord.gg/773brCCmZA" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
           <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
           <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
@@ -146,160 +83,65 @@
           </span>
         </a>
       </div>
-
-      <!-- Stats + Input + IP (GIỮ NGUYÊN) -->
       <div class="mt-6 pt-4 border-t border-gray-200">
         <p class="text-left text-black font-medium mb-2">Hello, I'm just a newbie. So please understand UwU</p>
-
         <div class="flex justify-between text-sm text-black">
-          <div class="text-center">
-            <div class="font-bold text-white"><span class="counter" data-target="80">0</span>+</div>
-            <div>Followers</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-white"><span class="counter" data-target="2000000">0</span></div>
-            <div>Viewers</div>
-          </div>
-          <div class="text-center">
-            <div class="font-bold text-white"><span class="counter" data-target="400">0</span>+</div>
-            <div>Image</div>
-          </div>
+          <div class="text-center"><div class="font-bold text-white"><span class="counter" data-target="80">0</span>+</div><div>Followers</div></div>
+          <div class="text-center"><div class="font-bold text-white"><span class="counter" data-target="2000000">0</span></div><div>Viewers</div></div>
+          <div class="text-center"><div class="font-bold text-white"><span class="counter" data-target="400">0</span>+</div><div>Image</div></div>
         </div>
-
         <div class="mt-6 relative">
           <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
-          <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+          <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400"><i class="fas fa-paper-plane"></i></button>
         </div>
-
-        <div class="mt-4 text-center text-xs text-white opacity-50">
-          Your IP: <span id="ip-address">Loading...</span>
-        </div>
+        <div class="mt-4 text-center text-xs text-white opacity-50">Your IP: <span id="ip-address">Loading...</span></div>
       </div>
-
       <div class="text-xs italic text-white mt-1 text-center drop-shadow">I went crazy after editing this source</div>
       <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
       <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
-        <button id="live-wallpaper-btn" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
-          <i class="fas fa-play-circle"></i> On Live 
-        </button>
+        <button id="live-wallpaper-btn" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20"><i class="fas fa-play-circle"></i> On Live</button>
       </div>
     </div>
-
     <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow"></div>
   </div>
-
-  <!-- Cookie Consent -->
   <div id="cookie-consent" hidden>
     <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
-    <div>
-      <button class="decline">Từ chối</button>
-      <button class="accept">Đồng ý</button>
-    </div>
+    <div><button class="decline">Từ chối</button><button class="accept">Đồng ý</button></div>
   </div>
 
 <script>
-/* ---------- IP ---------- */
-fetch('https://api.ipify.org?format=json')
-  .then(r=>r.json())
-  .then(d=>document.getElementById('ip-address').textContent=d.ip)
-  .catch(()=>document.getElementById('ip-address').textContent='Unknown');
+fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>document.getElementById('ip-address').textContent=d.ip).catch(()=>document.getElementById('ip-address').textContent='Unknown');
+const input=document.getElementById("chatInput");const sendBtn=document.getElementById("sendBtn");
+function sendMessage(){const msg=input.value.trim();if(!msg)return;console.log("User said:",msg);input.value="";}
+sendBtn.addEventListener("click",sendMessage);input.addEventListener("keydown",e=>e.key==="Enter"&&sendMessage());
+function updateRealTimeClock(){const n=new Date(),pad=n=>String(n).padStart(2,"0");document.getElementById('realtime-clock').textContent=`${pad(n.getDate())}/${pad(n.getMonth()+1)}/${n.getFullYear()} ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;}
+setInterval(updateRealTimeClock,1000);updateRealTimeClock();
+const quotes=["「Even the darkest night will end and the sun will rise.」","「Create with passion or not at all.」","「Code is poetry.」","「Believe you can and you're halfway there.」","「Chẳng có gì là mãi mãi cả.」","「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」","「Không sợ đi chậm, chỉ sợ đứng yên.」","「Simplicity is the ultimate sophistication.」","「You are not your job, you are not how much money you have.」","「Đừng cố gắng nổi bật — hãy cố gắng có ích.」","「The quieter you become, the more you are able to hear.」","「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」","「Focus on progress, not perfection.」","「Chiến thắng lớn nhất là chiến thắng chính mình.」","「Don't adapt to the energy in the room. Influence the energy in the room.」","「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」"];
+const qb=document.getElementById('quote-box');function changeQuote(){qb.textContent=quotes[Math.floor(Math.random()*quotes.length)]}changeQuote();setInterval(changeQuote,8000);
+(function(){const el=document.getElementById('cookie-consent');if(!localStorage.getItem('cookie_consent')){el.hidden=false;requestAnimationFrame(()=>el.classList.add('show'));}el.querySelector('.accept').onclick=function(){localStorage.setItem('cookie_consent','accepted');el.classList.remove('show');setTimeout(()=>el.hidden=true,400)};el.querySelector('.decline').onclick=function(){localStorage.setItem('cookie_consent','declined');el.classList.remove('show');setTimeout(()=>el.hidden=true,400)}})();
+const overlayEl=document.getElementById('overlay');const music=document.getElementById('bgMusic');const profileBox=document.querySelector('.profile-box');
+function animateCounter(el){const target=+el.getAttribute("data-target");let current=0;const duration=1500;const t0=performance.now();function step(t){const p=Math.min((t-t0)/duration,1);current=Math.floor(p*target);el.textContent=current.toLocaleString();if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+overlayEl.addEventListener('click',async()=>{overlayEl.remove();try{await music.play();}catch(err){console.log("⚠️ Autoplay blocked:",err);}profileBox.classList.add("show");document.querySelectorAll(".counter").forEach(animateCounter)},{once:true});
+const videoEl=document.querySelector(".bg-video");const liveBtn=document.getElementById("live-wallpaper-btn");
+if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){let isPlaying=false;videoEl.pause();liveBtn.addEventListener("click",()=>{if(isPlaying){videoEl.pause();liveBtn.innerHTML='<i class="fas fa-play-circle"></i> Live Wallpaper';}else{videoEl.play();liveBtn.innerHTML='<i class="fas fa-pause-circle"></i> Live Wallpaper';}isPlaying=!isPlaying;});}else{document.getElementById("live-wallpaper-wrapper").style.display="none";}
 
-/* ---------- Chat ---------- */
-const input = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
-function sendMessage(){
-  const msg = input.value.trim();
-  if(!msg) return;
-  console.log("User said:", msg);
-  input.value = "";
-}
-sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", e => e.key==="Enter" && sendMessage());
-
-/* ---------- Clock ---------- */
-function updateRealTimeClock(){
-  const n=new Date(),pad=n=>String(n).padStart(2,"0");
-  document.getElementById('realtime-clock').textContent =
-    `${pad(n.getDate())}/${pad(n.getMonth()+1)}/${n.getFullYear()} ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
-}
-setInterval(updateRealTimeClock,1000); updateRealTimeClock();
-
-/* ---------- Quotes ---------- */
-const quotes=[ "「Even the darkest night will end and the sun will rise.」","「Create with passion or not at all.」","「Code is poetry.」","「Believe you can and you're halfway there.」","「Chẳng có gì là mãi mãi cả.」","「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」","「Không sợ đi chậm, chỉ sợ đứng yên.」","「Simplicity is the ultimate sophistication.」","「You are not your job, you are not how much money you have.」","「Đừng cố gắng nổi bật — hãy cố gắng có ích.」","「The quieter you become, the more you are able to hear.」","「Hạnh phúc là khi bạn không cần phải giải thích điều gì với ai.」","「Focus on progress, not perfection.」","「Chiến thắng lớn nhất là chiến thắng chính mình.」","「Don't adapt to the energy in the room. Influence the energy in the room.」","「Thứ đáng sợ không phải là thất bại, mà là không dám bắt đầu.」" ];
-const qb=document.getElementById('quote-box');
-function changeQuote(){ qb.textContent = quotes[Math.floor(Math.random()*quotes.length)] }
-changeQuote(); setInterval(changeQuote,8000);
-
-/* ---------- Cookie consent ---------- */
-(function(){
-  const el=document.getElementById('cookie-consent');
-  if(!localStorage.getItem('cookie_consent')){
-    el.hidden=false; requestAnimationFrame(()=>el.classList.add('show'));
-  }
-  el.querySelector('.accept').onclick=function(){
-    localStorage.setItem('cookie_consent','accepted'); el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
-  };
-  el.querySelector('.decline').onclick=function(){
-    localStorage.setItem('cookie_consent','declined'); el.classList.remove('show'); setTimeout(()=>el.hidden=true,400);
-  };
-})();
-
-/* ---------- Overlay -> play music -> show box -> counters ---------- */
-const overlayEl = document.getElementById('overlay');
-const music = document.getElementById('bgMusic');
-const profileBox = document.querySelector('.profile-box');
-
-function animateCounter(el) {
-  const target = +el.getAttribute("data-target");
-  let current = 0;
-  const duration = 1500;
-  const t0 = performance.now();
-
-  function step(t) {
-    const p = Math.min((t - t0) / duration, 1);
-    current = Math.floor(p * target);
-    el.textContent = current.toLocaleString();
-    if (p < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-overlayEl.addEventListener('click', async () => {
-  // Ẩn overlay
-  overlayEl.remove();
-
-  // Thử phát nhạc (có thể bị chặn nếu không click user)
-  try {
-    await music.play();
-  } catch (err) {
-    console.log("⚠️ Trình duyệt chặn autoplay, cần click thêm:", err);
-  }
-
-  // Hiện profile box
-  profileBox.classList.add("show");
-
-  // Chạy counter
-  document.querySelectorAll(".counter").forEach(animateCounter);
-}, { once: true });
-  
-
-/* ---------- Live wallpaper (mobile only) ---------- */
-const videoEl=document.querySelector(".bg-video");
-const liveBtn=document.getElementById("live-wallpaper-btn");
-if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
-  let isPlaying=false; videoEl.pause();
-  liveBtn.addEventListener("click",()=>{
-    if(isPlaying){ videoEl.pause(); liveBtn.innerHTML='<i class="fas fa-play-circle"></i> Live Wallpaper'; }
-    else{ videoEl.play(); liveBtn.innerHTML='<i class="fas fa-pause-circle"></i> Live Wallpaper'; }
-    isPlaying=!isPlaying;
-  });
-}else{
-  document.getElementById("live-wallpaper-wrapper").style.display="none";
-}
-
-  
+/* ---------- Background theo ngày lễ VN (múi giờ GMT+7) ---------- */
+function getVietnamDate(){const now=new Date();const utc=now.getTime()+(now.getTimezoneOffset()*60000);return new Date(utc+(7*60*60000));}
+const holidayBackgrounds=[
+  {date:"01-01",img:"https://link-anh-tet-duong.png"},
+  {date:"14-02",img:"https://link-anh-valentine.png"},
+  {date:"08-03",img:"https://link-anh-83.png"},
+  {date:"30-04",img:"https://link-anh-304.png"},
+  {date:"01-05",img:"https://link-anh-15.png"},
+  {date:"01-06",img:"https://link-anh-16.png"},
+  {date:"02-09",img:"https://link-anh-29.png"},
+  {date:"20-10",img:"https://link-anh-2010.png"},
+  {date:"20-11",img:"https://link-anh-2011.png"},
+  {date:"24-12",img:"https://link-anh-noel.png"}
+];
+function checkHolidayBackground(){const today=getVietnamDate();const currentDate=today.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit"}).replace("/","-");const holiday=holidayBackgrounds.find(h=>h.date===currentDate);if(holiday){document.querySelector(".profile-box").style.setProperty("--profile-bg",`url('${holiday.img}')`);}}
+checkHolidayBackground();
 </script>
 </body>
 </html>
+  
