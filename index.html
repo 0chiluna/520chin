@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon-32x32.png">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mỳ Cụt - profile. Hello, I'm just a newbie. So please understand.">
+
+  <link rel="icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon-32x32.png" type="image/png" sizes="32x32">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Mỳ cụt - profile" />
@@ -19,33 +21,47 @@
   <meta name="twitter:image" content="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-thumb-364x205.jpg" />
 
   <title>Mỳ Cụt Profile</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    /* -------------------------
+       Animations / reduced motion
+    --------------------------*/
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+    }
+    @media (max-width: 650px) {
+      .overlay, .glow-text, .border-anim { animation: none !important; }
+    }
+
     @keyframes bounce-text {
       0%, 100% { transform: translateY(1px) }
       50% { transform: translateY(-1px) }
     }
     .animate-bounce-text { animation: bounce-text 1.5s ease-in-out infinite }
 
-    .fancy-input {
-      position: relative;
-      z-index: 1;
-      padding-left: 2.5rem !important;
-    }
-    .fancy-input::before {
-      content: "";
+    /* Fancy input wrapper (fix for input::before issue) */
+    .fancy-input-wrapper { position: relative; }
+    .fancy-decor {
       position: absolute;
       top: 6px;
       left: 6px;
       width: 16px;
-      height: 90%;
+      height: calc(100% - 12px);
       background: linear-gradient(135deg, #00ffff, #ff00ff, #ffea00);
       transform: skewY(-25deg);
       border-radius: 6px;
-      z-index: -1;
+      z-index: 0;
+      pointer-events: none;
     }
+    .fancy-input-inner {
+      position: relative;
+      z-index: 1;
+      padding-left: 2.5rem;
+    }
+    .fancy-input-inner::placeholder { color: rgba(255,255,255,0.6); }
 
     .bg-image-input {
       background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
@@ -56,7 +72,6 @@
       background-color: rgba(0, 0, 0, .4);
       border: none;
     }
-    .bg-image-input::placeholder { color: rgba(255, 255, 255, .6) }
 
     body {
       margin: 0;
@@ -206,34 +221,39 @@
 
     .border-anim {
       border-radius: 9999px;
-      background: conic-gradient(#FFFFF0, #FFFACD, #F0FFFF, #FFFFF0);
-      animation: spin-gradient 6s linear infinite;
+      background: conic-gradient(from 0deg, #fff3bf, #ffd6e0, #d5faff, #fff3bf);
+      filter: saturate(1.05);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
     }
     @keyframes spin-gradient {
       0% { transform: rotate(0) }
       100% { transform: rotate(360deg) }
     }
+
+    /* ensure canvas covers right area */
+    #visualizer { width: 60px; height: 100%; }
   </style>
 </head>
 <body>
-  <div class="overlay" id="overlay">
+  <div class="overlay" id="overlay" role="button" aria-label="Click to continue" tabindex="0">
     <span class="overlay-text">Click to continue</span>
   </div>
 
-  <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop></audio>
+  <!-- preload only metadata and do not autoplay remote file before user consents -->
+  <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop preload="none"></audio>
 
-  <video autoplay muted loop playsinline class="bg-video">
+  <video autoplay muted loop playsinline class="bg-video" poster="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-thumb-364x205.jpg" preload="metadata">
     <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
   </video>
 
   <div class="container mx-auto px-4 flex flex-col items-center justify-center">
     <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
       <canvas id="visualizer" width="60" height="600" class="absolute top-0 right-0 h-full"></canvas>
-      
+
       <!-- Avatar + Tên -->
       <div class="flex items-start space-x-4 mb-6">
         <div class="relative w-20 h-20 avatar-border">
-          <div class="absolute inset-0 rounded-full p-[2px] border-anim"></div>
+          <div class="absolute inset-0 rounded-full p-[2px] border-anim" aria-hidden="true"></div>
           <div class="relative w-full h-full rounded-full overflow-hidden">
             <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/6b6f4e0dd007f98333735ce6199eb786.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
           </div>
@@ -251,25 +271,25 @@
       <!-- Thanh địa chỉ -->
       <div class="mt-4 flex justify-center">
         <div class="flex items-center gap-2">
-          <i class="fas fa-map-marker-alt text-white drop-shadow-[0_0_6px_white]"></i>
-          <span class="font-medium text-black drop-shadow-[0_0_6px_white]">Hà Nội, Việt Nam</span>
+          <i class="fas fa-map-marker-alt text-white" aria-hidden="true"></i>
+          <span class="font-medium text-black">Hà Nội, Việt Nam</span>
         </div>
       </div>
 
       <!-- Social links -->
       <div class="mt-8 flex space-x-4">
-        <a href="https://pin.it/7tbwbFBI7" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-          <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110"></span>
-          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+        <a href="https://pin.it/7tbwbFBI7" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out" aria-label="Open Pinterest (mở tab mới)">
+          <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110" aria-hidden="true"></span>
+          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center justify-center text-white font-semibold btn-text-shadow">
-            <i class="fab fa-pinterest mr-2"></i> Pinterest
+            <i class="fab fa-pinterest mr-2" aria-hidden="true"></i> Pinterest
           </span>
         </a>
-        <a href="https://discord.gg/773brCCmZA" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
-          <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110"></span>
-          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500"></span>
+        <a href="https://discord.gg/773brCCmZA" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out" aria-label="Open Discord (mở tab mới)">
+          <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110" aria-hidden="true"></span>
+          <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center justify-center text-black font-semibold btn-text-shadow">
-            <i class="fab fa-discord mr-2"></i> Discord
+            <i class="fab fa-discord mr-2" aria-hidden="true"></i> Discord
           </span>
         </a>
       </div>
@@ -292,12 +312,15 @@
           </div>
         </div>
 
-        <!-- Chat input -->
+        <!-- Chat input (fixed: wrapper used to draw decorative ::before) -->
         <div class="mt-6 relative">
-          <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400">
-          <button id="sendBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+          <div class="fancy-input-wrapper">
+            <div class="fancy-decor" aria-hidden="true"></div>
+            <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input-inner bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400" aria-label="Chat input">
+            <button id="sendBtn" type="button" aria-label="Send message" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
 
         <div class="mt-4 text-center text-xs text-white opacity-50">Your IP: <span id="ip-address">Loading...</span></div>
@@ -308,9 +331,14 @@
 
       <!-- Live wallpaper -->
       <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
-        <button id="live-wallpaper-btn" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20">
-          <i class="fas fa-play-circle"></i> On Live
+        <button id="live-wallpaper-btn" type="button" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20" aria-label="Toggle live wallpaper">
+          <i class="fas fa-play-circle" aria-hidden="true"></i> On Live
         </button>
+      </div>
+
+      <!-- manual sound enable (hidden until needed) -->
+      <div class="mt-4 text-center">
+        <button id="enable-sound-btn" type="button" class="px-3 py-2 rounded-md bg-blue-500 text-white" hidden aria-label="Bật âm thanh">Bật âm thanh</button>
       </div>
     </div>
 
@@ -321,38 +349,59 @@
   <div id="cookie-consent" hidden>
     <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
     <div>
-      <button class="decline">Từ chối</button>
-      <button class="accept">Đồng ý</button>
+      <button class="decline" type="button">Từ chối</button>
+      <button class="accept" type="button">Đồng ý</button>
     </div>
   </div>
 
   <script>
-    fetch('https://api.ipify.org?format=json')
-      .then(r => r.json())
-      .then(d => document.getElementById('ip-address').textContent = d.ip)
-      .catch(() => document.getElementById('ip-address').textContent = 'Unknown');
+    /* =============== Utilities & safe guards =============== */
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-    const input = document.getElementById("chatInput");
-    const sendBtn = document.getElementById("sendBtn");
+    // Safe element references
+    const ipSpan = document.getElementById('ip-address');
+    const sendBtn = document.getElementById('sendBtn');
+    const input = document.getElementById('chatInput');
+    const overlay = document.getElementById('overlay');
+    const profileBox = document.querySelector('.profile-box');
+    const cookieBox = document.getElementById('cookie-consent');
+    const acceptBtn = cookieBox ? cookieBox.querySelector('.accept') : null;
+    const declineBtn = cookieBox ? cookieBox.querySelector('.decline') : null;
+    const audio = document.getElementById('bgMusic');
+    const enableSoundBtn = document.getElementById('enable-sound-btn');
 
+    // IP fetch (safe)
+    if (ipSpan) {
+      fetch('https://api.ipify.org?format=json')
+        .then(r => r.json())
+        .then(d => ipSpan.textContent = d.ip)
+        .catch(() => ipSpan.textContent = 'Unknown');
+    }
+
+    // Send message handler
     function sendMessage() {
+      if (!input) return;
       const msg = input.value.trim();
       if (!msg) return;
       console.log("User said:", msg);
       input.value = "";
     }
-    sendBtn.addEventListener("click", sendMessage);
-    input.addEventListener("keydown", e => e.key === "Enter" && sendMessage());
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 
+    /* =============== Real-time clock =============== */
+    function padNum(n) { return String(n).padStart(2, '0'); }
     function updateRealTimeClock() {
       const n = new Date();
-      const pad = n => String(n).padStart(2, "0");
-      document.getElementById('realtime-clock').textContent =
-        `${pad(n.getDate())}/${pad(n.getMonth() + 1)}/${n.getFullYear()} ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+      const text = `${padNum(n.getDate())}/${padNum(n.getMonth() + 1)}/${n.getFullYear()} ${padNum(n.getHours())}:${padNum(n.getMinutes())}:${padNum(n.getSeconds())}`;
+      const el = document.getElementById('realtime-clock');
+      if (el) el.textContent = text;
     }
     setInterval(updateRealTimeClock, 1000);
     updateRealTimeClock();
 
+    /* =============== Quotes =============== */
     const quotes = [
       "「Even the darkest night will end and the sun will rise.」",
       "「Create with passion or not at all.」",
@@ -377,121 +426,225 @@
     ];
     let qIndex = 0;
     function showNextQuote() {
-      document.getElementById("quote-box").textContent = quotes[qIndex];
+      const qb = document.getElementById('quote-box');
+      if (qb) qb.textContent = quotes[qIndex];
       qIndex = (qIndex + 1) % quotes.length;
     }
     setInterval(showNextQuote, 8000);
     showNextQuote();
 
-    const counters = document.querySelectorAll(".counter");
-    counters.forEach(counter => {
-      const update = () => {
-        const target = +counter.getAttribute("data-target");
-        const current = +counter.textContent;
-        const increment = Math.ceil(target / 100);
-        if (current < target) {
-          counter.textContent = Math.min(current + increment, target);
-          requestAnimationFrame(update);
-        }
-      };
-      update();
+    /* =============== Counters (time-based) =============== */
+    function animateCounterEl(el, target, duration = 1500) {
+      const start = performance.now();
+      function frame(now) {
+        const elapsed = Math.min(now - start, duration);
+        const progress = elapsed / duration;
+        const value = Math.floor(progress * target);
+        el.textContent = value.toLocaleString();
+        if (elapsed < duration) requestAnimationFrame(frame);
+        else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(frame);
+    }
+    $$('.counter').forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      animateCounterEl(el, target, 1500);
     });
 
-    const canvas = document.getElementById("visualizer");
-    const ctx = canvas.getContext("2d");
-    const audio = document.getElementById("bgMusic");
-    const overlay = document.getElementById("overlay");
-    const profileBox = document.querySelector(".profile-box");
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    const audioCtx = new AudioContextClass();
-    const analyser = audioCtx.createAnalyser();
-    const source = audioCtx.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-    analyser.fftSize = 128;
+    /* =============== Visualizer & Audio (lazy init) =============== */
+    const canvas = document.getElementById('visualizer');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let audioCtx = null;
+    let analyser = null;
+    let sourceNode = null;
+    let bufferLength = 0;
+    let dataArray = null;
+    let vizFrameId = null;
 
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
+    function resizeCanvas() {
+      if (!canvas || !ctx) return;
+      const ratio = window.devicePixelRatio || 1;
+      const w = canvas.clientWidth || 60;
+      const h = canvas.clientHeight || 600;
+      canvas.width = Math.max(1, Math.floor(w * ratio));
+      canvas.height = Math.max(1, Math.floor(h * ratio));
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
 
-    function drawVisualizer() {
-      requestAnimationFrame(drawVisualizer);
-      analyser.getByteFrequencyData(dataArray);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    resizeCanvas();
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
 
-      const barWidth = (canvas.width / bufferLength) * 2.5;
-      let x = 0;
+    function ensureAudioSetup() {
+      if (audioCtx) return;
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContextClass();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 128;
+      try {
+        sourceNode = audioCtx.createMediaElementSource(audio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+      } catch (err) {
+        // Some browsers restrict createMediaElementSource for cross-origin media without CORS.
+        console.warn('Audio source setup error:', err);
+      }
+      bufferLength = analyser.frequencyBinCount;
+      dataArray = new Uint8Array(bufferLength);
+    }
 
-      for (let i = 0; i < bufferLength; i++) {
-        const barHeight = dataArray[i] / 1.5;
-        const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
-        gradient.addColorStop(0, "rgba(255,255,255,.9)");
-        gradient.addColorStop(1, "rgba(200,200,255,.5)");
+    function startVisualizer() {
+      if (!canvas || !ctx || !analyser) return;
+      if (vizFrameId) return; // already running
+      function draw() {
+        if (!analyser || document.hidden || audio.paused) {
+          vizFrameId = requestAnimationFrame(draw);
+          return;
+        }
+        analyser.getByteFrequencyData(dataArray);
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        ctx.clearRect(0, 0, width, height);
 
-        ctx.fillStyle = gradient;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
+        const barWidth = (width / bufferLength) * 1.8;
+        let x = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * height;
+          const gradient = ctx.createLinearGradient(0, height - barHeight, 0, height);
+          gradient.addColorStop(0, "rgba(255,255,255,.95)");
+          gradient.addColorStop(1, "rgba(200,200,255,.6)");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(x, height - barHeight, barWidth, barHeight);
+          x += barWidth + 1;
+        }
+        vizFrameId = requestAnimationFrame(draw);
+      }
+      draw();
+    }
+    function stopVisualizer() {
+      if (vizFrameId) { cancelAnimationFrame(vizFrameId); vizFrameId = null; }
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
       }
     }
-    drawVisualizer();
 
-    overlay.addEventListener("click", () => {
-      overlay.style.display = "none";
-      profileBox.classList.add("show");
-      audioCtx.resume().then(() => audio.play());
+    // Pause visualizer when page hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopVisualizer();
+      else if (audio && !audio.paused && analyser) startVisualizer();
     });
 
-    const videoEl = document.querySelector(".bg-video");
-const liveBtn = document.getElementById("live-wallpaper-btn");
+    if (audio) {
+      audio.addEventListener('play', () => {
+        if (analyser) startVisualizer();
+      });
+      audio.addEventListener('pause', () => {
+        stopVisualizer();
+      });
+    }
 
-// Kiểm tra nếu thiết bị là mobile
-if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-    let isPlaying = false;
+    // Cookie-based autoplay policy: only auto-play if consent accepted
+    function canAutoPlayAudio() {
+      return localStorage.getItem('cookieConsent') === 'accepted';
+    }
 
-    // Dừng video mặc định
-    videoEl.pause();
+    // overlay click: show profile, play audio if consented; otherwise show manual enable
+    if (overlay) {
+      overlay.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        if (profileBox) profileBox.classList.add('show');
 
-    // Bắt sự kiện click
-    liveBtn.addEventListener("click", () => {
-        if (isPlaying) {
-            videoEl.pause();
-            liveBtn.innerHTML = '<i class="fas fa-play-circle"></i> Live Wallpaper';
+        if (canAutoPlayAudio()) {
+          try {
+            ensureAudioSetup();
+            audioCtx.resume().then(() => audio.play()).catch(()=>{});
+          } catch (e) {
+            console.warn('Audio play error:', e);
+          }
         } else {
-            videoEl.play();
-            liveBtn.innerHTML = '<i class="fas fa-pause-circle"></i> Live Wallpaper';
+          if (enableSoundBtn) enableSoundBtn.hidden = false;
         }
+      });
+      // also allow keyboard activation
+      overlay.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') overlay.click();
+      });
+    }
 
-        // Đảo trạng thái
-        isPlaying = !isPlaying;
-    });
+    if (enableSoundBtn) {
+      enableSoundBtn.addEventListener('click', () => {
+        try {
+          ensureAudioSetup();
+          audio.play().catch(()=>{});
+          enableSoundBtn.hidden = true;
+        } catch (e) {
+          console.warn('Manual audio enable error:', e);
+        }
+      });
+    }
 
-} else {
-    // Ẩn nút nếu không phải mobile
-    document.getElementById("live-wallpaper-wrapper").style.display = "none";
-}
+    /* =============== Live wallpaper (mobile detection) =============== */
+    function isMobileOrTablet() {
+      if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+        return navigator.userAgentData.mobile;
+      }
+      return /Mobi|Android|iPhone|iPad|Tablet|Windows Phone/i.test(navigator.userAgent);
+    }
+    const liveBtn = document.getElementById('live-wallpaper-btn');
+    const liveWrapper = document.getElementById('live-wallpaper-wrapper');
+    if (!isMobileOrTablet()) {
+      if (liveWrapper) liveWrapper.style.display = 'none';
+    } else {
+      // initialize button safely
+      if (liveBtn) {
+        let isPlaying = false;
+        // ensure video element exists
+        const videoEl = document.querySelector('.bg-video');
+        if (videoEl) videoEl.pause();
+        liveBtn.addEventListener('click', () => {
+          if (!videoEl) return;
+          if (isPlaying) {
+            videoEl.pause();
+            liveBtn.innerHTML = '<i class="fas fa-play-circle" aria-hidden="true"></i> Live Wallpaper';
+          } else {
+            videoEl.play();
+            liveBtn.innerHTML = '<i class="fas fa-pause-circle" aria-hidden="true"></i> Live Wallpaper';
+          }
+          isPlaying = !isPlaying;
+        });
+      }
+    }
 
-
-    const consentBox = document.getElementById("cookie-consent");
-    const acceptBtn = consentBox.querySelector(".accept");
-    const declineBtn = consentBox.querySelector(".decline");
-
-    window.addEventListener("load", () => {
-      if (!localStorage.getItem("cookieConsent")) {
-        consentBox.hidden = false;
-        setTimeout(() => consentBox.classList.add("show"), 200);
+    /* =============== Cookie consent show/hide =============== */
+    window.addEventListener('load', () => {
+      if (!cookieBox) return;
+      if (!localStorage.getItem('cookieConsent')) {
+        cookieBox.hidden = false;
+        setTimeout(() => cookieBox.classList.add('show'), 200);
       }
     });
 
-    acceptBtn.addEventListener("click", () => {
-      localStorage.setItem("cookieConsent", "accepted");
-      consentBox.classList.remove("show");
-      setTimeout(() => consentBox.hidden = true, 400);
-    });
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'accepted');
+        cookieBox.classList.remove('show');
+        setTimeout(() => cookieBox.hidden = true, 400);
 
-    declineBtn.addEventListener("click", () => {
-      localStorage.setItem("cookieConsent", "declined");
-      consentBox.classList.remove("show");
-      setTimeout(() => consentBox.hidden = true, 400);
-    });
+        // If profile already visible and audio not playing, auto start
+        if (profileBox && profileBox.classList.contains('show')) {
+          ensureAudioSetup();
+          if (audioCtx) audioCtx.resume().then(() => audio.play()).catch(()=>{});
+        }
+      });
+    }
+    if (declineBtn) {
+      declineBtn.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'declined');
+        cookieBox.classList.remove('show');
+        setTimeout(() => cookieBox.hidden = true, 400);
+      });
+    }
   </script>
 </body>
 </html>
