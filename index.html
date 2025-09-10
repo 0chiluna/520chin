@@ -355,164 +355,165 @@
   </div>
 
   <script>
-    /* =============== Utilities & safe guards =============== */
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    
+  /* =============== Utilities & safe guards =============== */
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-    // Safe element references
-    const ipSpan = document.getElementById('ip-address');
-    const sendBtn = document.getElementById('sendBtn');
-    const input = document.getElementById('chatInput');
-    const overlay = document.getElementById('overlay');
-    const profileBox = document.querySelector('.profile-box');
-    const cookieBox = document.getElementById('cookie-consent');
-    const acceptBtn = cookieBox ? cookieBox.querySelector('.accept') : null;
-    const declineBtn = cookieBox ? cookieBox.querySelector('.decline') : null;
-    const audio = document.getElementById('bgMusic');
-    const enableSoundBtn = document.getElementById('enable-sound-btn');
+  // Safe element references
+  const ipSpan = document.getElementById('ip-address');
+  const sendBtn = document.getElementById('sendBtn');
+  const input = document.getElementById('chatInput');
+  const overlay = document.getElementById('overlay');
+  const profileBox = document.querySelector('.profile-box');
+  const audio = document.getElementById('bgMusic');
+  const enableSoundBtn = document.getElementById('enable-sound-btn');
 
-    // IP fetch (safe)
-    if (ipSpan) {
-      fetch('https://api.ipify.org?format=json')
-        .then(r => r.json())
-        .then(d => ipSpan.textContent = d.ip)
-        .catch(() => ipSpan.textContent = 'Unknown');
+  // IP fetch (safe)
+  if (ipSpan) {
+    fetch('https://api.ipify.org?format=json')
+      .then(r => r.json())
+      .then(d => ipSpan.textContent = d.ip)
+      .catch(() => ipSpan.textContent = 'Unknown');
+  }
+
+  // Send message handler
+  function sendMessage() {
+    if (!input) return;
+    const msg = input.value.trim();
+    if (!msg) return;
+    console.log("User said:", msg);
+    input.value = "";
+  }
+  if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+  if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+  /* =============== Real-time clock =============== */
+  function padNum(n) { return String(n).padStart(2, '0'); }
+  function updateRealTimeClock() {
+    const n = new Date();
+    const text = `${padNum(n.getDate())}/${padNum(n.getMonth() + 1)}/${n.getFullYear()} ${padNum(n.getHours())}:${padNum(n.getMinutes())}:${padNum(n.getSeconds())}`;
+    const el = document.getElementById('realtime-clock');
+    if (el) el.textContent = text;
+  }
+  setInterval(updateRealTimeClock, 1000);
+  updateRealTimeClock();
+
+  /* =============== Quotes =============== */
+  const quotes = [
+    "「Even the darkest night will end and the sun will rise.」",
+    "「Create with passion or not at all.」",
+    "「Code is poetry.」",
+    "「Believe you can and you're halfway there.」",
+    "「Chẳng có gì là mãi mãi cả.」",
+    "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
+    "「Không sợ đi chậm, chỉ sợ đứng yên.」",
+    "「Simplicity is the ultimate sophistication.」",
+    "「You are not your job, you are not how much money you have.」",
+    "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
+    "「The quieter you become, the more you are able to hear.」",
+    "「Every line of code is a chance to make the world better.」",
+    "「Đừng sống cuộc đời của người khác.」",
+    "「No rain, no flowers.」",
+    "「Không ai có thể quay lại quá khứ và bắt đầu lại, nhưng ai cũng có thể bắt đầu hôm nay và tạo ra một kết thúc mới.」",
+    "「Stars can’t shine without darkness.」",
+    "「Success is not final, failure is not fatal: it is the courage to continue that counts.」",
+    "「Những vết nứt là nơi ánh sáng lọt vào.」",
+    "「Sometimes you win, sometimes you learn.」",
+    "「Người mạnh mẽ nhất là người luôn mỉm cười dù trong lòng đau đớn.」"
+  ];
+  let qIndex = 0;
+  function showNextQuote() {
+    const qb = document.getElementById('quote-box');
+    if (qb) qb.textContent = quotes[qIndex];
+    qIndex = (qIndex + 1) % quotes.length;
+  }
+  setInterval(showNextQuote, 8000);
+  showNextQuote();
+
+  /* =============== Counters (time-based) =============== */
+  function animateCounterEl(el, target, duration = 1500) {
+    const start = performance.now();
+    function frame(now) {
+      const elapsed = Math.min(now - start, duration);
+      const progress = elapsed / duration;
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString();
+      if (elapsed < duration) requestAnimationFrame(frame);
+      else el.textContent = target.toLocaleString();
     }
+    requestAnimationFrame(frame);
+  }
+  $$('.counter').forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    animateCounterEl(el, target, 1500);
+  });
 
-    // Send message handler
-    function sendMessage() {
-      if (!input) return;
-      const msg = input.value.trim();
-      if (!msg) return;
-      console.log("User said:", msg);
-      input.value = "";
+  /* =============== Live wallpaper (mobile detection) =============== */
+  function isMobileOrTablet() {
+    if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+      return navigator.userAgentData.mobile;
     }
-    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
-    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
-
-    /* =============== Real-time clock =============== */
-    function padNum(n) { return String(n).padStart(2, '0'); }
-    function updateRealTimeClock() {
-      const n = new Date();
-      const text = `${padNum(n.getDate())}/${padNum(n.getMonth() + 1)}/${n.getFullYear()} ${padNum(n.getHours())}:${padNum(n.getMinutes())}:${padNum(n.getSeconds())}`;
-      const el = document.getElementById('realtime-clock');
-      if (el) el.textContent = text;
-    }
-    setInterval(updateRealTimeClock, 1000);
-    updateRealTimeClock();
-
-    /* =============== Quotes =============== */
-    const quotes = [
-      "「Even the darkest night will end and the sun will rise.」",
-      "「Create with passion or not at all.」",
-      "「Code is poetry.」",
-      "「Believe you can and you're halfway there.」",
-      "「Chẳng có gì là mãi mãi cả.」",
-      "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
-      "「Không sợ đi chậm, chỉ sợ đứng yên.」",
-      "「Simplicity is the ultimate sophistication.」",
-      "「You are not your job, you are not how much money you have.」",
-      "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
-      "「The quieter you become, the more you are able to hear.」",
-      "「Every line of code is a chance to make the world better.」",
-      "「Đừng sống cuộc đời của người khác.」",
-      "「No rain, no flowers.」",
-      "「Không ai có thể quay lại quá khứ và bắt đầu lại, nhưng ai cũng có thể bắt đầu hôm nay và tạo ra một kết thúc mới.」",
-      "「Stars can’t shine without darkness.」",
-      "「Success is not final, failure is not fatal: it is the courage to continue that counts.」",
-      "「Những vết nứt là nơi ánh sáng lọt vào.」",
-      "「Sometimes you win, sometimes you learn.」",
-      "「Người mạnh mẽ nhất là người luôn mỉm cười dù trong lòng đau đớn.」"
-    ];
-    let qIndex = 0;
-    function showNextQuote() {
-      const qb = document.getElementById('quote-box');
-      if (qb) qb.textContent = quotes[qIndex];
-      qIndex = (qIndex + 1) % quotes.length;
-    }
-    setInterval(showNextQuote, 8000);
-    showNextQuote();
-
-    /* =============== Counters (time-based) =============== */
-    function animateCounterEl(el, target, duration = 1500) {
-      const start = performance.now();
-      function frame(now) {
-        const elapsed = Math.min(now - start, duration);
-        const progress = elapsed / duration;
-        const value = Math.floor(progress * target);
-        el.textContent = value.toLocaleString();
-        if (elapsed < duration) requestAnimationFrame(frame);
-        else el.textContent = target.toLocaleString();
-      }
-      requestAnimationFrame(frame);
-    }
-    $$('.counter').forEach(el => {
-      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-      animateCounterEl(el, target, 1500);
-    });
-
-  
-    /* =============== Live wallpaper (mobile detection) =============== */
-    function isMobileOrTablet() {
-      if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
-        return navigator.userAgentData.mobile;
-      }
-      return /Mobi|Android|iPhone|iPad|Tablet|Windows Phone/i.test(navigator.userAgent);
-    }
-    const liveBtn = document.getElementById('live-wallpaper-btn');
-    const liveWrapper = document.getElementById('live-wallpaper-wrapper');
-    if (!isMobileOrTablet()) {
-      if (liveWrapper) liveWrapper.style.display = 'none';
-    } else {
-      // initialize button safely
-      if (liveBtn) {
-        let isPlaying = false;
-        // ensure video element exists
-        const videoEl = document.querySelector('.bg-video');
-        if (videoEl) videoEl.pause();
-        liveBtn.addEventListener('click', () => {
-          if (!videoEl) return;
-          if (isPlaying) {
-            videoEl.pause();
-            liveBtn.innerHTML = '<i class="fas fa-play-circle" aria-hidden="true"></i> Live Wallpaper';
-          } else {
-            videoEl.play();
-            liveBtn.innerHTML = '<i class="fas fa-pause-circle" aria-hidden="true"></i> Live Wallpaper';
-          }
-          isPlaying = !isPlaying;
-        });
-      }
-    }
-
-    /* =============== Cookie consent show/hide =============== */
-    window.addEventListener('load', () => {
-      if (!cookieBox) return;
-      if (!localStorage.getItem('cookieConsent')) {
-        cookieBox.hidden = false;
-        setTimeout(() => cookieBox.classList.add('show'), 200);
-      }
-    });
-
-    if (acceptBtn) {
-      acceptBtn.addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'accepted');
-        cookieBox.classList.remove('show');
-        setTimeout(() => cookieBox.hidden = true, 400);
-
-        // If profile already visible and audio not playing, auto start
-        if (profileBox && profileBox.classList.contains('show')) {
-          ensureAudioSetup();
-          if (audioCtx) audioCtx.resume().then(() => audio.play()).catch(()=>{});
+    return /Mobi|Android|iPhone|iPad|Tablet|Windows Phone/i.test(navigator.userAgent);
+  }
+  const liveBtn = document.getElementById('live-wallpaper-btn');
+  const liveWrapper = document.getElementById('live-wallpaper-wrapper');
+  if (!isMobileOrTablet()) {
+    if (liveWrapper) liveWrapper.style.display = 'none';
+  } else {
+    if (liveBtn) {
+      let isPlaying = false;
+      const videoEl = document.querySelector('.bg-video');
+      if (videoEl) videoEl.pause();
+      liveBtn.addEventListener('click', () => {
+        if (!videoEl) return;
+        if (isPlaying) {
+          videoEl.pause();
+          liveBtn.innerHTML = '<i class="fas fa-play-circle" aria-hidden="true"></i> Live Wallpaper';
+        } else {
+          videoEl.play();
+          liveBtn.innerHTML = '<i class="fas fa-pause-circle" aria-hidden="true"></i> Live Wallpaper';
         }
+        isPlaying = !isPlaying;
       });
     }
-    if (declineBtn) {
-      declineBtn.addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'declined');
-        cookieBox.classList.remove('show');
-        setTimeout(() => cookieBox.hidden = true, 400);
-      });
-    }
+  }
+
+  /* =============== Overlay click: hide overlay + show profile + play audio =============== */
+  function ensureAudioSetup() {
+    if (window.audioCtx) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    window.audioCtx = new AudioContextClass();
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      overlay.style.display = 'none';                  // Ẩn overlay
+      if (profileBox) profileBox.classList.add('show'); // Hiện profile box nếu có
+
+      try {
+        ensureAudioSetup();
+        audioCtx.resume().then(() => audio.play()).catch(err => {
+          console.warn("Audio play error:", err);
+        });
+      } catch (e) {
+        console.warn("Audio setup/play error:", e);
+      }
+    });
+
+    overlay.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') overlay.click();
+    });
+  }
+
+  if (enableSoundBtn) {
+    enableSoundBtn.addEventListener('click', () => {
+      ensureAudioSetup();
+      audio.play().catch(()=>{});
+      enableSoundBtn.hidden = true;
+    });
+  }
+
   </script>
 </body>
 </html>
