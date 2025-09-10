@@ -440,18 +440,35 @@
       audioCtx.resume().then(() => audio.play());
     });
 
-    const liveBtn = document.getElementById("live-wallpaper-btn");
-    let isLive = false;
+    const videoEl = document.querySelector(".bg-video");
+const liveBtn = document.getElementById("live-wallpaper-btn");
+
+// Kiểm tra nếu thiết bị là mobile
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+    let isPlaying = false;
+
+    // Dừng video mặc định
+    videoEl.pause();
+
+    // Bắt sự kiện click
     liveBtn.addEventListener("click", () => {
-      isLive = !isLive;
-      if (isLive) {
-        document.documentElement.style.setProperty("--profile-bg", "url('https://s3.tebi.io/ely.bucket.s0.io.biti/784e7b9c2e259ad0d6246c527249571d.gif')");
-        liveBtn.innerHTML = '<i class="fas fa-stop-circle"></i> Off Live';
-      } else {
-        document.documentElement.style.setProperty("--profile-bg", "url('https://s3.tebi.io/ely.bucket.s0.io.biti/3978c829958894fa9223a880603d7c01.jpg')");
-        liveBtn.innerHTML = '<i class="fas fa-play-circle"></i> On Live';
-      }
+        if (isPlaying) {
+            videoEl.pause();
+            liveBtn.innerHTML = '<i class="fas fa-play-circle"></i> Live Wallpaper';
+        } else {
+            videoEl.play();
+            liveBtn.innerHTML = '<i class="fas fa-pause-circle"></i> Live Wallpaper';
+        }
+
+        // Đảo trạng thái
+        isPlaying = !isPlaying;
     });
+
+} else {
+    // Ẩn nút nếu không phải mobile
+    document.getElementById("live-wallpaper-wrapper").style.display = "none";
+}
+
 
     const consentBox = document.getElementById("cookie-consent");
     const acceptBtn = consentBox.querySelector(".accept");
