@@ -243,7 +243,7 @@
   <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/Vietsub%20%20Normal%20No%20More%20-%20TYSM%20%20Nh%E1%BA%A1c%20Hot%20TikTok%20%20Lyrics%20Video%20-%20Vietsub%20M%E1%BB%97i%20Ng%C3%A0y.mp3" loop></audio>
 
   <video autoplay muted loop playsinline class="bg-video">
-    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/elaina-drinking-coffee-near-window-moewalls-com.mp4" type="video/mp4">
+    <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/cc43e332404bfef64286d760184f9def_720w.mp4" type="video/mp4">
   </video>
 
   <div class="container mx-auto px-4 flex flex-col items-center justify-center">
@@ -329,13 +329,7 @@
       <div class="text-xs italic text-white mt-1 text-center drop-shadow">I went crazy after editing this source</div>
       <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
 
-      <!-- Live wallpaper -->
-      <div id="live-wallpaper-wrapper" class="mt-6 flex justify-center">
-        <button id="live-wallpaper-btn" type="button" class="flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md text-sm backdrop-blur-md transition hover:bg-white/20" aria-label="Toggle live wallpaper">
-          <i class="fas fa-play-circle" aria-hidden="true"></i> On Live
-        </button>
-      </div>
-
+     
       <!-- manual sound enable (hidden until needed) -->
       <div class="mt-4 text-center">
         <button id="enable-sound-btn" type="button" class="px-3 py-2 rounded-md bg-blue-500 text-white" hidden aria-label="Bật âm thanh">Bật âm thanh</button>
@@ -449,35 +443,6 @@
     animateCounterEl(el, target, 1500);
   });
 
-  /* =============== Live wallpaper (mobile detection) =============== */
-  function isMobileOrTablet() {
-    if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
-      return navigator.userAgentData.mobile;
-    }
-    return /Mobi|Android|iPhone|iPad|Tablet|Windows Phone/i.test(navigator.userAgent);
-  }
-  const liveBtn = document.getElementById('live-wallpaper-btn');
-  const liveWrapper = document.getElementById('live-wallpaper-wrapper');
-  if (!isMobileOrTablet()) {
-    if (liveWrapper) liveWrapper.style.display = 'none';
-  } else {
-    if (liveBtn) {
-      let isPlaying = false;
-      const videoEl = document.querySelector('.bg-video');
-      if (videoEl) videoEl.pause();
-      liveBtn.addEventListener('click', () => {
-        if (!videoEl) return;
-        if (isPlaying) {
-          videoEl.pause();
-          liveBtn.innerHTML = '<i class="fas fa-play-circle" aria-hidden="true"></i> Live Wallpaper';
-        } else {
-          videoEl.play();
-          liveBtn.innerHTML = '<i class="fas fa-pause-circle" aria-hidden="true"></i> Live Wallpaper';
-        }
-        isPlaying = !isPlaying;
-      });
-    }
-  }
 
   /* =============== Overlay click: hide overlay + show profile + play audio =============== */
   function ensureAudioSetup() {
