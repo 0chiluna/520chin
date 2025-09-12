@@ -478,7 +478,48 @@
       enableSoundBtn.hidden = true;
     });
   }
+    //animation bos
+function startProfileBoxAnimation(box) {
+  if (!box) return;
+  let lastDirection = null;
 
+  // Thêm cả hướng chéo
+  const directions = [
+    { x: -5, y: 0 },   // trái
+    { x: 6, y: 0 },    // phải
+    { x: 0, y: -4 },   // lên
+    { x: 0, y: 6 },    // xuống
+    { x: -5, y: -4 },  // lên trái
+    { x: 6, y: -4 },   // lên phải
+    { x: -5, y: 6 },   // xuống trái
+    { x: 6, y: 6 }     // xuống phải
+  ];
+
+  setInterval(() => {
+    if (!box.classList.contains("show")) return;
+
+    let dir;
+    do {
+      dir = directions[Math.floor(Math.random() * directions.length)];
+    } while (lastDirection && dir.x === lastDirection.x && dir.y === lastDirection.y);
+
+    lastDirection = dir;
+
+    // đi đến vị trí lệch
+    box.style.transform = `translate(${dir.x}px, ${dir.y}px)`;
+
+    // trở về vị trí gốc theo đường xiên (CSS transition lo phần này)
+    setTimeout(() => {
+      if (box.classList.contains("show")) {
+        box.style.transform = "translate(0, 0)";
+      }
+    }, 1000); // chờ 1s rồi về
+  }, 2500); // mỗi 2.5s lắc 1 lần
+}
+
+// chạy
+startProfileBoxAnimation(document.querySelector(".profile-box"));
+    
   </script>
 </body>
 </html>
