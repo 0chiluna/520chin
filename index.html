@@ -454,12 +454,11 @@
   if (overlay) {
     overlay.addEventListener('click', () => {
       overlay.style.display = 'none';   // Ẩn overlay
-      if (overlayText) {
+      if (profileBox) profileBox.classList.add('show'); // Hiện profile box nếu có
+    if (overlayText) {
     overlayText.classList.remove('overlay-text');
     overlayText.style.animation = "none"; // fallback kill animation
     }
-      if (profileBox) profileBox.classList.add('show'); // Hiện profile box nếu có
-
       try {
         ensureAudioSetup();
         audioCtx.resume().then(() => audio.play()).catch(err => {
