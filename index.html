@@ -477,6 +477,33 @@
       enableSoundBtn.hidden = true;
     });
     }
+    const music = document.getElementById("bgMusic");
+
+if ('mediaSession' in navigator) {
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: "Normal No More",
+    artist: "TYSM",
+    album: "Vietsub TikTok Hot",
+    artwork: [
+      { src: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg", sizes: "512x512", type: "image/png" }
+    ]
+  });
+
+  // Optional: thêm nút điều khiển (next, prev, pause...)
+  navigator.mediaSession.setActionHandler("play", () => {
+    music.play();
+  });
+  navigator.mediaSession.setActionHandler("pause", () => {
+    music.pause();
+  });
+  navigator.mediaSession.setActionHandler("previoustrack", () => {
+    // Xử lý nếu có playlist
+  });
+  navigator.mediaSession.setActionHandler("nexttrack", () => {
+    // Xử lý nếu có playlist
+  });
+    }
+    
   </script>
 </body>
 </html>
