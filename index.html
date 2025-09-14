@@ -6,11 +6,11 @@
   <meta name="description" content="Mỳ Cụt - profile.">
 
   <link rel="icon" type="image/png" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon.svg" />
-<link rel="shortcut icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://s3.tebi.io/ely.bucket.s0.io.biti/apple-touch-icon.png" />
-<link rel="manifest" href="https://s3.tebi.io/ely.bucket.s0.io.biti/site.webmanifest" />
-  
+  <link rel="icon" type="image/svg+xml" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon.svg" />
+  <link rel="shortcut icon" href="https://s3.tebi.io/ely.bucket.s0.io.biti/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://s3.tebi.io/ely.bucket.s0.io.biti/apple-touch-icon.png" />
+  <link rel="manifest" href="https://s3.tebi.io/ely.bucket.s0.io.biti/site.webmanifest" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Mỳ cụt - profile" />
   <meta property="og:description" content="Hello, I'm just a newbie. So please understand" />
@@ -30,23 +30,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* -------------------------
-       Animations / reduced motion
-    --------------------------*/
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
     }
     @media (max-width: 650px) {
       .overlay, .glow-text, .border-anim { animation: none !important; }
     }
-
     @keyframes bounce-text {
       0%, 100% { transform: translateY(1px) }
       50% { transform: translateY(-1px) }
     }
     .animate-bounce-text { animation: bounce-text 1.5s ease-in-out infinite }
-
-    /* Fancy input wrapper (fix for input::before issue) */
     .fancy-input-wrapper { position: relative; }
     .fancy-decor {
       position: absolute;
@@ -66,7 +60,6 @@
       padding-left: 2.5rem;
     }
     .fancy-input-inner::placeholder { color: rgba(255,255,255,0.6); }
-
     .bg-image-input {
       background-image: url('https://s3.tebi.io/ely.bucket.s0.io.biti/Kh%C3%B4ng%20C%C3%B3%20Ti%C3%AAu%20%C4%90%E1%BB%813.png');
       background-size: cover;
@@ -76,7 +69,6 @@
       background-color: rgba(0, 0, 0, .4);
       border: none;
     }
-
     body {
       margin: 0;
       padding: 20px;
@@ -86,7 +78,6 @@
       align-items: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     .bg-video {
       position: fixed;
       top: 0;
@@ -98,7 +89,6 @@
       opacity: 1.0;
       pointer-events: none;
     }
-
     .profile-box {
       position: relative;
       backdrop-filter: blur(2px);
@@ -129,7 +119,6 @@
     @media (max-width: 650px) {
       .profile-box { width: 97% }
     }
-
     @keyframes light-glow {
       0% { background-position: -200% 0 }
       100% { background-position: 200% 0 }
@@ -142,7 +131,6 @@
       color: transparent;
       animation: light-glow 4s ease-in-out infinite;
     }
-
     .overlay {
       position: fixed;
       inset: 0;
@@ -158,13 +146,11 @@
       text-align: center;
     }
     .overlay-text { animation: glowText 2s ease-in-out infinite }
-
     @keyframes glowText {
       0% { opacity: .4; text-shadow: 0 0 5px rgba(255, 255, 255, .3) }
       50% { opacity: 1; text-shadow: 0 0 20px rgba(255, 255, 255, .9) }
       100% { opacity: .4; text-shadow: 0 0 5px rgba(255, 255, 255, .3) }
     }
-
     @keyframes fadeInOut {
       0% { opacity: 0 }
       20% { opacity: 1 }
@@ -172,7 +158,6 @@
       100% { opacity: 0 }
     }
     #quote-box { animation: fadeInOut 8s ease-in-out infinite }
-
     #cookie-consent {
       position: fixed;
       left: 1rem;
@@ -219,10 +204,8 @@
       background: #eee;
       color: #333;
     }
-
     #live-wallpaper-btn { background: rgba(255, 255, 255, .1) }
     .btn-text-shadow { text-shadow: 0 2px 6px rgba(0, 0, 0, .6) }
-
     .border-anim {
       border-radius: 9999px;
       background: conic-gradient(from 0deg, #fff3bf, #ffd6e0, #d5faff, #fff3bf);
@@ -233,24 +216,18 @@
       0% { transform: rotate(0) }
       100% { transform: rotate(360deg) }
     }
-
   </style>
 </head>
 <body>
   <div class="overlay" id="overlay" role="button" aria-label="Click to continue (enter)" tabindex="0">
     <span class="overlay-text">Click to continue</span>
   </div>
-
-  <!-- preload only metadata and do not autoplay remote file before user consents -->
-    <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/NEVER%20-%20Neuro%20x%20Evil%20%28Official%20Video%29%20-%20Neuro-sama.mp3" loop></audio >
-
+  <audio id="bgMusic" src="https://s3.tebi.io/ely.bucket.s0.io.biti/NEVER%20-%20Neuro%20x%20Evil%20%28Official%20Video%29%20-%20Neuro-sama.mp3" loop></audio>
   <video autoplay muted loop playsinline preload="auto" class="bg-video">
     <source src="https://s3.tebi.io/ely.bucket.s0.io.biti/cc43e332404bfef64286d760184f9def_720w.mp4" type="video/mp4">
   </video>
-
   <div class="container mx-auto px-4 flex flex-col items-center justify-center">
     <div class="profile-box bg-white bg-opacity-80 rounded-xl shadow-2xl p-10 min-h-[600px] w-[900px] max-w-full hover:shadow-xl hover:bg-opacity-90 mx-auto">
-      
       <!-- Avatar + Tên -->
       <div class="flex items-start space-x-4 mb-6">
         <div class="relative w-20 h-20 avatar-border">
@@ -268,7 +245,6 @@
           </div>
         </div>
       </div>
-
       <!-- Thanh địa chỉ -->
       <div class="mt-4 flex justify-center">
         <div class="flex items-center gap-2">
@@ -276,17 +252,16 @@
           <span class="font-medium text-black">Hà Nội, Việt Nam</span>
         </div>
       </div>
-
       <!-- Social links -->
       <div class="mt-8 flex space-x-4">
-        <a href="https://pin.it/7tbwbFBI7" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out" aria-label="Open Pinterest (mở tab mới)">
+        <a href="https://pin.it/7tbwbFBI7" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
           <span class="absolute inset-0 bg-gradient-to-r from-pink-400 via-red-400 to-purple-500 transition-transform duration-500 group-hover:scale-110" aria-hidden="true"></span>
           <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center justify-center text-white font-semibold btn-text-shadow">
             <i class="fab fa-pinterest mr-2" aria-hidden="true"></i> Pinterest
           </span>
         </a>
-        <a href="https://discord.gg/773brCCmZA" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out" aria-label="Open Discord (mở tab mới)">
+        <a href="https://discord.gg/773brCCmZA" target="_blank" rel="noopener noreferrer" class="group relative flex-1 py-2 px-4 rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out">
           <span class="absolute inset-0 bg-gradient-to-r from-[#FFFACD] via-[#FFFFF0] to-[#F0FFFF] transition-transform duration-500 group-hover:scale-110" aria-hidden="true"></span>
           <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center justify-center text-black font-semibold btn-text-shadow">
@@ -294,7 +269,6 @@
           </span>
         </a>
       </div>
-
       <!-- Intro + Stats -->
       <div class="mt-6 pt-4 border-t border-gray-200">
         <p class="text-left text-black font-medium mb-2">Hello, I'm just a newbie. So please understand UwU</p>
@@ -312,34 +286,27 @@
             <div>Image</div>
           </div>
         </div>
-
         <!-- Chat input (fixed: wrapper used to draw decorative ::before) -->
         <div class="mt-6 relative">
           <div class="fancy-input-wrapper">
             <div class="fancy-decor" aria-hidden="true"></div>
-            <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input-inner bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400" aria-label="Chat input">
+            <input id="chatInput" type="text" placeholder="Say something..." class="fancy-input-inner bg-image-input w-full py-2 px-3 pr-10 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Chat input">
             <button id="sendBtn" type="button" aria-label="Send message" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-300 hover:text-green-400">
               <i class="fas fa-paper-plane" aria-hidden="true"></i>
             </button>
           </div>
         </div>
-
         <div class="mt-4 text-center text-xs text-white opacity-50">Your IP: <span id="ip-address">Loading...</span></div>
       </div>
-
       <div class="text-xs italic text-white mt-1 text-center drop-shadow">I went crazy after editing this source</div>
       <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
-
-     
       <!-- manual sound enable (hidden until needed) -->
       <div class="mt-4 text-center">
         <button id="enable-sound-btn" type="button" class="px-3 py-2 rounded-md bg-blue-500 text-white" hidden aria-label="Bật âm thanh">Bật âm thanh</button>
       </div>
     </div>
-
     <div id="realtime-clock" class="text-sm text-center text-white py-2 drop-shadow"></div>
   </div>
-
   <!-- Cookie consent -->
   <div id="cookie-consent" hidden>
     <p>Trang web này sử dụng cookie để cải thiện trải nghiệm của bạn.</p>
@@ -348,214 +315,186 @@
       <button class="accept" type="button">Đồng ý</button>
     </div>
   </div>
-
   <script>
-    
-  /* =============== Utilities & safe guards =============== */
-  const $ = sel => document.querySelector(sel);
-  const $$ = sel => Array.from(document.querySelectorAll(sel));
-
-  // Safe element references
-  const ipSpan = document.getElementById('ip-address');
-  const sendBtn = document.getElementById('sendBtn');
-  const input = document.getElementById('chatInput');
-  const overlay = document.getElementById('overlay');
-  const profileBox = document.querySelector('.profile-box');
-  const audio = document.getElementById('bgMusic');
-  const enableSoundBtn = document.getElementById('enable-sound-btn');
-
-  // IP fetch (safe)
-  if (ipSpan) {
-    fetch('https://api.ipify.org?format=json')
-      .then(r => r.json())
-      .then(d => ipSpan.textContent = d.ip)
-      .catch(() => ipSpan.textContent = 'Unknown');
-  }
-
-  // Send message handler
-  function sendMessage() {
-    if (!input) return;
-    const msg = input.value.trim();
-    if (!msg) return;
-    console.log("User said:", msg);
-    input.value = "";
-  }
-  if (sendBtn) sendBtn.addEventListener('click', sendMessage);
-  if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
-
-  /* =============== Real-time clock =============== */
-  function padNum(n) { return String(n).padStart(2, '0'); }
-  function updateRealTimeClock() {
-    const n = new Date();
-    const text = `${padNum(n.getDate())}/${padNum(n.getMonth() + 1)}/${n.getFullYear()} ${padNum(n.getHours())}:${padNum(n.getMinutes())}:${padNum(n.getSeconds())}`;
-    const el = document.getElementById('realtime-clock');
-    if (el) el.textContent = text;
-  }
-  setInterval(updateRealTimeClock, 1000);
-  updateRealTimeClock();
-
-  /* =============== Quotes =============== */
-  const quotes = [
-    "「Even the darkest night will end and the sun will rise.」",
-    "「Create with passion or not at all.」",
-    "「Code is poetry.」",
-    "「Believe you can and you're halfway there.」",
-    "「Chẳng có gì là mãi mãi cả.」",
-    "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
-    "「Không sợ đi chậm, chỉ sợ đứng yên.」",
-    "「Simplicity is the ultimate sophistication.」",
-    "「You are not your job, you are not how much money you have.」",
-    "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
-    "「The quieter you become, the more you are able to hear.」",
-    "「Every line of code is a chance to make the world better.」",
-    "「Đừng sống cuộc đời của người khác.」",
-    "「No rain, no flowers.」",
-    "「Không ai có thể quay lại quá khứ và bắt đầu lại, nhưng ai cũng có thể bắt đầu hôm nay và tạo ra một kết thúc mới.」",
-    "「Stars can’t shine without darkness.」",
-    "「Success is not final, failure is not fatal: it is the courage to continue that counts.」",
-    "「Những vết nứt là nơi ánh sáng lọt vào.」",
-    "「Sometimes you win, sometimes you learn.」",
-    "「Người mạnh mẽ nhất là người luôn mỉm cười dù trong lòng đau đớn.」"
-  ];
-  let qIndex = 0;
-  function showNextQuote() {
-    const qb = document.getElementById('quote-box');
-    if (qb) qb.textContent = quotes[qIndex];
-    qIndex = (qIndex + 1) % quotes.length;
-  }
-  setInterval(showNextQuote, 8000);
-  showNextQuote();
-
-  /* =============== Counters (time-based) =============== */
-  function animateCounterEl(el, target, duration = 1500) {
-    const start = performance.now();
-    function frame(now) {
-      const elapsed = Math.min(now - start, duration);
-      const progress = elapsed / duration;
-      const value = Math.floor(progress * target);
-      el.textContent = value.toLocaleString();
-      if (elapsed < duration) requestAnimationFrame(frame);
-      else el.textContent = target.toLocaleString();
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const ipSpan = document.getElementById('ip-address');
+    const sendBtn = document.getElementById('sendBtn');
+    const input = document.getElementById('chatInput');
+    const overlay = document.getElementById('overlay');
+    const profileBox = document.querySelector('.profile-box');
+    const audio = document.getElementById('bgMusic');
+    const enableSoundBtn = document.getElementById('enable-sound-btn');
+    // IP fetch (safe)
+    if (ipSpan) {
+      fetch('https://api.ipify.org?format=json')
+        .then(r => r.json())
+        .then(d => ipSpan.textContent = d.ip)
+        .catch(() => ipSpan.textContent = 'Unknown');
     }
-    requestAnimationFrame(frame);
-  }
-  $$('.counter').forEach(el => {
-    const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-    animateCounterEl(el, target, 1500);
-  });
-
-
-
-   // Playlist cho bgMusic
-const playlist = [
-  {
-    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/NEVER%20-%20Neuro%20x%20Evil%20%28Official%20Video%29%20-%20Neuro-sama.mp3",
-    title: "NEVER - Neuro x Evil",
-    artist: "Neuro-sama",
-    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg"
-  },
-  {
-    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/Blue%20Bird%20-%20Vietsub.mp3",
-    title: "Blue Bird",
-    artist: "Ikimono Gakari",
-    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/blue-bird.jpg"
-  },
-  {
-    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/My%20Soul%20-%20Vietsub.mp3",
-    title: "My Soul",
-    artist: "Hatsune Miku",
-    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/miku.jpg"
-  }
-];
-
-let currentTrack = 0;
-const audio = document.getElementById('bgMusic');
-
-function updateMediaSession() {
-  if ('mediaSession' in navigator) {
-    const song = playlist[currentTrack];
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: song.title,
-      artist: song.artist,
-      album: "Web Playlist",
-      artwork: [
-        { src: song.artwork, sizes: "512x512", type: "image/png" }
-      ]
-    });
-    navigator.mediaSession.setActionHandler('play', () => audio.play());
-    navigator.mediaSession.setActionHandler('pause', () => audio.pause());
-    navigator.mediaSession.setActionHandler('previoustrack', playPrev);
-    navigator.mediaSession.setActionHandler('nexttrack', playNext);
-  }
-}
-
-function playTrack(i) {
-  currentTrack = i;
-  audio.src = playlist[i].src;
-  audio.play();
-  updateMediaSession();
-}
-function playPrev() {
-  currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-  playTrack(currentTrack);
-}
-function playNext() {
-  currentTrack = (currentTrack + 1) % playlist.length;
-  playTrack(currentTrack);
-}
-
-// Khi hết bài tự động chuyển bài tiếp theo
-audio.onended = playNext;
-
-// Đảm bảo audioContext (fix Chrome autoplay)
-function ensureAudioSetup() {
-  if (window.audioCtx) return;
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  window.audioCtx = new AudioContextClass();
-}
-
-// Sửa lại hàm này để luôn phát playlist, không chỉ play audio đơn lẻ
-function showProfileAndPlayAudio() {
-  if (overlay) overlay.remove();
-  if (profileBox) profileBox.classList.add("show");
-  try {
-    ensureAudioSetup();
-    window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
-      console.warn("Audio play error:", err);
-    });
-  } catch (e) {
-    console.warn("Audio setup/play error:", e);
-  }
-}
-
-    // --- Sửa lỗi click không xoá overlay ---
-  function showProfileAndPlayAudio() {
-    // Xoá overlay khỏi DOM
-    const overlayEl = document.getElementById('overlay');
-    if (overlayEl) overlayEl.remove();
-    // Hiện profile box
-    if (profileBox) profileBox.classList.add("show");
-    // Phát nhạc
-    try {
-      ensureAudioSetup();
-      window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
-        console.warn("Audio play error:", err);
-      });
-    } catch (e) {
-      console.warn("Audio setup/play error:", e);
+    // Send message handler
+    function sendMessage() {
+      if (!input) return;
+      const msg = input.value.trim();
+      if (!msg) return;
+      console.log("User said:", msg);
+      input.value = "";
     }
-  }
-
-  // Sự kiện click/phím cho overlay (chỉ phát nhạc khi user tương tác)
-  if (overlay) {
-    overlay.addEventListener("click", showProfileAndPlayAudio);
-    overlay.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        showProfileAndPlayAudio();
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+    function padNum(n) { return String(n).padStart(2, '0'); }
+    function updateRealTimeClock() {
+      const n = new Date();
+      const text = `${padNum(n.getDate())}/${padNum(n.getMonth() + 1)}/${n.getFullYear()} ${padNum(n.getHours())}:${padNum(n.getMinutes())}:${padNum(n.getSeconds())}`;
+      const el = document.getElementById('realtime-clock');
+      if (el) el.textContent = text;
+    }
+    setInterval(updateRealTimeClock, 1000);
+    updateRealTimeClock();
+    const quotes = [
+      "「Even the darkest night will end and the sun will rise.」",
+      "「Create with passion or not at all.」",
+      "「Code is poetry.」",
+      "「Believe you can and you're halfway there.」",
+      "「Chẳng có gì là mãi mãi cả.」",
+      "「Con người không muốn tìm cách hoàn thiện mà chỉ muốn bình yên.」",
+      "「Không sợ đi chậm, chỉ sợ đứng yên.」",
+      "「Simplicity is the ultimate sophistication.」",
+      "「You are not your job, you are not how much money you have.」",
+      "「Đừng cố gắng nổi bật — hãy cố gắng có ích.」",
+      "「The quieter you become, the more you are able to hear.」",
+      "「Every line of code is a chance to make the world better.」",
+      "「Đừng sống cuộc đời của người khác.」",
+      "「No rain, no flowers.」",
+      "「Không ai có thể quay lại quá khứ và bắt đầu lại, nhưng ai cũng có thể bắt đầu hôm nay và tạo ra một kết thúc mới.」",
+      "「Stars can’t shine without darkness.」",
+      "「Success is not final, failure is not fatal: it is the courage to continue that counts.」",
+      "「Những vết nứt là nơi ánh sáng lọt vào.」",
+      "「Sometimes you win, sometimes you learn.」",
+      "「Người mạnh mẽ nhất là người luôn mỉm cười dù trong lòng đau đớn.」"
+    ];
+    let qIndex = 0;
+    function showNextQuote() {
+      const qb = document.getElementById('quote-box');
+      if (qb) qb.textContent = quotes[qIndex];
+      qIndex = (qIndex + 1) % quotes.length;
+    }
+    setInterval(showNextQuote, 8000);
+    showNextQuote();
+    function animateCounterEl(el, target, duration = 1500) {
+      const start = performance.now();
+      function frame(now) {
+        const elapsed = Math.min(now - start, duration);
+        const progress = elapsed / duration;
+        const value = Math.floor(progress * target);
+        el.textContent = value.toLocaleString();
+        if (elapsed < duration) requestAnimationFrame(frame);
+        else el.textContent = target.toLocaleString();
       }
-    });
+      requestAnimationFrame(frame);
     }
-    
+    $$('.counter').forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      animateCounterEl(el, target, 1500);
+    });
+    // Playlist cho bgMusic
+    const playlist = [
+      {
+        src: "https://s3.tebi.io/ely.bucket.s0.io.biti/NEVER%20-%20Neuro%20x%20Evil%20%28Official%20Video%29%20-%20Neuro-sama.mp3",
+        title: "NEVER - Neuro x Evil",
+        artist: "Neuro-sama",
+        artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg"
+      },
+      {
+        src: "https://s3.tebi.io/ely.bucket.s0.io.biti/Blue%20Bird%20-%20Vietsub.mp3",
+        title: "Blue Bird",
+        artist: "Ikimono Gakari",
+        artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/blue-bird.jpg"
+      },
+      {
+        src: "https://s3.tebi.io/ely.bucket.s0.io.biti/My%20Soul%20-%20Vietsub.mp3",
+        title: "My Soul",
+        artist: "Hatsune Miku",
+        artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/miku.jpg"
+      }
+    ];
+    let currentTrack = 0;
+    function updateMediaSession() {
+      if ('mediaSession' in navigator) {
+        const song = playlist[currentTrack];
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: song.title,
+          artist: song.artist,
+          album: "Web Playlist",
+          artwork: [
+            { src: song.artwork, sizes: "512x512", type: "image/png" }
+          ]
+        });
+        navigator.mediaSession.setActionHandler('play', () => audio.play());
+        navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+        navigator.mediaSession.setActionHandler('previoustrack', playPrev);
+        navigator.mediaSession.setActionHandler('nexttrack', playNext);
+      }
+    }
+    function playTrack(i) {
+      currentTrack = i;
+      audio.src = playlist[i].src;
+      audio.play();
+      updateMediaSession();
+    }
+    function playPrev() {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      playTrack(currentTrack);
+    }
+    function playNext() {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      playTrack(currentTrack);
+    }
+    audio.onended = playNext;
+    function ensureAudioSetup() {
+      if (window.audioCtx) return;
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) {
+        console.warn('AudioContext is not supported.');
+        return;
+      }
+      window.audioCtx = new AudioContextClass();
+    }
+    function showProfileAndPlayAudio() {
+      const overlayEl = document.getElementById('overlay');
+      if (overlayEl) overlayEl.remove();
+      if (profileBox) profileBox.classList.add("show");
+      try {
+        ensureAudioSetup();
+        window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
+          console.warn("Audio play error:", err);
+        });
+      } catch (e) {
+        console.warn("Audio setup/play error:", e);
+      }
+    }
+    if (overlay) {
+      overlay.addEventListener("click", showProfileAndPlayAudio);
+      overlay.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          showProfileAndPlayAudio();
+        }
+      });
+    }
+    // Cookie consent show/hide
+    const cookieConsent = document.getElementById('cookie-consent');
+    if (cookieConsent && !localStorage.getItem('cookieAccepted')) {
+      cookieConsent.hidden = false;
+      cookieConsent.classList.add('show');
+    }
+    cookieConsent?.querySelector('.accept')?.addEventListener('click', () => {
+      localStorage.setItem('cookieAccepted', 'yes');
+      cookieConsent.hidden = true;
+    });
+    cookieConsent?.querySelector('.decline')?.addEventListener('click', () => {
+      localStorage.setItem('cookieAccepted', 'no');
+      cookieConsent.hidden = true;
+    });
   </script>
 </body>
 </html>
