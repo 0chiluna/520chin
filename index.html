@@ -453,58 +453,80 @@
   }
 
   if (overlay) {
-    overlay.addEventListener('click', () => {
-      overlay.style.display = 'none';   // Ẩn overlay
-      if (profileBox) profileBox.classList.add('show'); // Hiện profile box nếu có
-      try {
-        ensureAudioSetup();
-        audioCtx.resume().then(() => audio.play()).catch(err => {
-          console.warn("Audio play error:", err);
-        });
-      } catch (e) {
-        console.warn("Audio setup/play error:", e);
-      }
-    });
+  overlay.addEventListener("click", () => {
+    overlay.style.display = "none";   
+    if (profileBox) profileBox.classList.add("show"); 
+    try {
+      ensureAudioSetup();
+      loadSong(currentIndex);  // phát playlist từ bài đầu tiên
+    } catch (e) {
+      console.warn("Audio setup/play error:", e);
+    }
+  });
 
-    overlay.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') overlay.click();
+  overlay.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") overlay.click();
+  });
+}
+
+  const audio = document.getElementById("bgMusic");
+
+  // Danh sách nhạc
+  const playlist = [
+    {
+      src: "https://s3.tebi.io/ely.bucket.s0.io.biti/song1.mp3",
+      title: "Normal No More",
+      artist: "TYSM",
+      album: "Vietsub TikTok Hot",
+      cover: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg"
+    },
+    {
+      src: "https://s3.tebi.io/ely.bucket.s0.io.biti/Senbonzakura%20English%20Cover%20by%20Lizz%20Robinett%20-%20Lizz%20Robinett.mp3",
+      title: "Senbonzakura cover",
+      artist: "Robinett",
+      album: "TikTok Trend",
+      cover: "https://s3.tebi.io/ely.bucket.s0.io.biti/9f18458038beebe546339fc599897145.jpg"
+    },
+    {
+      src: "https://s3.tebi.io/ely.bucket.s0.io.biti/song3.mp3",
+      title: "Last Track",
+      artist: "Singer C",
+      album: "Album C",
+      cover: "https://s3.tebi.io/ely.bucket.s0.io.biti/cover3.jpg"
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function loadSong(index) {
+    if (index < 0) index = playlist.length - 1;
+    if (index >= playlist.length) index = 0;
+    currentIndex = index;
+
+    const song = playlist[currentIndex];
+    audio.src = song.src;
+    audio.play().catch(()=>{});
+
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: song.title,
+        artist: song.artist,
+        album: song.album,
+        artwork: [{ src: song.cover, sizes: "512x512", type: "image/png" }]
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => audio.play());
+      navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+      navigator.mediaSession.setActionHandler("previoustrack", () => loadSong(currentIndex - 1));
+      navigator.mediaSession.setActionHandler("nexttrack", () => loadSong(currentIndex + 1));
+    }
+  }
+
+  // Tự động chuyển bài khi hết
+  audio.addEventListener("ended", () => loadSong(currentIndex + 1));
     });
   }
 
-  if (enableSoundBtn) {
-    enableSoundBtn.addEventListener('click', () => {
-      ensureAudioSetup();
-      audio.play().catch(()=>{});
-      enableSoundBtn.hidden = true;
-    });
-    }
-    const music = document.getElementById("bgMusic");
-
-if ('mediaSession' in navigator) {
-  navigator.mediaSession.metadata = new MediaMetadata({
-    title: "Normal No More",
-    artist: "TYSM",
-    album: "Vietsub TikTok Hot",
-    artwork: [
-      { src: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg", sizes: "512x512", type: "image/png" }
-    ]
-  });
-
-  // Optional: thêm nút điều khiển (next, prev, pause...)
-  navigator.mediaSession.setActionHandler("play", () => {
-    music.play();
-  });
-  navigator.mediaSession.setActionHandler("pause", () => {
-    music.pause();
-  });
-  navigator.mediaSession.setActionHandler("previoustrack", () => {
-    // Xử lý nếu có playlist
-  });
-  navigator.mediaSession.setActionHandler("nexttrack", () => {
-    // Xử lý nếu có playlist
-  });
-    }
-    
   </script>
 </body>
 </html>
