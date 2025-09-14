@@ -92,7 +92,6 @@ body {
   min-height: 100vh;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -100,9 +99,9 @@ body {
   box-sizing: border-box;
 }
 .container {
+  width: 100vw;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -127,12 +126,11 @@ body {
   box-shadow: 0 0 25px 8px rgba(255, 248, 220, .5);
   opacity: 0;
   transform: translateY(20px);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: auto;
   width: 900px;
-  max-width: 98vw;
+  max-width: 97vw;
+  background: rgba(255,255,255,0.8);
+  border-radius: 1rem;
 }
 .profile-box.show {
   opacity: 1;
@@ -152,6 +150,7 @@ body {
 }
 @media (max-width: 650px) {
   .profile-box { width: 97vw; min-width: unset; }
+  .flex.items-start { flex-direction: column; align-items: center; }
 }
 @keyframes light-glow {
   0% { background-position: -200% 0 }
