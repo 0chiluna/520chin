@@ -457,8 +457,11 @@
   overlay.remove(); // xoá hẳn overlay khỏi DOM thay vì chỉ ẩn
   if (profileBox) profileBox.classList.add("show");
   try {
-    ensureAudioSetup();
+   ensureAudioSetup();
     loadSong(currentIndex);
+
+    // gọi play trực tiếp để tránh bị chặn autoplay
+    audio.play().catch(err => console.warn("Autoplay blocked:", err));
   } catch (e) {
     console.warn("Audio setup/play error:", e);
 
