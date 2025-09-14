@@ -453,16 +453,16 @@
   }
 
   if (overlay) {
-  overlay.addEventListener("click", () => {
-    overlay.style.display = "none";   
-    if (profileBox) profileBox.classList.add("show"); 
-    try {
-      ensureAudioSetup();
-      loadSong(currentIndex);  // phát playlist từ bài đầu tiên
-    } catch (e) {
-      console.warn("Audio setup/play error:", e);
-    }
-  });
+ overlay.addEventListener("click", () => {
+  overlay.remove(); // xoá hẳn overlay khỏi DOM thay vì chỉ ẩn
+  if (profileBox) profileBox.classList.add("show");
+  try {
+    ensureAudioSetup();
+    loadSong(currentIndex);
+  } catch (e) {
+    console.warn("Audio setup/play error:", e);
+  }
+});
 
   overlay.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") overlay.click();
