@@ -445,28 +445,6 @@
   });
 
 
-/* =============== Overlay click: hide overlay + show profile + play audio =============== */
-    function ensureAudioSetup() {
-      if (window.audioCtx) return;
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      window.audioCtx = new AudioContextClass();
-    }
-
-    function showProfileAndPlayAudio() {
-      // Xoá overlay khỏi DOM
-      if (overlay) overlay.remove();
-      // Hiện profile box
-      if (profileBox) profileBox.classList.add("show");
-      // Phát nhạc
-      try {
-        ensureAudioSetup();
-        window.audioCtx.resume().then(() => audio.play()).catch(err => {
-          console.warn("Audio play error:", err);
-        });
-      } catch (e) {
-        console.warn("Audio setup/play error:", e);
-      }
-    }
 
    // Playlist cho bgMusic
 const playlist = [
@@ -550,15 +528,34 @@ function showProfileAndPlayAudio() {
   }
 }
 
-// Sự kiện click/phím cho overlay (chỉ phát nhạc khi user tương tác)
-if (overlay) {
-  overlay.addEventListener("click", showProfileAndPlayAudio);
-  overlay.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      showProfileAndPlayAudio();
+    // --- Sửa lỗi click không xoá overlay ---
+  function showProfileAndPlayAudio() {
+    // Xoá overlay khỏi DOM
+    const overlayEl = document.getElementById('overlay');
+    if (overlayEl) overlayEl.remove();
+    // Hiện profile box
+    if (profileBox) profileBox.classList.add("show");
+    // Phát nhạc
+    try {
+      ensureAudioSetup();
+      window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
+        console.warn("Audio play error:", err);
+      });
+    } catch (e) {
+      console.warn("Audio setup/play error:", e);
     }
-  });
+  }
+
+  // Sự kiện click/phím cho overlay (chỉ phát nhạc khi user tương tác)
+  if (overlay) {
+    overlay.addEventListener("click", showProfileAndPlayAudio);
+    overlay.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        showProfileAndPlayAudio();
+      }
+    });
     }
+    
   </script>
 </body>
 </html>
