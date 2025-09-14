@@ -468,35 +468,97 @@
       }
     }
 
-    // Sự kiện click và phím cho overlay
-    if (overlay) {
-      overlay.addEventListener("click", showProfileAndPlayAudio);
-      overlay.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          showProfileAndPlayAudio();
-        }
-      });
+   // Playlist cho bgMusic
+const playlist = [
+  {
+    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/NEVER%20-%20Neuro%20x%20Evil%20%28Official%20Video%29%20-%20Neuro-sama.mp3",
+    title: "NEVER - Neuro x Evil",
+    artist: "Neuro-sama",
+    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg"
+  },
+  {
+    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/Blue%20Bird%20-%20Vietsub.mp3",
+    title: "Blue Bird",
+    artist: "Ikimono Gakari",
+    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/blue-bird.jpg"
+  },
+  {
+    src: "https://s3.tebi.io/ely.bucket.s0.io.biti/My%20Soul%20-%20Vietsub.mp3",
+    title: "My Soul",
+    artist: "Hatsune Miku",
+    artwork: "https://s3.tebi.io/ely.bucket.s0.io.biti/miku.jpg"
+  }
+];
+
+let currentTrack = 0;
+const audio = document.getElementById('bgMusic');
+
+function updateMediaSession() {
+  if ('mediaSession' in navigator) {
+    const song = playlist[currentTrack];
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song.title,
+      artist: song.artist,
+      album: "Web Playlist",
+      artwork: [
+        { src: song.artwork, sizes: "512x512", type: "image/png" }
+      ]
+    });
+    navigator.mediaSession.setActionHandler('play', () => audio.play());
+    navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+    navigator.mediaSession.setActionHandler('previoustrack', playPrev);
+    navigator.mediaSession.setActionHandler('nexttrack', playNext);
+  }
+}
+
+function playTrack(i) {
+  currentTrack = i;
+  audio.src = playlist[i].src;
+  audio.play();
+  updateMediaSession();
+}
+function playPrev() {
+  currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+  playTrack(currentTrack);
+}
+function playNext() {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  playTrack(currentTrack);
+}
+
+// Khi hết bài tự động chuyển bài tiếp theo
+audio.onended = playNext;
+
+// Đảm bảo audioContext (fix Chrome autoplay)
+function ensureAudioSetup() {
+  if (window.audioCtx) return;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  window.audioCtx = new AudioContextClass();
+}
+
+// Sửa lại hàm này để luôn phát playlist, không chỉ play audio đơn lẻ
+function showProfileAndPlayAudio() {
+  if (overlay) overlay.remove();
+  if (profileBox) profileBox.classList.add("show");
+  try {
+    ensureAudioSetup();
+    window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
+      console.warn("Audio play error:", err);
+    });
+  } catch (e) {
+    console.warn("Audio setup/play error:", e);
+  }
+}
+
+// Sự kiện click/phím cho overlay (chỉ phát nhạc khi user tương tác)
+if (overlay) {
+  overlay.addEventListener("click", showProfileAndPlayAudio);
+  overlay.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      showProfileAndPlayAudio();
     }
-
-    // Media session setup
-    const music = document.getElementById("bgMusic");
-    if ('mediaSession' in navigator && music) {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: "Normal No More",
-        artist: "TYSM",
-        album: "Vietsub TikTok Hot",
-        artwork: [
-          { src: "https://s3.tebi.io/ely.bucket.s0.io.biti/IMG_20250615_082819.jpg", sizes: "512x512", type: "image/png" }
-        ]
-      });
-
-      navigator.mediaSession.setActionHandler("play", () => {
-        music.play();
-      });
-      navigator.mediaSession.setActionHandler("pause", () => {
-        music.pause();
-      });
-      navigator.mediaSession.setActionHandler("previoustrack", () => {});
-      navigator.mediaSession.setActionHandler("nexttrack", () => {});  </script>
+  });
+    }
+  </script>
 </body>
 </html>
