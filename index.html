@@ -461,8 +461,6 @@
     loadSong(currentIndex);
   } catch (e) {
     console.warn("Audio setup/play error:", e);
-  }
-});
 
   overlay.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") overlay.click();
