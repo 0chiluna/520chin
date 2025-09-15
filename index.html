@@ -272,6 +272,23 @@ body {
 #sendBtn:hover {
   color: #22d3ee;
 }
+    .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  padding: 2px 10px 2px 7px;
+  border-radius: 999px;
+  font-weight: 500;
+  box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  background: #e0f2fe;
+  color: #222;
+  margin-right: 4px;
+}
+.badge-builder { background: #bae6fd; color: #2563eb; }
+.badge-pinterest { background: #ffe4e6; color: #e60023; }
+.badge-wallapper { background: #fef9c3; color: #f59e42; }
+.badge i { font-size: 14px; }
 /* END - fix */
   </style>
 </head>
@@ -293,13 +310,12 @@ body {
             <img src="https://s3.tebi.io/ely.bucket.s0.io.biti/4b82f126a12038c3d01c90bd2a7aaf6e.jpg" alt="Avatar" class="w-full h-full object-cover rounded-full">
           </div>
         </div>
-        <div class="flex-1">
-          <h1 class="text-2xl font-bold glow-text drop-shadow">Mỳ Cụtッ</h1>
-          <p class="text-sm font-semibold bg-gradient-to-l from-white to-[#F0FFF0] text-transparent bg-clip-text">Sui no Kaze.</p>
-          <div class="flex space-x-2 mt-2">
-            <span class="text-xs bg-blue-100 text-black px-2 py-1 rounded-full">builder</span>
-            <span class="text-xs bg-cyan-100 text-white px-2 py-1 rounded-full">Pinterest</span>
-          </div>
+        <div class="flex space-x-2 mt-2">
+  <span class="badge badge-builder"><i class="fas fa-hammer"></i> builder</span>
+  <span class="badge badge-pinterest"><i class="fab fa-pinterest-p"></i> Pinterest</span>
+  <span class="badge badge-vip"><i class="fa-jelly fa-regular fa-image"></i> wallpaper</span>
+        </div>
+      </div>
         </div>
       </div>
       <!-- Thanh địa chỉ -->
