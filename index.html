@@ -292,6 +292,15 @@ body {
   #realtime-clock {
   margin-top: 20px;
   }
+    .profile-gif {
+  position: absolute;
+  left: 10px;
+  bottom: 15px;
+  width: 48px;
+  height: 48px;
+  z-index: 10;
+  pointer-events: none;
+    }
 /* END - fix */
   </style>
 </head>
@@ -378,9 +387,11 @@ body {
       </div>
       <div class="text-xs italic text-white mt-1 text-center drop-shadow">I went crazy after editing this source</div>
       <div id="quote-box" class="text-xs text-white text-center mb-2 drop-shadow"></div>
-      <!-- manual sound enable (hidden until needed) -->
-      <div class="mt-4 text-center">
-        <button id="enable-sound-btn" type="button" class="px-3 py-2 rounded-md bg-blue-500 text-white" hidden aria-label="Bật âm thanh">Bật âm thanh</button>
+      <!-- Thêm đoạn này vào cuối .profile-box, ngay trước thẻ đóng </div> của profile-box -->
+     <img src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" 
+     alt="Mini gif" 
+     class="profile-gif" 
+     style="position: absolute; left: 10px; bottom: 15px; width: 48px; height: 48px; z-index: 10;">
       </div>
     </div>
     <div id="realtime-clock" class="text-xl text-center text-white py-2 drop-shadow"></div>
