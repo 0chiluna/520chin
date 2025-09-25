@@ -580,18 +580,31 @@ const wallpaperVideos = [
       window.audioCtx = new AudioContextClass();
     }
     function showProfileAndPlayAudio() {
-      const overlayEl = document.getElementById('overlay');
-      if (overlayEl) overlayEl.remove();
-      if (profileBox) profileBox.classList.add("show");
-      try {
-        ensureAudioSetup();
-        window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
-          console.warn("Audio play error:", err);
-        });
-      } catch (e) {
-        console.warn("Audio setup/play error:", e);
-      }
-    }
+  const overlayEl = document.getElementById('overlay');
+  if (overlayEl) overlayEl.remove();
+  if (profileBox) profileBox.classList.add("show");
+
+  // Phát nhạc nền
+  try {
+    ensureAudioSetup();
+    window.audioCtx.resume().then(() => playTrack(currentTrack)).catch(err => {
+      console.warn("Audio play error:", err);
+    });
+  } catch (e) {
+    console.warn("Audio setup/play error:", e);
+  }
+
+  // Phát video nền (trigger bằng hành động user)
+  const bgVideo = document.getElementById('bgVideo');
+  if (bgVideo) {
+    bgVideo.muted = true;   // đảm bảo muted để browser không block
+    bgVideo.play().then(() => {
+      console.log("Background video playing normally ✅");
+    }).catch(err => {
+      console.warn("Video play error:", err);
+    });
+  }
+}
     if (overlay) {
       overlay.addEventListener("click", showProfileAndPlayAudio);
       overlay.addEventListener("keydown", (e) => {
